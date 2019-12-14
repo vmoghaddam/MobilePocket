@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+<ItemGroup>
+<PackageReference Include="Xamarin.Forms" Version="3.6.0.344457"/>
+<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.Cards" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26"/>
+<PackageReference Include="Syncfusion.Xamarin.Expander " Version="17.3.0.26"/>
+</ItemGroup>
+
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>
