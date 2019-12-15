@@ -16,5 +16,6 @@
 	<Label Text="Welcome to Syncfusion Xamarin.Forms!" 
            VerticalOptions="Center" 
            HorizontalOptions="Center" />
+    
 
 </ContentPage>
