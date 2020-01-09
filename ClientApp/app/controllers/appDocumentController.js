@@ -80,7 +80,7 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         authService.redirectToLogin();
     }
     else {
-        $rootScope.page_title = 'Documents';
+        $rootScope.page_title = 'PIFs/CIFs';
         $scope.scroll_height = $(window).height() - 45 - 62;
         $('.document').fadeIn();
         $scope.bind();

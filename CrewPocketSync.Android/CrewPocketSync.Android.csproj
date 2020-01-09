@@ -80,6 +80,9 @@
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26" />
     <PackageReference Include="Syncfusion.Xamarin.Expander " Version="17.3.0.26" />
+    <PackageReference Include="XLabs.Forms">
+      <Version>2.0.5782</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.axml" />

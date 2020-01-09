@@ -41,6 +41,8 @@ Config.Fields = [
 Config.MenuItems = [
     { key: 'applibrary', title: 'Library', url: '/applibrary', icon: '../../content/images/booksg.png' },
     { key: 'appflight', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
+     { key: 'appflightstatistics', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
+      { key: 'appflightlogbook', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
 
     { key: 'applibrary-book', title: 'Books', url: '/applibrary/books', icon: '../../content/images/booksg.png' },
     { key: 'applibrary-video', title: 'Videos', url: '/applibrary/videos', icon: '../../content/images/booksg.png' },
@@ -55,6 +57,7 @@ Config.MenuItems = [
     { key: 'appcourse-archive', title: 'All', url: '/appcourse/archive', icon: '../../content/images/booksg.png' },
     { key: 'appmessage', title: 'Messages', url: '/appmessage', icon: '../../content/images/booksg.png' },
     { key: 'appdocument', title: 'Documents', url: '/appdocument', icon: '../../content/images/booksg.png' },
+    { key: 'appdocumentother', title: 'Documents', url: '/appdocumentother', icon: '../../content/images/booksg.png' },
   
 ];
 

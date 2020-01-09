@@ -76,14 +76,18 @@
     <Content Include="app\controllers\appCourseController.js" />
     <Content Include="app\controllers\appDocumentController.js" />
     <Content Include="app\controllers\appDocumentItemController.js" />
+    <Content Include="app\controllers\appDocumentOtherController.js" />
     <Content Include="app\controllers\appLibraryController.js" />
     <Content Include="app\controllers\appLibraryItemController.js" />
     <Content Include="app\controllers\appMessageController.js" />
     <Content Include="app\controllers\appMessageItemController.js" />
     <Content Include="app\controllers\appsController.js" />
     <Content Include="app\controllers\associateController.js" />
+    <Content Include="app\controllers\docviewer.js" />
     <Content Include="app\controllers\filterController.js" />
     <Content Include="app\controllers\flightController.js" />
+    <Content Include="app\controllers\flightLogBookController.js" />
+    <Content Include="app\controllers\flightStatsController.js" />
     <Content Include="app\controllers\footerController.js" />
     <Content Include="app\controllers\homeController.js" />
     <Content Include="app\controllers\indexController.js" />
@@ -106,12 +110,16 @@
     <Content Include="app\views\appCourse.html" />
     <Content Include="app\views\appDocument.html" />
     <Content Include="app\views\appDocumentItem.html" />
+    <Content Include="app\views\appDocumentOther.html" />
     <Content Include="app\views\appFlight.html" />
+    <Content Include="app\views\appflightlogbook.html" />
+    <Content Include="app\views\appflightstatistics.html" />
     <Content Include="app\views\applibrary.html" />
     <Content Include="app\views\applibraryitem.html" />
     <Content Include="app\views\appMessage.html" />
     <Content Include="app\views\apps.html" />
     <Content Include="app\views\associate.html" />
+    <Content Include="app\views\docviewer.html" />
     <Content Include="app\views\filter.html" />
     <Content Include="app\views\footer.html" />
     <Content Include="app\views\header.html" />
@@ -332,6 +340,7 @@
     <Content Include="scripts\localization\dx.messages.ru.js" />
     <Content Include="scripts\localization\dx.messages.sv.js" />
     <Content Include="scripts\localization\dx.messages.zh.js" />
+    <Content Include="scripts\mobile-detect.min.js" />
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\template.js" />
     <Content Include="scripts\templateAdd.js" />
@@ -519,7 +528,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>22323</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:22323/</IISUrl>
+          <IISUrl>http://localhost:13590/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

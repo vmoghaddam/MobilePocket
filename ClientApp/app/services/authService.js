@@ -50,7 +50,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 localStorageService.set('authorizationDataApp', { token: responseData.access_token, userName: loginData.userName, refreshToken: "", expires: responseData['.expires'],useRefreshTokens: false });
             }
 
-            localStorageService.set('userData', { Name: responseData.Name, UserId: responseData.UserId, EmployeeId: responseData.EmployeeId });
+            localStorageService.set('userData', { Name: responseData.Name, UserId: responseData.UserId, EmployeeId: responseData.EmployeeId,JobGroup:'Cockpit' });
             
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
@@ -59,6 +59,19 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             $rootScope.userTitle = responseData.Name;
             $rootScope.userId = responseData.UserId;
             $rootScope.employeeId = responseData.EmployeeId;
+            $rootScope.jobGroup = 'Cockpit';
+
+            var dto = {
+                userName: $rootScope.userName,
+                userTitle: $rootScope.userTitle,
+                userId: $rootScope.userId,
+                employeeId: $rootScope.employeeId,
+                jobGroup:$rootScope.jobGroup,
+                roles: '',
+                claims:'',
+            };
+            exportLoginData(dto);
+
             deferred.resolve(response);
 
         }, function (err, status) {
@@ -79,6 +92,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         _authentication.isAuth = false;
         _authentication.userName = "";
         _authentication.useRefreshTokens = false;
+        exportLogoutData();
         $location.path('/login');
     };
 
@@ -97,6 +111,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 $rootScope.userTitle = userData.Name;
                 $rootScope.userId = userData.UserId;
                 $rootScope.employeeId = userData.EmployeeId;
+                $rootScope.jobGroup = userData.JobGroup;
             }
         }
 

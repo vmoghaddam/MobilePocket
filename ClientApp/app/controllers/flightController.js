@@ -4,7 +4,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
     $scope.firstBind = true;
 
     $scope.typeId = null;
-    $scope.title = "Schedule";
+    $scope.title = "Calendar";
     ///////////////////////////////
     var detector = new MobileDetect(window.navigator.userAgent);
     console.log("Mobile: " + detector.mobile());
@@ -794,6 +794,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         $('#tomorrow').height($(window).height() - 45 - 62 - 30);
         $('#today').height($(window).height() - 45 - 62 - 30);
         $('.flight').fadeIn();
+       
         // $scope.bindTomorrow();
     }
     //////////////////////////////////////////
@@ -996,6 +997,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
     //});
     
     $rootScope.$broadcast('AppLibraryLoaded', null);
+    $rootScope.$broadcast('ActiveFooterItem', 'footerflightcalendar');
 
 
 }]);

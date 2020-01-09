@@ -5,16 +5,19 @@
   </PropertyGroup>
 
 <ItemGroup>
-<PackageReference Include="Xamarin.Forms" Version="3.6.0.344457"/>
-<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.Cards" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26"/>
-<PackageReference Include="Syncfusion.Xamarin.Expander " Version="17.3.0.26"/>
+<PackageReference Include="Xamarin.Forms" Version="3.6.0.344457" />
+<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.Cards" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.26" />
+<PackageReference Include="Syncfusion.Xamarin.Expander " Version="17.3.0.26" />
+<PackageReference Include="XLabs.Forms" Version="2.0.5782" />
+<PackageReference Include="XLabs.Serialization" Version="2.0.5782" />
+<PackageReference Include="XLabs.Serialization.JSON" Version="2.0.5782" />
 </ItemGroup>
 
   <ItemGroup>

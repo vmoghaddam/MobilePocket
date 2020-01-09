@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CrewPocket"
+             x:Class="CrewPocket.MainPage">
+
+    <Grid x:Name="gridContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        
+    <!--<local:HybridWebView x:Name="hybridWebView"
+                         Uri="http://app.epapocket.ir" />
+
+    <WebView Grid.Row="0" x:Name="browser" Navigating="OnNavigating"/>
+    <WebView Grid.Row="0" x:Name="browser" />-->
+    
+    </Grid>
+
+</ContentPage>

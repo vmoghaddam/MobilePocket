@@ -13,9 +13,9 @@
 			xmlns:accordion="clr-namespace:Syncfusion.XForms.Accordion;assembly=Syncfusion.Expander.XForms"
 			x:Class="CrewPocketSync.MainPage">
 
-	<Label Text="Welcome to Syncfusion Xamarin.Forms!" 
+	<!--<Label Text="Welcome to Syncfusion Xamarin.Forms!" 
            VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+           HorizontalOptions="Center" />-->
     
 
 </ContentPage>

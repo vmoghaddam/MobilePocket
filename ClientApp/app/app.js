@@ -5,6 +5,7 @@ var app = angular.module('GriffinClientApp', ['ngRoute', 'LocalStorageModule', '
  
  
 app.config(function ($routeProvider) {
+    console.log('route');
     console.log($routeProvider);
 
     $routeProvider.when("/apps", {
@@ -122,7 +123,33 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/pdfviewer.html?v=20",
 
     });
+    $routeProvider.when("/docviewer/:url/:title/:id", {
+        controller: "docViewerController",
+        templateUrl: "/app/views/docviewer.html?v=20",
+
+    });
     
+
+
+    $routeProvider.when("/appflightstatistics", {
+        controller: "appFlightStatisticsController",
+        templateUrl: "/app/views/appflightstatistics.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+    $routeProvider.when("/appflightlogbook", {
+        controller: "appFlightLogBookController",
+        templateUrl: "/app/views/appflightlogbook.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+    $routeProvider.when("/appdocumentother", {
+        controller: "appDocumentOtherController",
+        templateUrl: "/app/views/appDocumentOther.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+
  
     $routeProvider.otherwise({ redirectTo: "/home" });
 
@@ -132,10 +159,11 @@ app.config(function ($routeProvider) {
 // var webBase = 'http://grfn.epatrin.ir/';
 //var clientBase = 'http://grfn.app.epatrin.ir/';
 
-var serviceBase =  'http://localhost:58908/';
-//var serviceBase = 'http://fleet.flypersia.aero:90/api.airpocket/';
-var webBase = 'http://localhost:30273/';
-//var webBase = 'http://fleet.flypersia.aero:90/airpocket/';
+//var serviceBase =  'http://localhost:58908/';
+var serviceBase = 'http://api.epapocket.ir/';
+ 
+//var webBase = 'http://localhost:30273/';
+var webBase = 'http://web.epatrin.ir/';
 var clientBase = 'http://localhost:22323/';
 //var clientBase = 'http://fleet.flypersia.aero:90/uairpocket/';
 
@@ -157,7 +185,15 @@ app.config(['$httpProvider', function ($httpProvider) {
 }]);
  
 app.run(['authService', 'activityService', '$rootScope', '$location', '$templateCache', function (authService, activityService, $rootScope, $location, $templateCache) {
-    
+    $rootScope.$on("$locationChangeStart", function (event, next, current) {
+        exportCurrentUrl(next);
+    });
+         
+    //$rootScope.$on("$routeChangeStart", function (event, next, current) {
+    //    console.log("$routeChangeStart is fired");
+    //    console.log(next);
+    //    console.log(current);
+    //});
     $rootScope.$on('$viewContentLoaded', function () {
         
         $templateCache.removeAll();
@@ -179,7 +215,19 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     $rootScope.userTitle = '';
     $rootScope.userId = null;
     $rootScope.employeeId = null;
+    $rootScope.jobGroup = null;
     $rootScope.logOut = function () { authService.logOut(); };
+    $rootScope.clickMenuItem = function (prms) {
+        switch (prms) {
+            case 'sign-out':
+                $rootScope.logOut();
+                break;
+            case 'profile':
+                break;
+            default:
+                break;
+        }
+    };
     $rootScope.apps = function () { $location.path('/apps'); };
     $rootScope.menu = function () {
 
