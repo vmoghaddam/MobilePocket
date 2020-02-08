@@ -111,7 +111,7 @@
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
         $('.footerhome').width('33.33%').show();
-        $('.footerdocument').width('33.33%').addClass('xactive').show();
+        $('.footerdocumentpif').width('33.33%').addClass('xactive').show();
         $('.footerdocumentother').width('33.33%').show();
 
 
@@ -121,7 +121,7 @@
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
         $('.footerhome').width('33.33%').show();
-        $('.footerdocument').width('33.33%').show();
+        $('.footerdocumentpif').width('33.33%').show();
         $('.footerdocumentother').width('33.33%').addClass('xactive').show();
 
 

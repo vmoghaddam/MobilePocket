@@ -1,11 +1,28 @@
 ﻿'use strict';
-app.controller('appDocumentOtherController', ['$scope', '$location', '$routeParams', '$rootScope', 'flightService', 'authService', 'notificationService', '$route', function ($scope, $location, $routeParams, $rootScope, flightService, authService, notificationService, $route) {
+app.controller('appDocumentOtherController', ['$scope', '$location', '$routeParams', '$rootScope', 'libraryService', 'authService', 'notificationService', '$route', function ($scope, $location, $routeParams, $rootScope, libraryService, authService, notificationService, $route) {
     $scope.prms = $routeParams.prms;
     $scope.firstBind = true;
 
     $scope.typeId = null;
     $scope.title = "Others";
+    //////////////////////////////
+    $scope.scroll_height = 200;
+    $scope.scroll_main = {
+        width: '100%',
+        bounceEnabled: true,
+        showScrollbar: 'never',
+        pulledDownText: '',
+        pullingDownText: '',
+        useNative: false,
+        refreshingText: 'Updating...',
+        onPullDown: function (options) {
+            $scope.bind();
 
+            options.component.release();
+
+        },
+        bindingOptions: { height: 'scroll_height', }
+    };
     ///////////////////////////
     $scope.loadingVisible = false;
     $scope.loadPanel = {
@@ -27,20 +44,50 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
             visible: 'loadingVisible'
         }
     };
-    //////////////////////////////
-
-    if (!authService.isAuthorized()) {
-
-        authService.redirectToLogin();
-    }
-    else {
-        $rootScope.page_title = 'Documents > ' + $scope.title;
-
-        $('.documentother').fadeIn();
-
-        // $scope.bindTomorrow();
-    }
+   
     /////////////////////////////////
+    $scope.ds = null;
+    $scope.bind = function () {
+        if ($scope.firstBind)
+            $scope.loadingVisible = true;
+        libraryService.getPersonLibrary($rootScope.employeeId, 86).then(function (response) {
+            $scope.loadingVisible = false;
+            $scope.firstBind = false;
+            //$.each(response, function (_i, _d) {
+              
+                
+            //});
+            $scope.ds = response;
+        }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+    };
+
+    $scope.formatDate = function (dt) {
+        return moment(dt.DateExposure).format('MMM DD YYYY');
+    };
+
+    $scope.getVisitedClass = function (x) {
+        return "far fa-eye " + (x.IsVisited ? "file-visited" : "");
+    };
+
+    $scope.getSignedClass = function (x) {
+        return "fas fas fa-signature " + (x.IsSigned ? "file-visited" : "");
+    };
+
+    $scope.getTitleClass = function (x) {
+        return (x.IsVisited && x.IsSigned) ? "" : "w3-text-red";
+    };
+
+    $scope.getCardClass = function (x) {
+        return "card w3-text-dark-gray bg-white";
+    };
+
+
+    $scope.itemClick = function (bookId, employeeId) {
+        //alert(bookId+' '+employeeId);
+        $location.path('/appdocument/item/' + bookId);
+    };
+
+    /////////////////////////////////////
 
     $scope.$on('PageLoaded', function (event, prms) {
         //footerbook
@@ -52,25 +99,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
     var vhHeight = $("body").height();
     var chromeNavbarHeight = vhHeight - window.innerHeight;
     window.addEventListener("orientationchange", function (event) {
-
-        //setTimeout(function () {
-
-        //    var _height = window.outerHeight;
-
-        //    $('.col-tablet').height(_height - 45 - 62 - 45);
-        //    var tb2 = _height - 515;
-        //    if (!$scope.accActive)
-        //        tb2 = _height - 505 + 330;
-        //    $('.col-tablet2').height(tb2);
-        //    $('.div-crew').height(_height - 552);
-        //    $('#tomorrow').height(_height - 45 - 62 - 30);
-        //    $('#today').height(_height - 45 - 62 - 30);
-        //    if (screen.height < screen.width && !detector.tablet()) {
-        //        $('.no-rotate').hide();
-        //        $('.yes-rotate').show();
-        //    }
-        //    else { $('.no-rotate').show(); $('.yes-rotate').hide(); }
-        //},200);
+ 
 
     }, false);
 
@@ -78,25 +107,23 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
         return;
         setTimeout(function () {
 
-            //var _height = window.outerHeight;
-
-            //$('.col-tablet').height(_height - 45 - 62 - 45);
-            //var tb2 = _height - 515;
-            //if (!$scope.accActive)
-            //    tb2 = _height - 505 + 330;
-            //$('.col-tablet2').height(tb2);
-            //$('.div-crew').height(_height - 552);
-            //$('#tomorrow').height(_height - 45 - 62 - 30);
-            //$('#today').height(_height - 45 - 62 - 30);
-            //if (screen.height < screen.width && !detector.tablet()) {
-            //    $('.no-rotate').hide();
-            //    $('.yes-rotate').show();
-            //}
-            //else { $('.no-rotate').show(); $('.yes-rotate').hide(); }
+            
         }, 200);
     };
 
+    //////////////////////////////
 
+    if (!authService.isAuthorized()) {
+
+        authService.redirectToLogin();
+    }
+    else {
+        $rootScope.page_title = 'Memos > ' + $scope.title;
+
+        $('.documentother').fadeIn();
+         $scope.bind();
+
+    }
 
     $rootScope.$broadcast('ActiveFooterItem', 'footerflightstatistics');
 

@@ -17,10 +17,7 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         refreshingText: 'Updating...',
         onPullDown: function (options) {
             $scope.bind();
-            //Alert.getStartupNots(null, function (arg) {
-            //    options.component.release();
-            //    // refreshCarts(arg);
-            //});
+           
             options.component.release();
 
         },
@@ -70,9 +67,9 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
     };
 
-    $scope.itemClick = function (bookId, employeeId) {
-        //alert(bookId+' '+employeeId);
-        $location.path('/appdocument/item/' + bookId);
+    $scope.itemClick = function (item) {
+        alert('clicked');
+        //$location.path('/appdocument/item/' + bookId);
     };
 
     if (!authService.isAuthorized()) {
@@ -83,7 +80,7 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         $rootScope.page_title = 'PIFs/CIFs';
         $scope.scroll_height = $(window).height() - 45 - 62;
         $('.document').fadeIn();
-        $scope.bind();
+      //  $scope.bind();
     }
     //////////////////////////////////////////
     $scope.$on('PageLoaded', function (event, prms) {
