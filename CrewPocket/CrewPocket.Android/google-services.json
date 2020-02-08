@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "392765153648",
+    "firebase_url": "https://crewpocket-bca77.firebaseio.com",
+    "project_id": "crewpocket-bca77",
+    "storage_bucket": "crewpocket-bca77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392765153648:android:0c5173e046b3e2a6a46fb5",
+        "android_client_info": {
+          "package_name": "com.companyname.CrewPocket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392765153648-ldh35i084kfeggnaj1hmp1b7kk4b26l9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvpCnFL9AdLZuztfZseAblj1ETbQ84mxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392765153648-ldh35i084kfeggnaj1hmp1b7kk4b26l9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
