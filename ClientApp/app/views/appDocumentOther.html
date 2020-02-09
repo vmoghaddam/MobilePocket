@@ -7,7 +7,7 @@
 
         <div class="rowx content" style="clear:both;background:#f0f3f5;  ">
 
-            <div id="scrollview" dx-scroll-view="scroll_main">
+            <!--<div id="scrollview" dx-scroll-view="scroll_main">
 
                 <div style="padding-top:2px;padding-right:2px;padding-left:2px;" ng-repeat="x in ds">
                     <div class="col-lg-12 col-md-12 col-sm-12  applibraryitem" style="padding:1px 2px 5px 2px;display:block" ng-click="itemClick(x)">
@@ -28,22 +28,93 @@
                         </div>
                     </div>
 
-
-
-
                 </div>
 
-            </div>
-
-
-
+            </div>-->
 
         </div>
+
+        <!--//////////////////////////-->
+
+        <div class="col-xs-12 col-lg-12 col-sm-12 col-md-12" style="padding-right:0;padding-left:5px;background:white">
+            <div style="padding:0;border:1px solid #ccc;margin:5px" class="col-tablet">
+                <div class="lib-flight" style="background:white;border-bottom:1px solid #ccc;padding:5px;margin:0;background:#ccc;text-align:center">
+                    Memo
+                </div>
+
+                <div id="scrollview" dx-scroll-view="scroll_main">
+                    <div ng-repeat="x in ds">
+                        <div class="col-lg-12 col-md-12 col-sm-12  applibraryitem" style="padding:1px 2px 5px 2px;display:block" ng-click="itemClick(x)">
+
+
+                            <div style="padding-top:2px;padding-right:2px;padding-left:2px;background:white !important;padding:5px 10px" class="lib-flight">
+                                <table style="width:100%">
+
+                                    <tr style="border-bottom:0px solid #ccc;height:30px">
+                                        <td style="text-align:center">NO</td>
+                                        <td style="text-align:center" colspan="2">Category</td>
+                                        <td style="text-align:center">CIF</td>
+
+                                    </tr>
+                                    <tr style="border-bottom:0px solid #ccc;height:30px">
+                                        <td style="text-align:center">{{x.No}}</td>
+                                        <td style="text-align:center" colspan="2">Subject</td>
+                                        <td style="text-align:center">{{x.Title}}</td>
+
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #ccc;height:30px">
+                                        <td style="text-align:center">{{formatDate( x.DateExposure )}}</td>
+                                        <td style="text-align:center" colspan="2">Sender</td>
+                                        <td style="text-align:center">{{x.Sender}}</td>
+                                    </tr>
+                                    <tr style="border-bottom:1px solid #ccc;height:30px">
+                                        <td style="text-align:center"></td>
+                                        <td style="text-align:center" colspan="2">D/L: 13-FEB-2020</td>
+                                        <td style="text-align:center"></td>
+                                    </tr>
+                                    <tr style="border-bottom:0px solid #ccc;height:30px">
+                                        <td style="width:33%;text-align:center">3</td>
+                                        <!--<td style="width:16%;text-align:center;font-size:18px;color:#ccc">a</td>
+                                        <td style="width:17%;text-align:center;font-size:18px;color:#ccc">b</td>-->
+                                        <td style="width:16%;text-align:center;font-size:20px;margin-top:10px;color:#ccc;display:table-cell" ng-class="getSignedClass(x)"></td>
+                                        <td style="width:17%;text-align:center;font-size:20px;margin-top:10px;color:#ccc;display:table-cell" ng-class="getVisitedClass(x)"></td>
+                                        <td style="width:34%;text-align:center">FlyPersia</td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="padding-top:2px;padding-right:2px;padding-left:2px;background:white !important;padding:0;border:none" class="lib-flight">
+                        <div style="text-align:center;background:#ccc;padding:5px;">Crew</div>
+                        <div style="padding:0 5px;" class="div-crew">
+                            <div id="scroll_crew_tomorrow" dx-scroll-view="scroll_crew">
+                                <table style="width:100%; ">
+                                    <tr style="border-bottom:0px solid #ccc;height:30px" ng-repeat="x in crewTomorrow">
+                                        <td style="width:30%;text-align:left;font-weight:bold">{{x.Position}}</td>
+                                        <td style="width:70%; text-align:right">{{x.Name}}</td>
+                                    </tr>
+
+
+
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+            </div>
+
+        </div>
+
 
         <div class="rowx footer app-footer" ng-include="'app/views/footer.html'" ng-init="type = 'appdocumentother';" style="padding:0;flex:0 0 45px"></div>
     </div>
 
-
+    <!--//////////////////////////-->
 
 
     <div dx-load-panel="loadPanel"></div>
