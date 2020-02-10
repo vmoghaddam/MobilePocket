@@ -23,9 +23,10 @@
                         <div style="font-size:12px;">{{x.Category}}</div>
                         <div style="font-size:16px;margin-top:3px;">{{x.Title}}</div>
                         <div style="font-size:14px;">{{x.Sender}}</div>
+                        <div style="font-size:14px;" ng-show="x.DeadLine" ng-bind="getDeadLine (x)"> </div>
 
 
-                        
+
 
                     </div>
 

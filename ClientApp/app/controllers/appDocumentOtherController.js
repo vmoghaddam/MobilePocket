@@ -88,6 +88,9 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
 
         return -1;
     }
+    $scope.getDeadLine = function (x) {
+        return "";
+    };
 
     ////////////////////////////////
     $scope.getDay = function (dt) {
