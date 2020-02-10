@@ -6,7 +6,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
     $scope.typeId = null;
     $scope.title = "Others";
     //////////////////////////////
-    $scope.scroll_height = 200;
+    $scope.scroll_height = '100%';
     $scope.scroll_main = {
         width: '100%',
         bounceEnabled: true,
@@ -21,7 +21,8 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
             options.component.release();
 
         },
-        bindingOptions: { height: 'scroll_height', }
+        height: '100%',
+        //bindingOptions: { height: 'scroll_height', }
     };
     ///////////////////////////
     $scope.loadingVisible = false;
@@ -81,10 +82,35 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
         return "card w3-text-dark-gray bg-white";
     };
 
+    $scope.getDeadLineRemaining = function (x) {
+        if (!x.DeadLine)
+            return "&nbsp;";
 
-    $scope.itemClick = function (bookId, employeeId) {
+        return -1;
+    }
+
+    ////////////////////////////////
+    $scope.getDay = function (dt) {
+        return (new Date(dt)).getDate();
+    };
+    $scope.getTileMonth = function (dt) {
+        var mns = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        var _dt = new Date(dt);
+        var m = _dt.getMonth();
+        var mstr = mns[m];
+        var year = _dt.getFullYear();
+        var yearstr = year.toString().substring(2, 4);
+        var str = mstr + ' ' + yearstr;
+        return str;
+    };
+
+
+    //////////////////////////////////////
+    /////////////////////////////////
+    $scope.ItemClick = function (bookId, employeeId) {
+        alert('x');
         //alert(bookId+' '+employeeId);
-        $location.path('/appdocument/item/' + bookId);
+        //$location.path('/appdocument/item/' + bookId);
     };
 
     /////////////////////////////////////
