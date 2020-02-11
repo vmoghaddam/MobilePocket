@@ -23,7 +23,7 @@
                         <div style="font-size:12px;">{{x.Category}}</div>
                         <div style="font-size:16px;margin-top:3px;">{{x.Title}}</div>
                         <div style="font-size:14px;">{{x.Sender}}</div>
-                        <div style="font-size:14px;" ng-show="x.DeadLine" ng-bind="getDeadLine (x)"> </div>
+                        <div style="font-size:14px;margin-top:12px;color:red" ng-show="x.DeadLine" ng-bind="getDeadLine (x)"> </div>
 
 
 
@@ -34,7 +34,7 @@
                     <div style="text-align:center;font-size:13px;border-top:1px dashed #ccc;margin:5px;padding-top:5px;">
                         <div style="float:left;width:50%;text-align:left;padding-left:5px">
                            
-                            <span ng-bind-html="getDeadLineRemaining(x)"></span>
+                            <span ng-bind-html="getDeadLineRemaining(x)" style="display:inline-block;position:relative;top:2px;color:red"></span>
                         </div>
                         <div style="float:left;width:50%;text-align:right;padding-right:5px;padding-top:2px;padding-bottom:3px;">
                             <i ng-class="getVisitedClass(x)" style="font-size:18px;margin-top:10px;display:inline;color:#ccc"></i>

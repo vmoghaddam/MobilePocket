@@ -51,7 +51,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
     $scope.bind = function () {
         if ($scope.firstBind)
             $scope.loadingVisible = true;
-        libraryService.getPersonLibrary($rootScope.employeeId, 86).then(function (response) {
+        libraryService.getCrewMemos($rootScope.employeeId).then(function (response) {
             $scope.loadingVisible = false;
             $scope.firstBind = false;
             //$.each(response, function (_i, _d) {
@@ -86,10 +86,12 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
         if (!x.DeadLine)
             return "&nbsp;";
 
-        return -1;
+        return x.RemainingDeadLine +' day(s)';
     }
     $scope.getDeadLine = function (x) {
-        return "";
+        if (!x.DeadLine)
+            return "";
+        return "D/L " + moment(x.DeadLine).format('MMM DD YYYY');
     };
 
     ////////////////////////////////

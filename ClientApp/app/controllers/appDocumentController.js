@@ -49,24 +49,50 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
     $scope.bind = function () {
         if ($scope.firstBind)
             $scope.loadingVisible = true;
-        libraryService.getPersonLibrary($rootScope.employeeId, 86).then(function (response) {
+        libraryService.getCrewPIFs($rootScope.employeeId, 86).then(function (response) {
+            console.log('PIFs');
+            console.log(response);
             $scope.loadingVisible = false;
             $scope.firstBind = false;
-            $.each(response, function (_i, _d) {
-                // _d.ImageUrl = _d.ImageUrl ? $rootScope.clientsFilesUrl + _d.ImageUrl : '../../content/images/imguser.png';
-                _d.DateExposure = moment(_d.DateExposure).format('MMMM Do YYYY, h:mm:ss a');
-                _d.VisitedClass = "fa " + (_d.IsVisited ? "fa-eye w3-text-blue" : "fa-eye-slash w3-text-red");
-                //_d.IsDownloaded = true;
-                _d.DownloadedClass = "fa " + (_d.IsDownloaded ? "fa-cloud-download-alt w3-text-blue" : "fa-cloud w3-text-red");
-                _d.class = (_d.IsDownloaded && _d.IsVisited) ? "card w3-text-dark-gray bg-white" : "card text-white bg-danger";
-                _d.class = "card w3-text-dark-gray bg-white";
-                _d.titleClass = (_d.IsDownloaded && _d.IsVisited) ? "" : "w3-text-red";
-                _d.ImageUrl = _d.ImageUrl ? $rootScope.clientsFilesUrl + _d.ImageUrl : '../../content/images/image.png';
-            });
+            
             $scope.ds = response;
         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
     };
+    //////////////////////////////////////
+    $scope.formatDate = function (dt) {
+        return moment(dt.DateExposure).format('MMM DD YYYY');
+    };
 
+    $scope.getVisitedClass = function (x) {
+        return "far fa-eye " + (x.IsVisited ? "file-visited" : "");
+    };
+
+    $scope.getSignedClass = function (x) {
+        return "fas fas fa-signature " + (x.IsSigned ? "file-visited" : "");
+    };
+
+    $scope.getTitleClass = function (x) {
+        return (x.IsVisited && x.IsSigned) ? "" : "w3-text-red";
+    };
+
+    $scope.getCardClass = function (x) {
+        return "card w3-text-dark-gray bg-white";
+    };
+
+    $scope.getValidRemaining = function (x) {
+        if (!x.DateValidUntil)
+            return "&nbsp;";
+
+        return -1;
+    }
+    $scope.getValidUntil = function (x) {
+        if (!x.DateValidUntil)
+            return "";
+        return "Valid Until: " + moment(x.DateValidUntil).format('MMM DD YYYY');;
+    };
+
+
+    //////////////////////////////////////
     $scope.itemClick = function (item) {
         alert('clicked');
         //$location.path('/appdocument/item/' + bookId);
@@ -80,7 +106,7 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         $rootScope.page_title = 'PIFs/CIFs';
         $scope.scroll_height = $(window).height() - 45 - 62;
         $('.document').fadeIn();
-      //  $scope.bind();
+        $scope.bind();
     }
     //////////////////////////////////////////
     $scope.$on('PageLoaded', function (event, prms) {

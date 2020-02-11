@@ -70,6 +70,30 @@ var _getEmployeeBook = function (id,itemId) {
 
         return deferred.promise;
     };
+    var _getCrewPIFs = function (id) {
+
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'odata/pifs/' + id  ).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
+    var _getCrewMemos = function (id) {
+
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'odata/memos/' + id).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
     var _getLastExposed = function (cid,   top) {
 
         var deferred = $q.defer();
@@ -134,6 +158,8 @@ var _getEmployeeBook = function (id,itemId) {
     serviceFactory.getBook = _getBook;
     serviceFactory.getEmployeeBook=_getEmployeeBook;
     serviceFactory.getPersonLibrary = _getPersonLibrary;
+    serviceFactory.getCrewPIFs = _getCrewPIFs;
+    serviceFactory.getCrewMemos = _getCrewMemos;
     serviceFactory.getKeywords = _getKeywords;
     serviceFactory.getBookApplicableEmployees = _getBookApplicableEmployees;
     serviceFactory.getLastExposed = _getLastExposed;
