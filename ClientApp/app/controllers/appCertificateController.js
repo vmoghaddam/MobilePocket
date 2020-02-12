@@ -7,6 +7,7 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
     $scope.title = null;
     switch ($scope.active) {
         
+
         case 'all':
              
             $scope.title = 'All';
