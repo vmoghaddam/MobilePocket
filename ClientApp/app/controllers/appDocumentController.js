@@ -2,9 +2,8 @@
 app.controller('appDocumentController', ['$scope', '$location', '$routeParams', '$rootScope', 'libraryService', 'authService', 'notificationService', '$route', function ($scope, $location, $routeParams, $rootScope, libraryService, authService, notificationService, $route) {
     $scope.prms = $routeParams.prms;
     $scope.firstBind = true;
-    
-    
-    
+
+    //////////////////////////////
 
     $scope.scroll_height = 200;
     $scope.scroll_main = {
@@ -17,12 +16,14 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         refreshingText: 'Updating...',
         onPullDown: function (options) {
             $scope.bind();
-           
+
             options.component.release();
 
         },
         bindingOptions: { height: 'scroll_height', }
     };
+
+    ///////////////////////////
 
     $scope.loadingVisible = false;
     $scope.loadPanel = {
@@ -45,6 +46,8 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         }
     };
 
+    /////////////////////////////////
+
     $scope.ds = null;
     $scope.bind = function () {
         if ($scope.firstBind)
@@ -52,6 +55,9 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         libraryService.getPersonLibrary($rootScope.employeeId, 86).then(function (response) {
             $scope.loadingVisible = false;
             $scope.firstBind = false;
+
+            /////////////////////////////////
+
             $.each(response, function (_i, _d) {
                 // _d.ImageUrl = _d.ImageUrl ? $rootScope.clientsFilesUrl + _d.ImageUrl : '../../content/images/imguser.png';
                 _d.DateExposure = moment(_d.DateExposure).format('MMMM Do YYYY, h:mm:ss a');
@@ -62,15 +68,35 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
                 _d.class = "card w3-text-dark-gray bg-white";
                 _d.titleClass = (_d.IsDownloaded && _d.IsVisited) ? "" : "w3-text-red";
                 _d.ImageUrl = _d.ImageUrl ? $rootScope.clientsFilesUrl + _d.ImageUrl : '../../content/images/image.png';
+                _d.IsCIFPIF = (_d.Category.toUpperCase() == "CIF" || _d.Category.toUpperCase() == "PIF") ? true : false;
             });
             $scope.ds = response;
         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
     };
 
+
+
+    $scope.formatDate = function (dt) {
+        return moment(dt.DateExposure).format('MMM DD YYYY');
+    };
+
+    $scope.getDeadLineRemaining = function (x) {
+        if (!x.DeadLine)
+            return "&nbsp;";
+
+        return -1;
+    };
+    $scope.getDeadLine = function (x) {
+        return "";
+    };
+
+
     $scope.itemClick = function (item) {
         alert('clicked');
         //$location.path('/appdocument/item/' + bookId);
     };
+
+    //////////////////////////////
 
     if (!authService.isAuthorized()) {
 
@@ -80,15 +106,16 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
         $rootScope.page_title = 'PIFs/CIFs';
         $scope.scroll_height = $(window).height() - 45 - 62;
         $('.document').fadeIn();
-      //  $scope.bind();
+        $scope.bind();
     }
     //////////////////////////////////////////
     $scope.$on('PageLoaded', function (event, prms) {
-        
+
 
 
     });
     $rootScope.$broadcast('AppDocumentLoaded', null);
+
 
 
 }]);
