@@ -46,16 +46,16 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
     };
 
     $scope.ds = null;
-    $scope.bind = function () {
+    $scope.bind = function () { 
         if ($scope.firstBind)
             $scope.loadingVisible = true;
         libraryService.getCrewPIFs($rootScope.employeeId, 86).then(function (response) {
-            console.log('PIFs');
-            console.log(response);
             $scope.loadingVisible = false;
             $scope.firstBind = false;
-            
-            $scope.ds = response;
+             $scope.ds = response;
+            console.log('PIFs:');
+            console.log($scope.ds);
+              
         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
     };
     //////////////////////////////////////
