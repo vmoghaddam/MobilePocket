@@ -123,6 +123,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/pdfviewer.html?v=20",
 
     });
+    $routeProvider.when("/memoviewer/:url/:title/:id", {
+        controller: "appDocumentItemController",
+        templateUrl: "/app/views/appDocumentItem.html?v=20",
+
+    });
     $routeProvider.when("/docviewer/:url/:title/:id", {
         controller: "docViewerController",
         templateUrl: "/app/views/docviewer.html?v=20",

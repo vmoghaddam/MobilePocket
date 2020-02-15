@@ -1,9 +1,12 @@
 ﻿'use strict';
 app.controller('appDocumentItemController', ['$scope', '$location', '$routeParams', '$rootScope', 'libraryService', 'activityService', 'authService', 'notificationService', '$route', function ($scope, $location, $routeParams, $rootScope, libraryService, activityService, authService, notificationService, $route) {
     $scope.prms = $routeParams.prms;
-    $scope.itemId = $routeParams.id;
+    $scope.url = $routeParams.url;
+    $scope.title = $routeParams.title;
+    $scope.id = $routeParams.id;
 
-
+    $scope._url = $sce.trustAsResourceUrl($rootScope.webBase + 'pdfjs/web/viewer.html?file=../../upload/clientsfiles/' + $scope.url);
+    activityService.visitFile($rootScope.employeeId, $scope.id);
     $scope.scroll_height = 200;
     $scope.scroll_main = {
         width: '100%',
@@ -45,86 +48,32 @@ app.controller('appDocumentItemController', ['$scope', '$location', '$routeParam
             visible: 'loadingVisible'
         }
     };
-    $scope.Title = null;
-    $scope.ImageUrl = null;
-    $scope.Authors = null;
-    $scope.Category = null;
-    $scope.Sender = null;
-    $scope.No = null;
-    $scope.ISSNPrint = null;
-    $scope.ISSNElectronic = null;
-    $scope.DateRelease = null;
-    $scope.DateExposure = null;
-    $scope.DateVisit = null;
-    $scope.DateDownload = null;
-    $scope.IsDownloaded = false;
-    $scope.DownloadUrl = null;
-    $scope.Keywords = null;
-    $scope.Abstract = null;
-    $scope.Journal = null;
-    $scope.INSPECAccessionNumber = null;
-    $scope.ExternalUrl = null;
-    $scope.Language = null;
-    $scope.Duration = null;
-    $scope.NumberOfLessens = null;
-    $scope.bind = function () {
-
-        $scope.loadingVisible = true;
-        libraryService.getEmployeeBook($rootScope.employeeId, $scope.itemId).then(function (d) {
-            
-            $scope.loadingVisible = false;
-            $scope.Title = d.Title;
-            $scope.ImageUrl = d.ImageUrl ? $rootScope.clientsFilesUrl + d.ImageUrl : '../../content/images/image.png';
-            $scope.Authors = d.Authors ? d.Authors : '-';
-            $scope.Sender = d.Sender ? d.Sender : '-';
-            $scope.Category = d.Category;
-            $scope.No = d.No ? d.No : '-';
-            $scope.ISSNPrint = d.ISSNPrint ? d.ISSNPrint : '-';
-            $scope.ISSNElectronic = d.ISSNElectronic ? d.ISSNElectronic : '-';
-            $scope.DateRelease = d.DateRelease ? moment(d.DateRelease).format('MMMM YYYY') : '-';
-            $scope.DateExposure = d.DateExposure ? moment(d.DateExposure).format('MMMM Do YYYY, h:mm:ss a') : '-';
-            $scope.DateVisit = d.DateVisit ? moment(d.DateVisit).format('MMMM Do YYYY, h:mm:ss a') : moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
-            $scope.DateDownload = d.DateDownload ? moment(d.DateDownload).format('MMMM Do YYYY, h:mm:ss a') : '-';
-            $scope.IsDownloaded = d.IsDownloaded;
-            $scope.DownloadUrl = $rootScope.webBase + "downloadhandler.ashx?t=book&id=" + $scope.itemId;
-            $scope.Keywords = d.Keywords ? d.Keywords : '-';
-            $scope.Abstract = d.Abstract ? d.Abstract : '-';
-            $scope.Journal = d.Journal ? d.Journal : '-';
-            $scope.ExternalUrl = d.ExternalUrl;
-            $scope.Language = d.Language ? d.Language : '-';
-            $scope.Duration = d.Duration ? d.Duration : '-';
-            $scope.NumberOfLessens = d.NumberOfLessens ? d.NumberOfLessens : '-';
-
-            $scope.INSPECAccessionNumber = d.INSPECAccessionNumber ? d.INSPECAccessionNumber : '-';
-
-            if (!d.IsVisited) {
-                activityService.visitLibrary($rootScope.employeeId, $scope.itemId);
-            }
-
-           
-        }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
-    };
-    $scope.download = function () {
-        window.location.assign($scope.DownloadUrl);
-        if (!$scope.IsDownloaded) {
-            $scope.DateDownload = moment(Date.now()).format('MMMM Do YYYY, h:mm:ss a');
-            $scope.IsDownloaded = true;
-            activityService.downloadLibrary($rootScope.employeeId, $scope.itemId);
-        }
 
 
-    };
     if (!authService.isAuthorized()) {
 
         authService.redirectToLogin();
     }
     else {
-        $rootScope.page_title = 'Document';
-        $scope.scroll_height = $(window).height() - 45 - 62;
-        // alert($('.videocontainer').width());
-        // $('#video').attr('width', $('.videocontainer').width());
-        $('.documentitem').fadeIn();
-        $scope.bind();
+        $rootScope.page_title = $scope.title;
+        $scope.scroll_height = $(window).height() - 60;
+
+        $('.pdfviewer').fadeIn();
+        $('#frame').height($scope.scroll_height);
+
+        //$('#pdf').height($(window).height() - 45 - 62);
+        //var options = {
+        //    pdfOpenParams: {
+        //         pagemode: "thumbs",
+        //        navpanes: 0,
+        //        toolbar: 0,
+        //        statusbar: 0,
+        //        view: "FitV"
+        //    }
+        //};
+        ////http://fleet.flypersia.aero:90/airpocket/upload/clientsfiles/test2.pdf
+        ////https://pdfobject.com/pdf/sample-3pp.pdf
+        //var myPDF = PDFObject.embed("http://fleet.flypersia.aero:90/airpocket/upload/clientsfiles/test2.pdf", "#pdf", options);
     }
 
     //////////////////////////////////////////

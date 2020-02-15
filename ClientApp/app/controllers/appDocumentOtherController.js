@@ -58,6 +58,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
               
                 
             //});
+            console.log(response);
             $scope.ds = response;
         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
     };
@@ -67,6 +68,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
     };
 
     $scope.getVisitedClass = function (x) {
+       
         return "far fa-eye " + (x.IsVisited ? "file-visited" : "");
     };
 
@@ -91,7 +93,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
     $scope.getDeadLine = function (x) {
         if (!x.DeadLine)
             return "";
-        return "D/L " + moment(x.DeadLine).format('MMM DD YYYY');
+        return "D/L: " + moment(x.DeadLine).format('MMM DD YYYY');
     };
 
     ////////////////////////////////
@@ -112,10 +114,12 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
 
     //////////////////////////////////////
     /////////////////////////////////
-    $scope.ItemClick = function (bookId, employeeId) {
-        alert('x');
+    $scope.ItemClick = function (x) {
+       console.log(x);
         //alert(bookId+' '+employeeId);
         //$location.path('/appdocument/item/' + bookId);
+
+        $location.path('/docviewer/' + x.FileUrl + '/' + x.Title + '/' + x.FileId);
     };
 
     /////////////////////////////////////

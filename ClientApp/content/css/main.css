@@ -1221,7 +1221,9 @@ body {
     .slide.ng-leave-active {
         left: -100%;
     }
-
+.file-visited {
+    color: #00ff99 !important;
+}
 
 .slidedown {
     position: absolute;

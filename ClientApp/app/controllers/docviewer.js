@@ -30,8 +30,8 @@ app.controller('docViewerController', ['$scope', '$sce', '$location', '$routePar
     ///////////////////////////////////
     $scope.btn_sign = {
         text: 'Digital Sign',
-        type: 'normal',
-        icon: 'fas fa-fingerprint',
+        type: 'default',
+        icon: 'fas fa-signature',
         //width: 200,
         width:'100%',
         onClick: function (e) {
@@ -41,6 +41,14 @@ app.controller('docViewerController', ['$scope', '$sce', '$location', '$routePar
 
         }
 
+    };
+    $scope.code = null;
+    $scope.txt_code = {
+        placeholder: "Code",
+        height:35,
+        bindingOptions: {
+            value: 'code'
+        }
     };
     /////////////////////////////////////
     $scope.loadingVisible = false;
