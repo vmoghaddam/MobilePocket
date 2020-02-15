@@ -85,6 +85,18 @@ app.factory('generalService', ['$http', '$q', 'ngAuthSettings', '$rootScope', fu
 
         return deferred.promise;
     };
+    var _getExpiringCertificates2 = function (id) {
+
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'odata/crew/expires/' + id).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
     var _getLastCertificates = function (id) {
 
         var deferred = $q.defer();
@@ -165,6 +177,7 @@ app.factory('generalService', ['$http', '$q', 'ngAuthSettings', '$rootScope', fu
     };
     ordersServiceFactory.getEmployee = _getEmployee;
     ordersServiceFactory.getExpiringCertificates = _getExpiringCertificates;
+    ordersServiceFactory.getExpiringCertificates2 = _getExpiringCertificates2;
     ordersServiceFactory.getLastCertificates = _getLastCertificates;
     ordersServiceFactory.getAllCertificates = _getAllCertificates;
     ordersServiceFactory.getPersonActiveCourse = _getPersonActiveCourse;
