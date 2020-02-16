@@ -1,4 +1,5 @@
 ﻿'use strict';
+//test
 app.controller('appMessageController', ['$scope', '$location', '$routeParams', '$rootScope', 'generalService', 'authService', 'notificationService', '$route', function ($scope, $location, $routeParams, $rootScope, generalService, authService, notificationService, $route) {
     $scope.prms = $routeParams.prms;
     $scope.firstBind = true;
