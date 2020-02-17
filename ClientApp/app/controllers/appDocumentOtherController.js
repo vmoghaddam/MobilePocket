@@ -64,7 +64,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
     };
 
     $scope.formatDate = function (dt) {
-        return moment(dt.DateExposure).format('MMM DD YYYY');
+        return moment(dt.DateRelease).format('MMM DD YYYY');
     };
 
     $scope.getVisitedClass = function (x) {
@@ -84,8 +84,24 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
         return "card w3-text-dark-gray bg-white";
     };
 
+    $scope.getDeadLineClass = function (x) {
+        if (!x.DeadLine || x.RemainingDeadLine > 15 || x.IsVisited)
+            return "";
+        if (x.RemainingDeadLine <= 15 && x.RemainingDeadLine > 10)
+            return "alert-orange-text";
+          return "alert-red-text bold";
+    };
+
+    $scope.getDeadLineBackClass = function (x) {
+        if (!x.DeadLine || x.RemainingDeadLine > 15 || x.IsVisited)
+            return "";
+        if (x.RemainingDeadLine <= 15 && x.RemainingDeadLine > 10)
+            return "alert-orange-back white-text";
+        return "alert-red-back white-text";
+    };
+
     $scope.getDeadLineRemaining = function (x) {
-        if (!x.DeadLine)
+        if (!x.DeadLine || x.IsVisited)
             return "&nbsp;";
 
         return x.RemainingDeadLine +' day(s)';
@@ -118,8 +134,8 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
        console.log(x);
         //alert(bookId+' '+employeeId);
         //$location.path('/appdocument/item/' + bookId);
-
-        $location.path('/docviewer/' + x.FileUrl + '/' + x.Title + '/' + x.FileId);
+       var dtSigned = x.DateSigned ? x.DateSigned : -1;
+       $location.path('/docviewer/' + x.FileUrl + '/' + x.Title + '/' + x.FileId + '/' + x.BookId + '/' + dtSigned);
     };
 
     /////////////////////////////////////

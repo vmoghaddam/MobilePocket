@@ -1222,7 +1222,7 @@ body {
         left: -100%;
     }
 .file-visited {
-    color: #00ff99 !important;
+    color: #0073e6 !important;
 }
 
 .slidedown {
@@ -1254,3 +1254,31 @@ body {
     .slidedown.ng-leave-active {
         top: 100%;
     }
+
+
+    .alert-red-text {
+        color:red !important;
+        
+
+    }
+.alert-red-back {
+    background-color: #ff3300 !important;
+}
+
+    .alert-orange-text{
+        color:darkorange !important;
+    }
+.alert-orange-back {
+    background-color: #ff8000 !important;
+}
+
+.valid-back {
+    background: #b3ffb3 !important;
+}
+.notvalid-back{
+    background:#eee !important;
+}
+    .white-text{
+        color:white !important;
+    }
+

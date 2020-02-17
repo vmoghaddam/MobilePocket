@@ -61,7 +61,7 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
     };
     //////////////////////////////////////
     $scope.formatDate = function (dt) {
-        return moment(dt.DateExposure).format('MMM DD YYYY');
+        return moment(dt.DateRelease).format('MMM DD YYYY');
     };
 
     $scope.getVisitedClass = function (x) {
@@ -90,14 +90,40 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
     $scope.getValidUntilRemaining = function (x) {
         if (!x.DateValidUntil)
             return "&nbsp;";
-
+        if (x.RemainingValid < 0)
+            return "Not Valid";
         return x.RemainingValid + ' day(s)';
     }
+
 
     $scope.getValidUntil = function (x) {
         if (!x.DateValidUntil)
             return "";
         return "Valid Until: " + moment(x.DateValidUntil).format('MMM DD YYYY');;
+    };
+    $scope.getValidClass = function (x) {
+        //if (!x.DeadLine || x.RemainingDeadLine > 15 || x.IsVisited)
+        //    return "";
+        //if (x.RemainingDeadLine <= 15 && x.RemainingDeadLine > 10)
+        //    return "alert-orange-text";
+        //return "alert-red-text bold";
+        return "";
+    };
+
+    $scope.getValidBackClass = function (x) {
+        if (!x.DateValidUntil)
+            return "";
+        if (x.RemainingValid < 0)
+            return "";
+        if (x.RemainingValid >= 0)
+            return "valid-back";
+        return "";
+    };
+    $scope.getNotValidBackClass = function (x) {
+        if (x.DateValidUntil && x.RemainingValid < 0)
+            return "lib-flight notvalid-back";
+       
+        return "lib-flight";
     };
 
     $scope.ImageUrl = function (x) {
@@ -121,9 +147,9 @@ app.controller('appDocumentController', ['$scope', '$location', '$routeParams', 
     };
 
     //////////////////////////////////////
-    $scope.itemClick = function (item) {
-        alert('clicked');
-        //$location.path('/appdocument/item/' + bookId);
+    $scope.ItemClick = function (x) {
+        var dtSigned = x.DateSigned ? x.DateSigned : -1;
+        $location.path('/docviewer/' + x.FileUrl + '/' + x.Title + '/' + x.FileId + '/' + x.BookId + '/' + dtSigned);
     };
 
     if (!authService.isAuthorized()) {

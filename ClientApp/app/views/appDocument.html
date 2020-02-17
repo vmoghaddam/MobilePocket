@@ -9,21 +9,21 @@
 
             <div id="scrollview" dx-scroll-view="scroll_main">
 
-                <div style="padding-top:5px;padding-right:2px;padding-left:2px;background:white !important;margin:5px 5px 0 5px; border:1px solid #bbb" class="lib-flight" ng-repeat="x in ds" ng-click="ItemClick(x)">
-                    <div style="float:left;width:15%;">
+                <div style="padding-top:5px;padding-right:2px;padding-left:2px;background:white;margin:5px 5px 0 5px; border:1px solid #bbb" ng-class="getNotValidBackClass(x)" ng-repeat="x in ds" ng-click="ItemClick(x)">
+                    <div style="float:left;width:20%;">
                         <div style="text-align:center;font-size:14px;">{{x.No}}</div>
-                        <!--<div style="text-align:center;font-size:26px;">{{formatDate(x.DateExposure)}}</div>-->
-                        <div style="text-align:center;font-size:26px;">{{getDay(x.DateExposure)}}</div>
-                        <div style="text-align:center;font-size:14px;">{{getTileMonth(x.DateExposure)}}</div>
+                        <!--<div style="text-align:center;font-size:26px;">{{formatDate(x.DateRelease)}}</div>-->
+                        <div style="text-align:center;font-size:26px;">{{getDay(x.DateRelease)}}</div>
+                        <div style="text-align:center;font-size:14px;">{{getTileMonth(x.DateRelease)}}</div>
 
                     </div>
-                    <div style="padding-left:15px;float:left">
+                    <div style="padding-left: 5px;float:left;border-left:1px dashed #ccc" >
 
 
                         <div style="font-size:12px;">{{x.Category}}</div>
                         <div ng-class="x.titleClass" style="font-size:16px;margin-top:3px;">{{x.Title}}</div>
                         <div style="font-size:14px;">{{x.Sender}}</div>
-                        <div style="font-size:14px;color:red" ng-show="x.DateValidUntil" ng-bind="getValidUntil (x)"> </div>
+                        <div style="font-size:14px; " ng-show="x.DateValidUntil" ng-bind="getValidUntil (x)" ng-class="getValidClass(x)"> </div>
 
 
                     </div>
@@ -34,14 +34,14 @@
 
 
                     <div style="clear:both"></div>
-                    <div style="text-align:center;font-size:13px;border-top:1px dashed #ccc;margin:5px;padding-top:5px;">
+                    <div style="text-align:center;font-size:13px;border-top:1px dashed #ccc;margin:5px;padding-top:5px;" ng-class="getValidBackClass(x)">
                         <div style="float:left;width:50%;text-align:left;padding-left:5px">
 
-                            <span ng-bind-html="getValidUntilRemaining(x)" style="display:inline-block;position:relative;top:2px;color:red"></span>
+                            <span ng-bind-html="getValidUntilRemaining(x)" style="display:inline-block;position:relative;top:2px;"></span>
                         </div>
                         <div style="float:left;width:50%;text-align:right;padding-right:5px;padding-top:2px;padding-bottom:3px;">
-                            <i ng-class="getVisitedClass(x)" style="font-size:18px;margin-top:10px;display:inline;color:#ccc"></i>
-                            <i ng-class="getSignedClass(x)" style="font-size:18px;margin-top:10px;display:inline;color:#ccc"></i>
+                            <i ng-class="getVisitedClass(x)" style="font-size:18px;margin-top:10px;display:inline;color:#b3b3b3"></i>
+                            <i ng-class="getSignedClass(x)" style="font-size:18px;margin-top:10px;display:inline;color:#b3b3b3"></i>
 
                             <span style="display:inline-block;position:relative;top:-2px;font-weight:bold">FlyPersia</span>
 

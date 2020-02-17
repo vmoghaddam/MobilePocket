@@ -128,7 +128,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/appDocumentItem.html?v=20",
 
     });
-    $routeProvider.when("/docviewer/:url/:title/:id", {
+    $routeProvider.when("/docviewer/:url/:title/:id/:bookId/:dateSigned", {
         controller: "docViewerController",
         templateUrl: "/app/views/docviewer.html?v=20",
 
@@ -164,8 +164,8 @@ app.config(function ($routeProvider) {
 // var webBase = 'http://grfn.epatrin.ir/';
 //var clientBase = 'http://grfn.app.epatrin.ir/';appdocument
 
-//var serviceBase =  'http://localhost:58908/';
-var serviceBase = 'http://api.epapocket.ir/';
+var serviceBase =  'http://localhost:58908/';
+//var serviceBase = 'http://api.epapocket.ir/';
  
 //var webBase = 'http://localhost:30273/';
 var webBase = 'http://web.epatrin.ir/';
@@ -287,7 +287,10 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
 
         return { width: w, height: h };
     };
-
+    //////////////////////////////
+    $rootScope.formatDate = function (dt) {
+        return moment(dt.DateExposure).format('MMM DD YYYY');
+    };
     //////////////////////////
     
     $rootScope.history = [];

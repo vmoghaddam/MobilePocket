@@ -129,6 +129,17 @@ app.factory('activityService', ['$http', '$q', 'ngAuthSettings', '$rootScope', f
 
         return deferred.promise;
     };
+    var _signFile = function (employeeId, bookId,code) {
+        var deferred = $q.defer();
+        $http.post($rootScope.serviceUrl + 'odata/sign/book/' + employeeId + '/' + bookId+'/'+code).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
     var _downloadLibrary = function (employeeId, itemid) {
         var deferred = $q.defer();
         $http.post($rootScope.serviceUrl + 'odata/downloadlibrary/' + employeeId + '/' + itemid).then(function (response) {
@@ -149,6 +160,7 @@ app.factory('activityService', ['$http', '$q', 'ngAuthSettings', '$rootScope', f
     serviceFactory.getAppDashboard = _getAppDashboard;
     serviceFactory.visitLibrary = _visitLibrary;
     serviceFactory.visitFile = _visitFile;
+    serviceFactory.signFile = _signFile;
     serviceFactory.visitMessage = _visitMessage;
     serviceFactory.downloadLibrary = _downloadLibrary;
     //serviceFactory.delete = _delete;
