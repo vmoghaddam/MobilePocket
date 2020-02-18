@@ -87,26 +87,34 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
         $scope.ds = [];
         $scope.ds.push({
             Title: 'Medical',
-            IssueDate: new Date(2019, 8, 1, 0, 0, 0),
-            ExpireDate: new Date(2020, 8, 1, 0, 0, 0),
+            //IssueDate: new Date(2019, 8, 1, 0, 0, 0),
+            //ExpireDate: new Date(2020, 8, 1, 0, 0, 0),
+            IssueDate: moment(new Date(2019, 8, 1, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
+            ExpireDate: moment(new Date(2020, 8, 1, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
             Remaining:98,
             
         }, {
             Title: 'CCRM',
-            IssueDate: new Date(2019, 5, 11, 0, 0, 0),
-            ExpireDate: new Date(2020, 5, 11, 0, 0, 0),
+            //IssueDate: new Date(2019, 5, 11, 0, 0, 0),
+            //ExpireDate: new Date(2020, 5, 11, 0, 0, 0),
+                IssueDate: moment(new Date(2019, 5, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
+                ExpireDate: moment(new Date(2020, 5, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
             Remaining: 12,
 
         }, {
             Title: 'CRM',
-            IssueDate: new Date(2019, 3, 5, 0, 0, 0),
-            ExpireDate: new Date(2020, 3, 11, 0, 0, 0),
+            //IssueDate: new Date(2019, 3, 5, 0, 0, 0),
+            //ExpireDate: new Date(2020, 3, 11, 0, 0, 0),
+                IssueDate: moment(new Date(2019, 3, 5, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
+                ExpireDate: moment(new Date(2020, 3, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
             Remaining: 143,
 
         }, {
             Title: 'SEPT',
-            IssueDate: new Date(2018, 3, 5, 0, 0, 0),
-            ExpireDate: new Date(2021, 3, 11, 0, 0, 0),
+            //IssueDate: new Date(2018, 3, 5, 0, 0, 0),
+            //ExpireDate: new Date(2021, 3, 11, 0, 0, 0),
+                IssueDate: moment(new Date(2018, 3, 5, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
+                ExpireDate: moment(new Date(2021, 3, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
             Remaining: 343,
 
         });
