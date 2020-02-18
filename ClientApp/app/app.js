@@ -164,8 +164,8 @@ app.config(function ($routeProvider) {
 // var webBase = 'http://grfn.epatrin.ir/';
 //var clientBase = 'http://grfn.app.epatrin.ir/';appdocument
 
-//var serviceBase =  'http://localhost:58908/';
-var serviceBase = 'http://api.epapocket.ir/';
+var serviceBase =  'http://localhost:58908/';
+//var serviceBase = 'http://api.epapocket.ir/';
  
 //var webBase = 'http://localhost:30273/';
 var webBase = 'http://web.epatrin.ir/';
@@ -207,7 +207,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     $rootScope.fileHandlerUrl = webBase + 'filehandler.ashx';
     $rootScope.clientsFilesUrl = webBase + 'upload/clientsfiles/';
     $rootScope.webBase=webBase;
-    $rootScope.app_title = 'WebPocket';
+    $rootScope.app_title = 'Crew Pocket';
     $rootScope.page_title = '';
     $rootScope.app_remark = 'Lorem ipsum dolor sit amet';
     $rootScope.module = 'Web Application';

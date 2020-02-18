@@ -309,13 +309,13 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
         }
 
         var elem = "<div class='col-lg-3 col-md-6 col-sm-6  applibraryitem' style='padding:2px 3px 5px 3px;' >"
-            + " <div class='card text-white text-black-50' style='margin:0; padding:10px 7px 10px 0px;display:block;height:80px'>"
+            + " <div class='card text-white text-black-50' style='background:transparent !important; margin:0px 10px 0 17px; padding:5px 7px 5px 0px;display:block;height:60px;border:none;border-bottom:1px dashed gray'>"
             + " <div class='col-lg-9 col-md-10 col-sm-10 col-xs-10' style='padding-right:0;padding-left:10px'>"
             + " <div style='font-weight:normal;' >" + _caption + "  </div>"
             + " <div style='margin-top:5px;font-size:13px;'  >" + _remark + "</div>"
             + "</div>"
             + "<div class='col-lg-3 col-md-2 col-sm-2 col-xs-2' style='text-align:center'>"
-            + "   <i  class='fas fa-times-circle text-warning' style='font-size:40px;color:red !important'></i>"
+            + "   <i  class='fas fa-bell text-warning' style='font-size:30px;color:red !important;position:relative;top:6px;'></i>"
             + "</div>"
 
             + "<div style='clear:both'></div>"
@@ -579,6 +579,218 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
         });
         $scope.courses = data;
     };
+    $scope.ds_nextFlights = [];
+
+    Date.prototype.addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    };
+    $scope.getDay = function (dt) {
+        return (new Date(dt)).getDate();
+    };
+    $scope.getFlightTileMonth = function (dt) {
+        var mns = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        var _dt = new Date(dt);
+        var m = _dt.getMonth();
+        var mstr = mns[m];
+        var year = _dt.getFullYear();
+        var yearstr = year.toString().substring(2, 4);
+        var str = mstr + ' ' + yearstr;
+        return str;
+    };
+    $scope.getStatus = function (item) {
+
+        switch (item) {
+            case 'OffBlocked':
+                return 'Block Off';
+            case 'OnBlocked':
+                return 'Block On';
+            case 'Departed':
+                return 'Take Off';
+            case 'Arrived':
+                return 'Landing';
+
+            default:
+                return item;
+        }
+    };
+    $scope.getStatusClass = function (item) {
+
+        return "fa fa-circle " + item.FlightStatus.toLowerCase();
+    };
+    function formatTime2(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+
+        //hours = hours % 12;
+        //hours = hours ? hours : 12; // the hour '0' should be '12'
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes;
+        return strTime;
+    }
+    $scope.getTimeFormated = function (dt) {
+        if (!dt)
+            return "-";
+        var _dt = new Date(dt);
+        return formatTime2(_dt);
+    };
+    $scope.getDuration = function (x) {
+        if (!x)
+            return "-";
+        return pad(Math.floor(x / 60)).toString() + ':' + pad(x % 60).toString() + ' hrs';
+    };
+    $scope.formatMinutes = function (mm) {
+        mm = Math.round(mm);
+        return pad(Math.floor(mm / 60)).toString() + ':' + pad(mm % 60).toString();
+    };
+    function getText(item, text) {
+        return "Racer " + (item.index + 1) + " - " + text + " km/h";
+    }
+    $scope.Duties = [];
+    $scope.DutyColors = [];
+
+    $scope.dutyGauge = {
+        startValue: 0,
+        endValue: 190,
+      
+        label: {
+            indent: 10,
+            format: {
+                type: "fixedPoint",
+                precision: 1
+            },
+            font:{
+                size:13,
+            },
+            customizeText: function (arg) {
+                var dvalue = $scope.Duties[arg.index];
+                return $scope.formatMinutes(dvalue * 60); //arg.valueText + " %";
+            }
+        },
+         
+        //title: {
+        //    text: "Duty",
+        //    horizontalAlignment: 'left',
+        //    margin:{top:-10,bottom:0,left:20,right:10},
+        //    font: {
+        //        size: 16,
+        //        weight:900,
+        //    }
+        //},
+        bindingOptions: {
+            values: 'Duties',
+            palette:'DutyColors',
+        }
+    };
+    $scope.d7style = {
+        display: 'inline-block',
+    };
+    ////////////////////////
+    $scope.YFlights = [];
+    $scope.YFlightsColors = [];
+    $scope.Flights = [];
+    $scope.FlightsColors = [];
+    $scope.yflightGauge = {
+        startValue: 0,
+        endValue: 1000,
+        margin: {
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+        },
+        size: {
+            height: 150,
+             
+        },
+        label:{
+            visible:false
+        },
+        relativeInnerRadius:0.5,
+        //label: {
+        //    indent: 10,
+        //    format: {
+        //        type: "fixedPoint",
+        //        precision: 1
+        //    },
+        //    font: {
+        //        size: 13,
+        //    },
+        //    customizeText: function (arg) {
+        //        var dvalue = $scope.Duties[arg.index];
+        //        return $scope.formatMinutes(dvalue * 60); //arg.valueText + " %";
+        //    }
+        //},
+
+        //title: {
+        //    text: "Duty",
+        //    horizontalAlignment: 'left',
+        //    margin: { top: -10, bottom: 0, left: 20, right: 10 },
+        //    font: {
+        //        size: 16,
+        //        weight: 900,
+        //    }
+        //},
+        bindingOptions: {
+            values: 'YFlights',
+            palette: 'YFlightsColors',
+        }
+    };
+    $scope.flightGauge = {
+        startValue: 0,
+        endValue: 100,
+        margin: {
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0
+        },
+        size: {
+            height: 150,
+
+        },
+        label: {
+            visible: false
+        },
+        relativeInnerRadius: 0.8,
+       
+        bindingOptions: {
+            values: 'Flights',
+            palette: 'FlightsColors',
+        }
+    };
+    $scope.d7style = {
+        display: 'inline-block',
+    };
+    $scope.yfstyle = {
+        display: 'inline-block',
+    };
+    $scope.fstyle = {
+        display: 'inline-block',
+    };
+    $scope.cyfstyle = {
+        display: 'inline-block',
+        'margin-left': '5px',
+    };
+    ////////////////////////
+    $scope.d14style = {
+        display: 'inline-block',
+        'margin-left':'5px',
+    };
+    $scope.d28style = {
+        display: 'inline-block',
+        'margin-left': '5px',
+    };
+    $scope.d7 = null;
+    $scope.d14 = null;
+    $scope.d28 = null;
+
+    $scope.f = null;
+    $scope.yf = null;
+    $scope.cyf = null;
+
     $scope.bind = function () {
         $scope.loadingVisible = true;
 
@@ -587,21 +799,107 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
             $scope.bindEmployee2(employee);
 
             activityService.getAppDashboard(Config.CustomerId, $rootScope.employeeId).then(function (response) {
-
+                console.log(response);
                 $scope.loadingVisible = false;
+                if (response.NextFlight)
+                {
+                    $scope.ds_nextFlights.push(response.NextFlight);
+                }
+                if (response.FTL) {
+                  //  response.FTL.Day7_Duty =   30*60;
+                  //  response.FTL.Day14_Duty =   80 * 60;
+                    //response.FTL.Day28_Duty =   162 * 60;
+
+                    var f = response.FTL.Day28_Flight / 60.0;
+                    $scope.f = $scope.formatMinutes(response.FTL.Day28_Flight);
+                    $scope.Flights.push(f);
+                    var fcolor = '#1ac6ff';
+                    if (response.FTL.Day28_Flight >= 0.85 * 100 * 60)
+                        fcolor = "#ff8c1a";
+                    if (response.FTL.Day28_Flight >= 100 * 60)
+                        fcolor = "#e62e00";
+                    $scope.FlightsColors.push(fcolor);
+                    $scope.fstyle.color = fcolor;
+                    
+
+
+                    var yf = response.FTL.Year_Flight / 60.0;
+                    $scope.yf = $scope.formatMinutes(response.FTL.Year_Flight);
+                    var cyf = response.FTL.CYear_Flight / 60.0;
+                    $scope.cyf = $scope.formatMinutes(response.FTL.CYear_Flight);
+
+                    $scope.YFlights.push(yf);
+                    var yfcolor = '#1aff1a';
+                    if (response.FTL.Year_Flight >= 0.85 * 1000 * 60)
+                        yfcolor = "#ff9933";
+                    if (response.FTL.Year_Flight >= 1000 * 60)
+                        yfcolor = "#ff0000";
+                    $scope.YFlightsColors.push(yfcolor);
+                    $scope.yfstyle.color = yfcolor;
+
+                    $scope.YFlights.push(cyf);
+                    var cyfcolor = '#00e699';
+                    if (response.FTL.CYear_Flight >= 0.85 * 900 * 60)
+                        cyfcolor = "#ffcc00";
+                    if (response.FTL.CYear_Flight >= 900 * 60)
+                        cyfcolor = "#cc0052";
+                    $scope.YFlightsColors.push(cyfcolor);
+                    $scope.cyfstyle.color = cyfcolor;
+                    ////////////////////////////////
+
+
+                    var d7 = response.FTL.Day7_Duty / 60.0;
+                    $scope.d7 = $scope.formatMinutes(response.FTL.Day7_Duty);
+                    var d14 = response.FTL.Day14_Duty / 60.0;
+                    $scope.d14 = $scope.formatMinutes(response.FTL.Day14_Duty);
+                    var d28 = response.FTL.Day28_Duty / 60.0;
+                    $scope.d28 = $scope.formatMinutes(response.FTL.Day28_Duty);
+
+                    $scope.Duties.push(d28);
+                    var d28color = '#5c85d6';
+                    if (response.FTL.Day28_Duty >= 0.85 * 190 * 60)
+                        d28color = "#e68a00";
+                    if (response.FTL.Day28_Duty >= 190 * 60)
+                        d28color = "#b30000";
+                    $scope.DutyColors.push(d28color);
+                    $scope.d28style.color = d28color;
+
+                    $scope.Duties.push(d14);
+                    var d14color = '#00cc99';
+                    if (response.FTL.Day14_Duty >= 0.85 * 110 * 60)
+                        d14color = "#ff8000";
+                    if (response.FTL.Day14_Duty >= 110 * 60)
+                        d14color = "#cc0052";
+                    $scope.DutyColors.push(d14color);
+                    $scope.d14style.color = d14color;
+
+                    $scope.Duties.push(d7);
+                    var d7color = '#0099ff';
+                    if (response.FTL.Day7_Duty >= 0.85 * 60 * 60)
+                        d7color = "#ffaa00";
+                    if (response.FTL.Day7_Duty >=   60 * 60)
+                        d7color = "#ff3300";
+                    $scope.DutyColors.push(d7color);
+                    $scope.d7style.color = d7color;
+                    
+                   
+                }
+
                 $scope.bindNotification(response);
                 $.each(response.Library, function (_i, _d) {
                     $scope.IsLibraryVisible = true;
                     if (_d.Type == 83)
-                        _d.icon = "icon ion-md-bookmarks w3-text-red";
+                        _d.icon = "fas fa-file-pdf w3-text-red";
                     if (_d.Type == 84)
                         _d.icon = "icon ion-md-journal w3-text-red";
                     if (_d.Type == 85)
-                        _d.icon = "icon ion-md-arrow-dropright-circle w3-text-red";
+                        _d.icon = "fas fa-file-video w3-text-red";
                     if (_d.Type == 86)
                         _d.icon = "icon ion-md-document w3-text-red";
                 });
-                $scope.library = response.Library;
+                $scope.library = Enumerable.From(response.Library).Where('$.Type!=86').ToArray();
+                $scope.memo = Enumerable.From(response.Library).Where('$.Type==86').ToArray();
+                $scope.IsMemosVisible = $scope.memo.length > 0;
                 generalService.getExpiringCertificates2($rootScope.userId).then(function (response) {
                     console.log('certificates');
                     console.log(response);
@@ -633,7 +931,7 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
     }
     else {
 
-        $scope.scroll_height = $(window).height() - 45 - 70;
+        $scope.scroll_height = $(window).height() - 45 - 50;
         $scope.bind();
 
     }
