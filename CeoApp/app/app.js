@@ -213,7 +213,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     $rootScope.module = 'Web Application';
     $rootScope.moduleId = 100;
     $rootScope.moduleRemark = '';
-    $rootScope.theme = 'material.orange-light';
+    $rootScope.theme = 'dx.material.ceo-theme';
     $rootScope.color = '';
     $rootScope.class = '';
     $rootScope.userName = '';

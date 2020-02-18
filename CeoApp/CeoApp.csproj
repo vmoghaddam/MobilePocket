@@ -154,6 +154,7 @@
     <Content Include="content\css\dx.light.compact.css" />
     <Content Include="content\css\dx.light.css" />
     <Content Include="content\css\dx.material.blue.light.css" />
+    <Content Include="content\css\dx.material.ceo-theme.css" />
     <Content Include="content\css\dx.softblue.compact.css" />
     <Content Include="content\css\dx.softblue.css" />
     <Content Include="content\css\dx.spa.css" />
