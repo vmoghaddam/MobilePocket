@@ -344,15 +344,6 @@
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\template.js" />
     <Content Include="scripts\templateAdd.js" />
-    <Content Include="scripts\vectormap-data\africa.js" />
-    <Content Include="scripts\vectormap-data\canada.js" />
-    <Content Include="scripts\vectormap-data\eurasia.js" />
-    <Content Include="scripts\vectormap-data\europe.js" />
-    <Content Include="scripts\vectormap-data\usa.js" />
-    <Content Include="scripts\vectormap-data\world.js" />
-    <Content Include="scripts\vectormap-utils\dx.vectormaputils.debug.js" />
-    <Content Include="scripts\vectormap-utils\dx.vectormaputils.js" />
-    <Content Include="scripts\vectormap-utils\dx.vectormaputils.node.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -505,7 +496,6 @@
     <Content Include="content\fonts\woff\IRANSansWeb_Light.woff" />
     <Content Include="content\fonts\woff\IRANSansWeb_Medium.woff" />
     <Content Include="content\fonts\woff\IRANSansWeb_UltraLight.woff" />
-    <Content Include="content\webfonts.zip" />
     <Content Include="content\webfonts\fa-brands-400.eot" />
     <Content Include="content\webfonts\fa-brands-400.ttf" />
     <Content Include="content\webfonts\fa-brands-400.woff" />
@@ -519,6 +509,7 @@
     <Content Include="content\webfonts\fa-solid-900.woff" />
     <Content Include="content\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
