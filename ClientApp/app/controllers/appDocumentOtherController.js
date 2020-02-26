@@ -58,17 +58,15 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
               
                 
             //});
-            console.log(response);
             $scope.ds = response;
         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
     };
 
     $scope.formatDate = function (dt) {
-        return moment(dt.DateRelease).format('MMM DD YYYY');
+        return moment(dt.DateExposure).format('MMM DD YYYY');
     };
 
     $scope.getVisitedClass = function (x) {
-       
         return "far fa-eye " + (x.IsVisited ? "file-visited" : "");
     };
 
@@ -84,24 +82,8 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
         return "card w3-text-dark-gray bg-white";
     };
 
-    $scope.getDeadLineClass = function (x) {
-        if (!x.DeadLine || x.RemainingDeadLine > 15 || x.IsVisited)
-            return "";
-        if (x.RemainingDeadLine <= 15 && x.RemainingDeadLine > 10)
-            return "alert-orange-text";
-          return "alert-red-text bold";
-    };
-
-    $scope.getDeadLineBackClass = function (x) {
-        if (!x.DeadLine || x.RemainingDeadLine > 15 || x.IsVisited)
-            return "";
-        if (x.RemainingDeadLine <= 15 && x.RemainingDeadLine > 10)
-            return "alert-orange-back white-text";
-        return "alert-red-back white-text";
-    };
-
     $scope.getDeadLineRemaining = function (x) {
-        if (!x.DeadLine || x.IsVisited)
+        if (!x.DeadLine)
             return "&nbsp;";
 
         return x.RemainingDeadLine +' day(s)';
@@ -109,7 +91,7 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
     $scope.getDeadLine = function (x) {
         if (!x.DeadLine)
             return "";
-        return "D/L: " + moment(x.DeadLine).format('MMM DD YYYY');
+        return "D/L " + moment(x.DeadLine).format('MMM DD YYYY');
     };
 
     ////////////////////////////////
@@ -130,12 +112,10 @@ app.controller('appDocumentOtherController', ['$scope', '$location', '$routePara
 
     //////////////////////////////////////
     /////////////////////////////////
-    $scope.ItemClick = function (x) {
-       console.log(x);
+    $scope.ItemClick = function (bookId, employeeId) {
+        alert('x');
         //alert(bookId+' '+employeeId);
         //$location.path('/appdocument/item/' + bookId);
-       var dtSigned = x.DateSigned ? x.DateSigned : -1;
-       $location.path('/docviewer/' + x.FileUrl + '/' + x.Title + '/' + x.FileId + '/' + x.BookId + '/' + dtSigned);
     };
 
     /////////////////////////////////////

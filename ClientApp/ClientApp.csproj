@@ -384,7 +384,6 @@
     <Content Include="content\images\letter-f.png" />
     <Content Include="content\images\letter-l.png" />
     <Content Include="content\images\library.png" />
-    <Content Include="content\images\logo-white.png" />
     <Content Include="content\images\logo.png" />
     <Content Include="content\images\logout.png" />
     <Content Include="content\images\medical.png" />

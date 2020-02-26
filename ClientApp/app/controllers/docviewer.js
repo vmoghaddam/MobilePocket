@@ -4,11 +4,7 @@ app.controller('docViewerController', ['$scope', '$sce', '$location', '$routePar
     $scope.url = $routeParams.url;
     $scope.title = $routeParams.title;
     $scope.id = $routeParams.id;
-    $scope.dateSigned = $routeParams.dateSigned;
-    $scope.bookId = $routeParams.bookId;
-    $scope.IsSignDisabled = true;
-    //alert($rootScope.formatDate($scope.dateSigned));
-    $scope.NotSigned = $scope.dateSigned == -1;
+
     $scope._url = $sce.trustAsResourceUrl($rootScope.webBase + 'pdfjs/web/viewer.html?file=../../upload/clientsfiles/' + $scope.url);
     activityService.visitFile($rootScope.employeeId, $scope.id);
     $scope.scroll_height = 200;
@@ -31,57 +27,20 @@ app.controller('docViewerController', ['$scope', '$sce', '$location', '$routePar
         },
         bindingOptions: { height: 'scroll_height', }
     };
-    ////////////////////////////////////
-    $scope.getDateSigned = function () {
-        if ($scope.dateSigned == -1)
-            return "-";
-        
-        return $rootScope.formatDate($scope.dateSigned);
-    }
     ///////////////////////////////////
-    $scope.$watch("code", function (newValue) {
-        
-        $scope.IsSignDisabled = !(newValue && newValue.length >= 4);
-    });
-    
     $scope.btn_sign = {
         text: 'Digital Sign',
-        type: 'default',
-        icon: 'fas fa-signature',
+        type: 'normal',
+        icon: 'fas fa-fingerprint',
         //width: 200,
         width:'100%',
         onClick: function (e) {
-            $scope.loadingVisible = true;
-            activityService.signFile($rootScope.employeeId, $scope.bookId,$scope.code).then(function (response) {
-                $scope.loadingVisible = false;
-                 
-                console.log(response);
-                if (response) {
-                    $scope.dateSigned = response.DateSigned;
-                    $scope.NotSigned = $scope.dateSigned == -1;
-                }
-                else
-                {
-                     
-                    General.ShowNotify("The verification code is wrong", 'error');
-                }
-                 
-            }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+            
+            alert('x');
+            ///$scope.popup_expose_visible = true;
 
-        },
-        bindingOptions: {
-            disabled:'IsSignDisabled',
         }
 
-    };
-    $scope.code = null;
-    $scope.txt_code = {
-        placeholder: "Code",
-        height: 35,
-        valueChangeEvent: "keyup",
-        bindingOptions: {
-            value: 'code'
-        }
     };
     /////////////////////////////////////
     $scope.loadingVisible = false;

@@ -117,7 +117,7 @@ General.ShowNotify = function (str, t) {
             at: "center top"
         },
         type: t,
-        displayTime: 3000,
+        displayTime: 2000,
     });
 };
 General.Confirm = function (str, callback) {

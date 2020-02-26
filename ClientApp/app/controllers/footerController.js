@@ -34,10 +34,10 @@
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
-        $('.footerhome').width('100%').show();
-      //  $('.footerall').width('25%').show();
-      //  $('.footerlast').width('25%').show();
-        //$('.footercourse').width('25%').show();
+        $('.footerhome').width('25%').show();
+        $('.footerall').width('25%').show();
+        $('.footerlast').width('25%').show();
+        $('.footercourse').width('25%').show();
          
 
     }
