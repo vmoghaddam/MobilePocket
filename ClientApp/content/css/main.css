@@ -66,6 +66,7 @@
 }
 .theme-orange {
     background: #FF5722;
+    background-color:dimgray;
     /*background: linear-gradient(to bottom right, #009688 20%, #53e3a6 95%);*/
     border-bottom: 2px solid red;
 }
@@ -87,12 +88,12 @@
 
 
 .app-headerx-client {
-    padding: 5px 10px 5px 5px;
+    padding: 7px 5px 3px 5px;
     /*background-color: #009688;*/
     color: white;
     font-size: 15px;
     /*font-weight: bold;*/
-    min-height: 50px;
+    /*min-height: 50px;*/
     /*background: url(../imgs/header.png) center repeat-x;*/
 }
 
@@ -477,20 +478,20 @@ body {
             background-color: #ddd !important;
         }
 .icon-bar {
-    height: 45px;
+    height: 40px;
     width: 100%;
     /*background-color: #555;*/
     overflow: auto;
 }
 .icon-bar-freewidth {
-    height: 45px;
+    height: 40px;
     width: 100%;
     /*background-color: #555;*/
     overflow: auto;
 }
 
     .icon-bar a {
-        height: 45px;
+        height: 40px;
         float: left;
         width: 20%;
         text-align: center;
@@ -500,7 +501,7 @@ body {
         font-size: 24px;
     }
 .icon-bar-freewidth a {
-    height: 45px;
+    height: 40px;
      
     
     text-align: center;
@@ -1221,7 +1222,9 @@ body {
     .slide.ng-leave-active {
         left: -100%;
     }
-
+.file-visited {
+    color: #0073e6 !important;
+}
 
 .slidedown {
     position: absolute;
@@ -1252,3 +1255,31 @@ body {
     .slidedown.ng-leave-active {
         top: 100%;
     }
+
+
+    .alert-red-text {
+        color:red !important;
+        
+
+    }
+.alert-red-back {
+    background-color: #ff3300 !important;
+}
+
+    .alert-orange-text{
+        color:darkorange !important;
+    }
+.alert-orange-back {
+    background-color: #ff8000 !important;
+}
+
+.valid-back {
+    background: #b3ffb3 !important;
+}
+.notvalid-back{
+    background:#eee !important;
+}
+    .white-text{
+        color:white !important;
+    }
+
