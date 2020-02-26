@@ -15,7 +15,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="2.6.4" />
     <PackageReference Include="Microsoft.AppCenter.Push" Version="2.6.4" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
-    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991537" />
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
     <PackageReference Include="XLabs.Forms" Version="2.0.5782" />
     <PackageReference Include="XLabs.Serialization" Version="2.0.5782" />
     <PackageReference Include="XLabs.Serialization.JSON" Version="2.0.5782" />

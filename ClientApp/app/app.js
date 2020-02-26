@@ -123,7 +123,12 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/pdfviewer.html?v=20",
 
     });
-    $routeProvider.when("/docviewer/:url/:title/:id", {
+    $routeProvider.when("/memoviewer/:url/:title/:id", {
+        controller: "appDocumentItemController",
+        templateUrl: "/app/views/appDocumentItem.html?v=20",
+
+    });
+    $routeProvider.when("/docviewer/:url/:title/:id/:bookId/:dateSigned", {
         controller: "docViewerController",
         templateUrl: "/app/views/docviewer.html?v=20",
 
@@ -202,7 +207,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     $rootScope.fileHandlerUrl = webBase + 'filehandler.ashx';
     $rootScope.clientsFilesUrl = webBase + 'upload/clientsfiles/';
     $rootScope.webBase=webBase;
-    $rootScope.app_title = 'WebPocket';
+    $rootScope.app_title = 'Crew Pocket';
     $rootScope.page_title = '';
     $rootScope.app_remark = 'Lorem ipsum dolor sit amet';
     $rootScope.module = 'Web Application';
@@ -282,7 +287,10 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
 
         return { width: w, height: h };
     };
-
+    //////////////////////////////
+    $rootScope.formatDate = function (dt) {
+        return moment(dt.DateExposure).format('MMM DD YYYY');
+    };
     //////////////////////////
     
     $rootScope.history = [];
