@@ -1,6 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+
+   
+
+
+
     <meta charset="utf-8" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
@@ -18,13 +23,13 @@
     <link href="content/css/w3.css" rel="stylesheet" />
     <link href="content/css/ionicons.css" rel="stylesheet" />
 
-   <!-- <link href="content/css/fontawsome2.css" rel="stylesheet" />-->
+    <!-- <link href="content/css/fontawsome2.css" rel="stylesheet" />-->
 
-     <link href="content/css/dx.common.css" rel="stylesheet" /> 
+    <link href="content/css/dx.common.css" rel="stylesheet" />
 
-   <!-- <link href="content/css/dx-19.common.css" rel="stylesheet" />-->
-      
-   <link rel="dx-theme" data-theme="dx.material.ceo-theme" href="content/css/dx.material.ceo-theme.css" data-active="true" /> 
+    <!-- <link href="content/css/dx-19.common.css" rel="stylesheet" />-->
+
+    <link rel="dx-theme" data-theme="dx.material.ceo-theme" href="content/css/dx.material.ceo-theme.css" data-active="true" />
     <!--<link  rel="dx-theme" data-theme="material.orange-light" href="https://cdn3.devexpress.com/jslib/19.2.4/css/dx.material.orange.light.css" />-->
     <!--<link rel="dx-theme" data-theme="material.orange-light" href="content/css/dx-theme.css" data-active="true" />-->
 
@@ -35,6 +40,8 @@
     <link href="content/css/main.css" rel="stylesheet" />
     <link href="content/css/core-ui.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <link rel="manifest" href="/manifest.json">
 </head>
 <body class="dx-viewport">
     <div ng-app="GriffinClientApp" style=" height:100%">
@@ -120,46 +127,46 @@
 
     <script src="app/controllers/pdfViewer.js"></script>
     <script>
-	  function goBack(){
-	    var current=window.location.href ;
-		  var old = document.referrer;
-		  window.history.back();
-	  }
-	  function display(msg) {
+        function goBack() {
+            var current = window.location.href;
+            var old = document.referrer;
+            window.history.back();
+        }
+        function display(msg) {
             alert(msg);
 
-      }
-     function exportLoginData(dto){
+        }
+        function exportLoginData(dto) {
 
-	    try{
-	        Native("exportLoginData", dto);
-		}
-		 catch(e){
-			// alert(e);
-		 }
-     }
-     function exportLogoutData() {
+            try {
+                Native("exportLoginData", dto);
+            }
+            catch (e) {
+                // alert(e);
+            }
+        }
+        function exportLogoutData() {
 
-         try {
-             Native("exportLogoutData", "logout");
-         }
-         catch (e) {
-             // alert(e);
-         }
-     }
-     function exportCurrentUrl(url) {
+            try {
+                Native("exportLogoutData", "logout");
+            }
+            catch (e) {
+                // alert(e);
+            }
+        }
+        function exportCurrentUrl(url) {
 
-         try {
-             Native("exportCurrentUrl", url);
-         }
-         catch (e) {
-             // alert(e);
-         }
-     }
+            try {
+                Native("exportCurrentUrl", url);
+            }
+            catch (e) {
+                // alert(e);
+            }
+        }
 
 
     </script>
 
-
+    <script src="main.js"></script>
 </body>
 </html>
