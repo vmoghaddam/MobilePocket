@@ -353,6 +353,7 @@
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\template.js" />
     <Content Include="scripts\templateAdd.js" />
+    <Content Include="sw-template.js" />
     <Content Include="sw.js" />
     <Content Include="Web.config" />
   </ItemGroup>
