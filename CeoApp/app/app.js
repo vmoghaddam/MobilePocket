@@ -164,8 +164,8 @@ app.config(function ($routeProvider) {
 // var webBase = 'http://grfn.epatrin.ir/';
 //var clientBase = 'http://grfn.app.epatrin.ir/';appdocument
 
-var serviceBase =  'http://localhost:58908/';
-//var serviceBase = 'http://api.epapocket.ir/';
+//var serviceBase =  'http://localhost:58908/';
+var serviceBase = 'http://api.epapocket.ir/';
  
 //var webBase = 'http://localhost:30273/';
 var webBase = 'http://web.epatrin.ir/';

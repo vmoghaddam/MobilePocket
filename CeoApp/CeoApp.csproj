@@ -283,7 +283,16 @@
     <Content Include="content\webfonts\fa-brands-400.svg" />
     <Content Include="content\webfonts\fa-regular-400.svg" />
     <Content Include="content\webfonts\fa-solid-900.svg" />
+    <Content Include="img\icon-128x128.png" />
+    <Content Include="img\icon-144x144.png" />
+    <Content Include="img\icon-152x152.png" />
+    <Content Include="img\icon-192x192.png" />
+    <Content Include="img\icon-384x384.png" />
+    <Content Include="img\icon-512x512.png" />
+    <Content Include="img\icon-72x72.png" />
+    <Content Include="img\icon-96x96.png" />
     <Content Include="index.html" />
+    <Content Include="main.js" />
     <Content Include="scripts\angular-1.7.2.js" />
     <Content Include="scripts\angular-animate.js" />
     <Content Include="scripts\angular-local-storage.min.js" />
@@ -344,6 +353,8 @@
     <Content Include="scripts\moment.js" />
     <Content Include="scripts\template.js" />
     <Content Include="scripts\templateAdd.js" />
+    <Content Include="sw-template.js" />
+    <Content Include="sw.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -508,6 +519,7 @@
     <Content Include="content\webfonts\fa-solid-900.ttf" />
     <Content Include="content\webfonts\fa-solid-900.woff" />
     <Content Include="content\webfonts\fa-solid-900.woff2" />
+    <Content Include="manifest.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
