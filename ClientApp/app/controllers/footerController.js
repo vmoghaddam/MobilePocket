@@ -26,7 +26,7 @@
     //    $('.footeritem').hide();
     //    //$('.applibrary').width('50%').show();
     //    //$('.apphome').width('50%').show();;
-    //    $('.footerhome').width('100%').show();
+    //    $('.footerhome').width('100%').show(); 
          
 
     //}
