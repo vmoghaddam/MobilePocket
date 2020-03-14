@@ -562,6 +562,46 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         $scope.popup_flight_visible = false;
 
     };
+    ////////////////////////////////////
+    $scope.popup_newflight_visible = false;
+     
+    $scope.popup_newflight = {
+       title:'Flight',
+        fullScreen: true,
+        showTitle: true,
+        dragEnabled: false,
+        toolbarItems: [
+           { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
+        ],
+
+        visible: false,
+
+        closeOnOutsideClick: false,
+        onShowing: function (e) {
+
+
+        },
+        onShown: function (e) {
+            
+        },
+        onHiding: function () {
+
+            
+        },
+        bindingOptions: {
+            visible: 'popup_newflight_visible',
+            
+             
+
+        }
+    };
+
+    //close button
+    $scope.popup_newflight.toolbarItems[0].options.onClick = function (e) {
+
+        $scope.popup_newflight_visible = false;
+
+    };
     //////////////////////////////////
     $scope.bindToday = function () {
         if ($scope.ds_today)
@@ -996,6 +1036,13 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
     //    console.log(event);
     //});
     
+
+    $scope.$on('new_flight', function (event, prms) {
+        $scope.popup_newflight_visible = true;
+
+
+    });
+
     $rootScope.$broadcast('AppLibraryLoaded', null);
     $rootScope.$broadcast('ActiveFooterItem', 'footerflightcalendar');
 

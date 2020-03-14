@@ -259,6 +259,9 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
        
        
     };
+    $rootScope.linkClicked = function (key) {
+        $rootScope.$broadcast(key, null);
+    };
     $rootScope.headerClasses = ['app-headerx', 'wrapper-bubble', 'col-lg-12', 'col-md-12', 'col-sm-12', 'col-xs-12'];
     Config.CustomerId = 1;
     authService.fillAuthData();

@@ -76,10 +76,12 @@
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
-        $('.footerhome').width('25%').show();
-        $('.footerflightcalendar').width('25%').addClass('xactive').show();
-        $('.footerflightstatistics').width('25%').show();
-        $('.footerflightlogbook').width('25%').show();
+        $('.footerhome').width('20%').show();
+        $('.footerflightcalendar').width('20%').addClass('xactive').show();
+        $('.footerflightstatistics').width('20%').show();
+        $('.footerflightlogbook').width('20%').show();
+        $('.footerflightnew').width('20%').show();
+         
 
 
     }
@@ -87,22 +89,22 @@
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
-        $('.footerhome').width('25%').show();
-        $('.footerflightcalendar').width('25%').show();
-        $('.footerflightstatistics').width('25%').addClass('xactive').show();
-        $('.footerflightlogbook').width('25%').show();
-
+        $('.footerhome').width('20%').show();
+        $('.footerflightcalendar').width('20%').show();
+        $('.footerflightstatistics').width('20%').addClass('xactive').show();
+        $('.footerflightlogbook').width('20%').show();
+        $('.footerflightnew').width('20%').show();
 
     }
     if ($scope.type == 'appflightlogbook') {
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
-        $('.footerhome').width('25%').show();
-        $('.footerflightcalendar').width('25%').show();
-        $('.footerflightstatistics').width('25%').show();
-        $('.footerflightlogbook').addClass('xactive').width('25%').show();
-
+        $('.footerhome').width('20%').show();
+        $('.footerflightcalendar').width('20%').show();
+        $('.footerflightstatistics').width('20%').show();
+        $('.footerflightlogbook').addClass('xactive').width('20%').show();
+        $('.footerflightnew').width('20%').show();
 
     }
     if ($scope.type == 'appdocument') {
