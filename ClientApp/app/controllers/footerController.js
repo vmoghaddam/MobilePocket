@@ -20,7 +20,6 @@
        // $('.footerbook').width('25%').show();
        // $('.footervideo').width('25%').show();
       //  $('.footerpaper').width('25%').show();
-
     }
     //if ($scope.type == 'appdocument') {
     //    $('.footeritem').hide();
@@ -34,10 +33,11 @@
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
-        $('.footerhome').width('100%').show();
+        $('.footerhome').width('50%').show();
       //  $('.footerall').width('25%').show();
       //  $('.footerlast').width('25%').show();
         //$('.footercourse').width('25%').show();
+        $('.footercertificationnew').width('50%').show();
          
 
     }
