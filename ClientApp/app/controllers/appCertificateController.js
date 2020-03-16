@@ -162,30 +162,7 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
         dragEnabled: false,
         toolbarItems: [
             { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
-        ],
-
-        //visible: false,
-
-        //closeOnOutsideClick: false,
-        //onShowing: function (e) {
-
-
-        //},
-        //onShown: function (e) {
-       
-        //},
-        //onHiding: function () {
-
-        //    $scope.flight = null;
-        //    $scope.crew = null;
-        //},
-        bindingOptions: {
-            visible: 'popup_certificate_visible',
-            //width: 'pop_width',
-            //height: 'pop_height',
-            title: 'popup_certificate_title',
-
-        }
+        ]
     };
 
     //close button
@@ -204,55 +181,26 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
         dragEnabled: false,   
         toolbarItems: [
            { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
-        ],
-
-        visible: false,
-
-        //closeOnOutsideClick: false,
-        //onShowing: function (e) {
-
-
-        //},
-        //onShown: function (e) {
-            
-        //},
-        //onHiding: function () {
-
-            
-        //},
-        bindingOptions: {
-            visible: 'popup_newcertificate_visible',
-            
-             
-
-        }
+        ]
     };
 
-    $scope.newCertificate = {
-        Issued: null,
-        Expires: null,
-        Title: null,
-        Remark: null,
+    $scope.date_expires = {
+      
     };
+
     $scope.date_issued = {
         adaptivityEnabled: true,
         type: "date",
         placeholder: 'Issued',
-
-        useMaskBehavior: true,
-
-        bindingOptions: {
-            value: 'newCertificate.Issued'
-
-        }
+        useMaskBehavior: true
     };
 
+    $scope.txt_remark = {
+
+    };
 
     $scope.txt_title = {
 
-        bindingOptions: {
-            value: 'newCertificate.Title'
-        }
     };
 
     //close button
