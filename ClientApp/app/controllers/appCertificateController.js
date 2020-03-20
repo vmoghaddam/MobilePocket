@@ -44,6 +44,9 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
         bindingOptions: { height: 'scroll_height', }
     };
 
+
+
+
     $scope.loadingVisible = false;
     $scope.loadPanel = {
         message: 'Please wait...',
@@ -122,6 +125,8 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
     
     };
 
+
+
     $scope.itemClick = function (bookId, employeeId) {
         //alert(bookId+' '+employeeId);
        // $location.path('/applibrary/item/' + bookId);
@@ -144,6 +149,72 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
       //      $('.footer' + $scope.active).addClass('active');
 
 
+    });
+
+    $scope.popup_certificate_visible = false;
+    $scope.popup_certificate_title = 'Certificate';
+    $scope.popup_certificate = {
+        width: 300,
+        height: 260,
+        //position: 'left top',
+        fullScreen: true,
+        showTitle: true,
+        dragEnabled: false,
+        toolbarItems: [
+            { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
+        ]
+    };
+
+    //close button
+    $scope.popup_certificate.toolbarItems[0].options.onClick = function (e) {
+
+        $scope.popup_certificate_visible = false;
+
+    };
+    ////////////////////////////////////
+    $scope.popup_newcertificate_visible = false;
+     
+    $scope.popup_newcertificate = {
+       title:'Certificate',
+        fullScreen: true,
+        showTitle: true,
+        dragEnabled: false,   
+        toolbarItems: [
+           { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
+        ]
+    };
+
+    $scope.date_expires = {
+      
+    };
+
+    $scope.date_issued = {
+        adaptivityEnabled: true,
+        type: "date",
+        placeholder: 'Issued',
+        useMaskBehavior: true
+    };
+
+    $scope.txt_remark = {
+
+    };
+
+    $scope.txt_title = {
+
+    };
+
+    //close button
+    $scope.popup_newcertificate.toolbarItems[0].options.onClick = function (e) {
+
+        $scope.popup_newcertificate_visible = false;
+
+    };
+
+
+
+
+    $scope.$on('new_certificate', function (event, prms) {
+        $scope.popup_newcertificate_visible = true;
     });
     $rootScope.$broadcast('AppLibraryLoaded', null);
 
