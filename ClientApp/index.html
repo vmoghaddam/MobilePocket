@@ -17,7 +17,7 @@
     <link href="content/css/bootstrap.css" rel="stylesheet" />
     <link href="content/css/w3.css" rel="stylesheet" />
     <link href="content/css/ionicons.css" rel="stylesheet" />
-
+    
    <!-- <link href="content/css/fontawsome2.css" rel="stylesheet" />-->
 
      <link href="content/css/dx.common.css" rel="stylesheet" /> 
@@ -113,48 +113,51 @@
     <script src="app/controllers/flightController.js?v=20"></script>
     <script src="app/controllers/flightStatsController.js?v=20"></script>
     <script src="app/controllers/flightLogBookController.js?v=20"></script>
+    <script src="app/controllers/passwordChangeController.js?v=20"></script>
+    <script src="app/controllers/register1Controller.js?v=20"></script>
+    <script src="app/controllers/register0Controller.js?v=20"></script>
     <script src="app/controllers/docViewer.js?v=20"></script>
 
 
 
     <script src="app/controllers/pdfViewer.js"></script>
     <script>
-	  function goBack(){
-	    var current=window.location.href ;
-		  var old = document.referrer;
-		  window.history.back();
-	  }
-	  function display(msg) {
+        function goBack() {
+            var current = window.location.href;
+            var old = document.referrer;
+            window.history.back();
+        }
+        function display(msg) {
             alert(msg);
 
-      }
-     function exportLoginData(dto){
+        }
+        function exportLoginData(dto) {
 
-	    try{
-	        Native("exportLoginData", dto);
-		}
-		 catch(e){
-			// alert(e);
-		 }
-     }
-     function exportLogoutData() {
+            try {
+                Native("exportLoginData", dto);
+            }
+            catch (e) {
+                // alert(e);
+            }
+        }
+        function exportLogoutData() {
 
-         try {
-             Native("exportLogoutData", "logout");
-         }
-         catch (e) {
-             // alert(e);
-         }
-     }
-     function exportCurrentUrl(url) {
+            try {
+                Native("exportLogoutData", "logout");
+            }
+            catch (e) {
+                // alert(e);
+            }
+        }
+        function exportCurrentUrl(url) {
 
-         try {
-             Native("exportCurrentUrl", url);
-         }
-         catch (e) {
-             // alert(e);
-         }
-     }
+            try {
+                Native("exportCurrentUrl", url);
+            }
+            catch (e) {
+                // alert(e);
+            }
+        }
 
 
     </script>

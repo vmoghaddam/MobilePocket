@@ -22,6 +22,21 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/login.html?v=20"
     });
 
+    $routeProvider.when("/password", {
+        controller: "passwordChangeController",
+        templateUrl: "/app/views/passwordChange.html?v=20"
+    });
+
+    $routeProvider.when("/register/1", {
+        controller: "register1Controller",
+        templateUrl: "/app/views/register1.html?v=20"
+    });
+
+    $routeProvider.when("/register/0", {
+        controller: "register1Controller",
+        templateUrl: "/app/views/register1.html?v=20"
+    });
+
     $routeProvider.when("/signup", {
         controller: "signupController",
         templateUrl: "/app/views/signup.html?v=20"
