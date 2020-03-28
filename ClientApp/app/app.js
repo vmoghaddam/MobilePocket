@@ -163,6 +163,18 @@ app.config(function ($routeProvider) {
         //type:'all',
         // type: 'book',
     });
+
+
+    $routeProvider.when("/appflightnew", {
+        controller: "appFlightNewController",
+        //templateUrl: "/app/views/appflightnew.html",
+        templateUrl: "/app/views/appflightnew.html?v=20",
+
+        //type:'all',
+        // type: 'book',
+    });
+
+
     $routeProvider.when("/appdocumentother", {
         controller: "appDocumentOtherController",
         templateUrl: "/app/views/appDocumentOther.html?v=20",
