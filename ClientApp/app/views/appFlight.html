@@ -937,9 +937,6 @@
                                     <div style="font-weight:bold;padding:3px 0">{{flight.ToAirportIATA}}</div>
                                 </div>
                             </div>
-
-
-
                         </div>
 
                         <div style="clear:both"></div>
@@ -952,13 +949,9 @@
                                 <i style="color:gray" class="fa fa-plane"></i>
                                 <span>{{flight.Register}}</span>
                                 <i style="display:inline-block;margin-left:10px;color:gray" class="fa fa-square"></i>
-
                                 <span>FlyPersia</span>
-
                             </div>
                             <div style="clear:both"></div>
-
-
                         </div>
                     </div>
                     <div style="padding-top:2px;padding-right:2px;padding-left:2px;background:white !important;padding:5px 10px" class="lib-flight">
@@ -1007,8 +1000,6 @@
                                 <td style="width:50%;text-align:left">Block Time</td>
                                 <td style="width:50%; text-align:right">{{getDuration(flight.BlockTime)}}</td>
                             </tr>
-
-
                         </table>
                     </div>
                     <div style="padding-top:2px;padding-right:2px;padding-left:2px;background:white !important;padding:0" class="lib-flight">
@@ -1019,9 +1010,7 @@
                                     <td style="width:30%;text-align:left;font-weight:bold">{{x.Position}}</td>
                                     <td style="width:70%; text-align:right">{{x.Name}}</td>
                                 </tr>
-
-
-
+                                                               
                             </table>
                         </div>
 
@@ -1039,6 +1028,54 @@
             <div dx-scroll-view="scroll_popup">
                 <div class="dx-border">
                     <!--New Flight-->
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>Airline</label>
+                        <div dx-text-box="txt_airline" class="center" dx-validator="{validationGroup:'add_new_flight',  validationRules: [{ type: 'required'}]}"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>Flight Number</label>
+                        <div dx-text-box="txt_flightNo" class="center" dx-validator="{validationGroup:'add_new_flight',  validationRules: [{ type: 'required'}]}"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>Date</label>
+                        <div dx-date-box="date_flightDate" class="center" dx-validator="{validationGroup:'add_new_flight',  validationRules: [{ type: 'required'}]}" ></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>From</label>
+                        <div dx-select-box="sb_from" class="center" dx-validator="{validationGroup:'add_new_flight',  validationRules: [{ type: 'required'}]}"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>To</label>
+                        <div dx-select-box="sb_to" class="center" dx-validator="{validationGroup:'add_new_flight',  validationRules: [{ type: 'required'}]}"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>STD</label>
+                        <div dx-date-box="time_std" class="center" dx-validator="{validationGroup:'add_new_flight',  validationRules: [{ type: 'required'}]}"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>STA</label>
+                        <div dx-date-box="time_sta" class="center" dx-validator="{validationGroup:'add_new_flight',  validationRules: [{ type: 'required'}]}"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>Off Block</label>
+                        <div dx-date-box="time_offBlock" class="center"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>On Block</label>
+                        <div dx-date-box="time_onBlock" class="center" ></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>Takeoff</label>
+                        <div dx-date-box="time_takeoff" class="center" ></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>Landing</label>
+                        <div dx-date-box="time_landing" class="center"></div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-sm-6 col-12  margin-bottom-5 padding-7">
+                        <label>Position</label>
+                        <div dx-select-box="sb_position" class="center" ></div>
+                    </div>
                 </div>
             </div>
         </div>

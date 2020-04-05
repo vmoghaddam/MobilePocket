@@ -11,10 +11,7 @@
             <div id="scrollview" dx-scroll-view="scroll_main">
                 <div style="padding:20px">
 
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12  margin-bottom-5 padding-7" style="display:block">
-                        <label>Mobile Number</label>
-                        <div id="" dx-text-box="txt_mobileNumber" dx-validator="mobileNumberValidationRules"></div>
-                    </div>
+
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12  margin-bottom-5 padding-7" style="display:block">
                         <label>First Name</label>
                         <div id="" dx-text-box="txt_firstName" dx-validator="firstNameValidationRules"></div>
@@ -28,8 +25,12 @@
                         <div id="" dx-text-box="txt_email" dx-validator="emailValidationRules"></div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12  margin-bottom-5 padding-7" style="display:block">
+                        <label>Position</label>
+                        <div id="" dx-select-box="sb_position" dx-validator="positionValidationRules"></div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12  margin-bottom-5 padding-7" style="display:block">
                         <label>Password</label>
-                        <div id="" dx-text-box="txt_password" dx-validator="passwordValidationRules"></div>
+                        <div id="pass" dx-text-box="txt_password" dx-validator="passwordValidationRules"></div>
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12  margin-bottom-5 padding-7" style="display:block">
                         <label>Confirm Password</label>

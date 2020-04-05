@@ -33,8 +33,8 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when("/register/0", {
-        controller: "register1Controller",
-        templateUrl: "/app/views/register1.html?v=20"
+        controller: "register0Controller",
+        templateUrl: "/app/views/register0.html?v=20"
     });
 
     $routeProvider.when("/signup", {

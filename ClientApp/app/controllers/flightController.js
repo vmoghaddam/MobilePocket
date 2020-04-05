@@ -571,7 +571,29 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         showTitle: true,
         dragEnabled: false,
         toolbarItems: [
-           { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'success', text: 'Save', icon: 'check', useSubmitBehavior: true,validationGroup:'add_new_flight',
+                    onClick: function (e) {
+                        var result = e.validationGroup.validate();
+
+                        if (!result.isValid) {
+                            //   General.ShowNotify('Please fill in all required fields.', 'error');
+                            return;
+                        }
+                       // alert('x');
+                        //var result = e.validationGroup.validate();
+                        
+                    }
+                }, toolbar: 'bottom'
+            },
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'danger', text: 'Close', icon: 'remove', onClick: function (e) {
+                        $scope.popup_newflight_visible = false;
+                    }
+                }, toolbar: 'bottom'
+            }
         ],
 
         visible: false,
@@ -596,12 +618,109 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         }
     };
 
-    //close button
-    $scope.popup_newflight.toolbarItems[0].options.onClick = function (e) {
-
-        $scope.popup_newflight_visible = false;
-
+  
+    //////new flight controls///////////////////////////
+    $scope.newFlight = {
+        Date: null,
+        From: null,
+        To:null,
+        Airline: null,
+        STD: null,
+        STA: null,
+        OffBlock: null,
+        OnBlock: null,
+        Takeoff: null,
+        Landing:null,
+        FlightNumber:null,
     };
+    $scope.txt_airline = {
+        placeholder: "Enter Airline",
+        showClearButton: true,
+        bindingOptions: {
+            value: 'newFlight.Airline'
+        }
+    };
+    $scope.txt_flightNo = {
+        placeholder: "Enter Flight Number",
+        showClearButton: true,
+        bindingOptions: {
+            value: 'newFlight.FlightNumber'
+        }
+    };
+    $scope.txt_flightDate = {
+        placeholder: "Enter Flight Date",
+        adaptivityEnabled: true,
+        type: "date",
+        useMaskBehavior: true,
+        bindingOptions: {
+            value: 'newFlight.Date'
+        }
+    };
+    $scope.airportDs = [];
+    $scope.sb_from = {
+        showClearButton: true,
+        searchEnabled: true,
+        dataSource: $scope.airportDs,
+        displayExpr: "IATA",
+        valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newFlight.From',
+        }
+    };
+    $scope.sb_to = {
+        showClearButton: true,
+        searchEnabled: true,
+        dataSource: $scope.airportDs,
+        displayExpr: "IATA",
+        valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newFlight.To',
+        }
+    };
+    $scope.time_std = {
+        type: "time",
+        bindingOptions: {
+            value: 'newFlight.STD',
+        }
+    };
+    $scope.time_sta = {
+        type: "time",
+        bindingOptions: {
+            value: 'newFlight.STA',
+        }
+    };
+    $scope.time_offBlock = {
+        type: "time",
+        bindingOptions: {
+            value: 'newFlight.OffBlock',
+        }
+    };
+    $scope.time_onBlock = {
+        type: "time",
+        bindingOptions: {
+            value: 'newFlight.OnBlock',
+        }
+    };
+    $scope.time_takeoff = {
+        type: "time",
+        bindingOptions: {
+            value: 'newFlight.Takeoff',
+        }
+    };
+    $scope.time_landing = {
+        type: "time",
+        bindingOptions: {
+            value: 'newFlight.Landing',
+        }
+    };
+    $scope.allValidationRules = {
+        validationRules: [{
+            type: "required",
+            validationGroup: 'add_new_flight',
+            message: "Mobile Number is required"
+        }]
+    };
+
     //////////////////////////////////
     $scope.bindToday = function () {
         if ($scope.ds_today)

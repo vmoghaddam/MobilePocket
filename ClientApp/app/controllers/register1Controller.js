@@ -50,27 +50,20 @@ app.controller('register1Controller', ['$scope', '$location', '$routeParams', '$
         }
     };
 
+    $scope.positions = [
+        'TRE', 'TRI', 'LTC', 'P1', 'P2', 'ISCCM', 'SCCM', 'CCM'
+    ];
+
     //// Controls ////////////////
     $scope.entity = {
-        MobileNumber: null,
+       
         FirstName: null,
         LastName: null,
         Email:null,
-        Password:null,
+        Password: null,
+        Position:null,
     };
-    $scope.txt_mobileNumber = {
-        placeholder: "Enter Mobile Number",
-        showClearButton: true,
-        mask: "(+\\98) \\9000000000",
-       // maskRules: {
-        //    X:9 ///[02-9]/
-        //},
-        maskInvalidMessage: "The phone must have a correct Iran phone format",
-        useMaskedValue: true,
-        bindingOptions: {
-            value: 'entity.MobileNumber'
-        }
-    };
+    
     $scope.txt_firstName = {
         placeholder: "Enter First Name",
         showClearButton: true,
@@ -94,6 +87,13 @@ app.controller('register1Controller', ['$scope', '$location', '$routeParams', '$
 
         }
     };
+    $scope.sb_position = {
+        dataSource: $scope.positions,
+        bindingOptions: {
+            value: 'entity.Position'
+
+        }                     
+    };
     $scope.txt_password = {
         mode: "password",
         placeholder: "Enter password",
@@ -111,9 +111,9 @@ app.controller('register1Controller', ['$scope', '$location', '$routeParams', '$
         }
     };
     $scope.btn_save = {
-        icon: "check",
+       // icon: "check",
         type: "success",
-        text: "Save",
+        text: "Next",
         useSubmitBehavior: true,
         onClick: function (e) {
             DevExpress.ui.notify(JSON.stringify($scope.entity));
@@ -145,12 +145,19 @@ app.controller('register1Controller', ['$scope', '$location', '$routeParams', '$
         }, {
             type: "email",
             message: "Email is invalid"
-        }, {
-            type: "async",
-            message: "Email is already registered",
-            validationCallback: function (params) {
-                return sendRequest(params.value);
-            }
+        }//,{
+          //  type: "async",
+         //   message: "Email is already registered",
+         //   validationCallback: function (params) {
+         //       return sendRequest(params.value);
+         //   }
+    //    }
+    ]
+    };
+    $scope.positionValidationRules = {
+        validationRules: [{
+            type: "required",
+            message: "Position is required"
         }]
     };
     $scope.passwordValidationRules = {
@@ -164,8 +171,7 @@ app.controller('register1Controller', ['$scope', '$location', '$routeParams', '$
         validationRules: [{
             type: "compare",
             comparisonTarget: function () {
-                var password = $("#newPassword").dxTextBox("instance");
-                //entity.NewPassword; //$("#password-validation").dxTextBox("instance");
+                var password = $("#pass").dxTextBox("instance");
                 if (password) {
                     return password.option("value");
                 }

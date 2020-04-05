@@ -53,6 +53,7 @@ app.controller('register0Controller', ['$scope', '$location', '$routeParams', '$
     //// Controls ////////////////
     $scope.entity = {
         MobileNumber: null,
+        
        
     };
     $scope.txt_mobileNumber = {
@@ -68,25 +69,125 @@ app.controller('register0Controller', ['$scope', '$location', '$routeParams', '$
             value: 'entity.MobileNumber'
         }
     };
-   
+    $scope.vertificationCode = '12345';
+    $scope.isValidateButtonVisible = false;
+    $scope.isSendButtonVisible = true;
+    
+    $scope.timer = null;
     $scope.btn_send = {
         icon: "check",
         type: "success",
-        text: "Send Vertiication Cide",
+        text: "Send Vertiication Code",
         width:'100%',
-        useSubmitBehavior: true,
+        //useSubmitBehavior: true,
+        validationGroup:'mobile',
         onClick: function (e) {
-            DevExpress.ui.notify(JSON.stringify($scope.entity));
-            console.log($scope.entity);
+
+            var result = e.validationGroup.validate();
+            if (result.isValid) {
+               // DevExpress.ui.notify(JSON.stringify($scope.entity));
+               // console.log($scope.entity);
+                $scope.isValidateButtonVisible = true;
+                $scope.isSendButtonVisible = false;
+                $scope.vertificationCodeEntered = null;
+                ////////////////////////////////////
+                var c = 30;
+                $scope.timer = setInterval(function () {
+                    
+                    c--;
+                   // if ($scope.isVertificated = false) { clearInterval(x); }
+                    //else {
+                        if (c < 0) {
+                            clearInterval($scope.timer);
+
+                            $scope.$apply(function () {
+                                $scope.validateText = "Validate";
+                                $scope.isValidateButtonVisible = false;
+                                $scope.isSendButtonVisible = true;
+                            });
+                        }
+                        else
+                            $scope.$apply(function () {
+                                $scope.validateText = "Validate (" + c + ")";
+                            });
+                    //}
+
+                }, 1000);
+
+
+                /////////////////////////////////
+            }
+           
         }
     };
+
+    $scope.vertificationCodeEntered;
+    $scope.txt_vertificationCode = {
+        validationGroup: 'validate',
+        placeholder: "Enter Vertification Code",
+        showClearButton: true,
+        bindingOptions: {
+            value: 'vertificationCodeEntered'
+        }
+    };
+    $scope.validateText = "Validate";
+    $scope.btn_validate = {
+        icon: "check",
+        type: "success",
+        text: "Validate",
+        width: '100%',
+        //useSubmitBehavior: true,
+        validationGroup: 'validate',
+        bindingOptions: {
+            text:'validateText'
+        },
+        onClick: function (e) {
+
+            var result = e.validationGroup.validate();
+            if (result.isValid) {
+
+                $scope.validateText = 'Validation is done';
+                clearInterval($scope.timer);
+                $location.path('/register/1');
+                // DevExpress.ui.notify(JSON.stringify($scope.entity));
+                // console.log($scope.entity); }
+
+            }
+            else {
+                //$scope.isValidateButtonVisible = false;
+                //$scope.isSendButtonVisible = true;
+            }
+        }
+    };
+ 
+
     $scope.mobileNumberValidationRules = {
+        validationGroup:'mobile',
         validationRules: [{
             type: "required",
             message: "Mobile Number is required"
         }]
     };
-    
+    $scope.vertificationCodeValidationRules = {
+        validationGroup: 'validate',
+        validationRules: [{
+            type: "compare",
+            comparisonTarget: function () {
+                //var Code = $scope.vertificationCode;
+                //if (Code) {
+                return $scope.vertificationCode;
+                //}
+            },
+            //comparisonTarget: 'vertificationCode',
+            message: "Vertification Code does not match.",
+      
+        },
+            {
+                type: "required",
+                message: "Mobile Number is required"
+            }
+        ]
+    };
     $rootScope.page_title = 'Register';
     $scope.scroll_height = $(window).height() - 45 - 62;
     $('.register0').fadeIn();
