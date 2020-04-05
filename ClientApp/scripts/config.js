@@ -25,7 +25,7 @@ Config.LocalData = {};
 /////////////////////////////////
 Config.Types = [
     { type: 'airport', table: 'ViewAirport' },
-   // { type: 'aidnc', table: 'ViewAid' },
+    // { type: 'aidnc', table: 'ViewAid' },
 
 ];
 Config.Fields = [
@@ -41,8 +41,9 @@ Config.Fields = [
 Config.MenuItems = [
     { key: 'applibrary', title: 'Library', url: '/applibrary', icon: '../../content/images/booksg.png' },
     { key: 'appflight', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
-     { key: 'appflightstatistics', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
-      { key: 'appflightlogbook', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
+    { key: 'appflightstatistics', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
+    { key: 'appflightlogbook', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
+    { key: 'appflightnew', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
 
     { key: 'applibrary-book', title: 'Books', url: '/applibrary/books', icon: '../../content/images/booksg.png' },
     { key: 'applibrary-video', title: 'Videos', url: '/applibrary/videos', icon: '../../content/images/booksg.png' },
@@ -58,18 +59,18 @@ Config.MenuItems = [
     { key: 'appmessage', title: 'Messages', url: '/appmessage', icon: '../../content/images/booksg.png' },
     { key: 'appdocument', title: 'Documents', url: '/appdocument', icon: '../../content/images/booksg.png' },
     { key: 'appdocumentother', title: 'Documents', url: '/appdocumentother', icon: '../../content/images/booksg.png' },
-  
+
 ];
 
 ///////////////////////////////
 Exceptions = {};
 Exceptions.getMessage = function (error) {
-    return { message:error.status+' '+ error.statusText+' '+error.data };
+    return { message: error.status + ' ' + error.statusText + ' ' + error.data };
 };
 /////////////////////////////
 Colors = {};
 Colors.Palette = [
-    
+
     '#ff275d',
     '#00b0f0',
     '#2cb77b',
@@ -101,7 +102,7 @@ Colors.Palette = [
     '#f6765a',
     '#9f765a',
     '#9f76ab',
-    
+
 ];
 Colors.getRandom = function () {
     var color = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
@@ -111,11 +112,11 @@ Colors.getRandom = function () {
 Colors.getColor = function (index) {
     if (index <= Colors.Palette.length - 1)
         return Colors.Palette[index];
-    return Colors.getRandom ();
+    return Colors.getRandom();
 };
 Colors.getColorReverse = function (index) {
     if (index <= Colors.Palette.length - 1)
-        return Colors.Palette[Colors.Palette.length - 1-index];
+        return Colors.Palette[Colors.Palette.length - 1 - index];
     return Colors.getRandom();
 };
 

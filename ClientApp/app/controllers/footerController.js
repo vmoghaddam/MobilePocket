@@ -4,41 +4,41 @@
     $('.' + $scope.type).addClass('active');
     if ($scope.type == 'apphome') {
         $('.footeritem').hide();
-         $('.footerflight').width('16.66%').show();
+        $('.footerflight').width('16.66%').show();
         $('.footerlibrary').width('16.66%').show();
         $('.footercertification').width('16.66%').show();
         $('.footercourse').width('16.66%').show();
         $('.footernotification').width('16.66%').show();
         $('.footerdocument').width('16.66%').show();
     }
-    
+
     if ($scope.type == 'applibrary') {
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
         $('.footerhome').width('100%').show();
-       // $('.footerbook').width('25%').show();
-       // $('.footervideo').width('25%').show();
-      //  $('.footerpaper').width('25%').show();
+        // $('.footerbook').width('25%').show();
+        // $('.footervideo').width('25%').show();
+        //  $('.footerpaper').width('25%').show();
+
     }
     //if ($scope.type == 'appdocument') {
     //    $('.footeritem').hide();
     //    //$('.applibrary').width('50%').show();
     //    //$('.apphome').width('50%').show();;
-    //    $('.footerhome').width('100%').show(); 
-         
+    //    $('.footerhome').width('100%').show();
+
 
     //}
     if ($scope.type == 'appcertificate') {
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
-        $('.footerhome').width('50%').show();
-      //  $('.footerall').width('25%').show();
-      //  $('.footerlast').width('25%').show();
+        $('.footerhome').width('100%').show();
+        //  $('.footerall').width('25%').show();
+        //  $('.footerlast').width('25%').show();
         //$('.footercourse').width('25%').show();
-        $('.footercertificationnew').width('50%').show();
-         
+
 
     }
     if ($scope.type == 'appcourse') {
@@ -46,8 +46,8 @@
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;
         $('.footerhome').width('50%').show();
-      //  $('.footercoursepending').width('25%').show();
-       // $('.footercourseactive').width('33.3333%').show();
+        //  $('.footercoursepending').width('25%').show();
+        // $('.footercourseactive').width('33.3333%').show();
         $('.footercertification').width('50%').show();
 
 
@@ -60,18 +60,19 @@
         $('.footeritem').hide();
         $('.footerhome').width('50%').show();
         $('.footernotification').width('50%').show();
-        
+
     }
-    
+
     if ($scope.type == 'applibraryitem') {
         $('.footeritem').hide();
-       
+
     }
     if ($scope.type == 'appdocumentitem') {
         $('.footeritem').hide();
         $('.footerhome').width('50%').show();
         $('.footerdocument').width('50%').show();
     }
+
     if ($scope.type == 'appflightcalendar') {
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
@@ -81,7 +82,6 @@
         $('.footerflightstatistics').width('20%').show();
         $('.footerflightlogbook').width('20%').show();
         $('.footerflightnew').width('20%').show();
-         
 
 
     }
@@ -95,6 +95,7 @@
         $('.footerflightlogbook').width('20%').show();
         $('.footerflightnew').width('20%').show();
 
+
     }
     if ($scope.type == 'appflightlogbook') {
         $('.footeritem').hide();
@@ -107,8 +108,25 @@
         $('.footerflightnew').width('20%').show();
 
     }
+
+
+    if ($scope.type == 'appflightnew') {
+        $('.footeritem').hide();
+        //$('.applibrary').width('50%').show();
+        //$('.apphome').width('50%').show();;
+        $('.footerhome').width('20%').show();
+        $('.footerflightcalendar').width('20%').show();
+        $('.footerflightstatistics').width('20%').show();
+        $('.footerflightlogbook').width('20%').show();
+        $('.footerflightnew').width('20%').addClass('xactive').show();
+
+
+    }
+
+
+
     if ($scope.type == 'appdocument') {
-        
+
         $('.footeritem').hide();
         //$('.applibrary').width('50%').show();
         //$('.apphome').width('50%').show();;

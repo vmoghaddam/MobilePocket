@@ -239,6 +239,7 @@
     <Content Include="app\controllers\filterController.js" />
     <Content Include="app\controllers\flightController.js" />
     <Content Include="app\controllers\flightLogBookController.js" />
+    <Content Include="app\controllers\flightNewController.js" />
     <Content Include="app\controllers\flightStatsController.js" />
     <Content Include="app\controllers\footerController.js" />
     <Content Include="app\controllers\homeController.js" />
@@ -268,6 +269,7 @@
     <Content Include="app\views\appDocumentOther.html" />
     <Content Include="app\views\appFlight.html" />
     <Content Include="app\views\appflightlogbook.html" />
+    <Content Include="app\views\appflightnew.html" />
     <Content Include="app\views\appflightstatistics.html" />
     <Content Include="app\views\applibrary.html" />
     <Content Include="app\views\applibraryitem.html" />
