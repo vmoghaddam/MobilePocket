@@ -254,6 +254,7 @@
     <Content Include="app\controllers\register0Controller.js" />
     <Content Include="app\controllers\register1Controller.js" />
     <Content Include="app\controllers\reports.js" />
+    <Content Include="app\controllers\reportViewer.js" />
     <Content Include="app\controllers\signupController.js" />
     <Content Include="app\controllers\tokensManagerController.js" />
     <Content Include="app\services\activityService.js" />
@@ -298,6 +299,7 @@
     <Content Include="app\views\register0.html" />
     <Content Include="app\views\register1.html" />
     <Content Include="app\views\reports.html" />
+    <Content Include="app\views\reportViewer.html" />
     <Content Include="app\views\signup.html" />
     <Content Include="app\views\tokens.html" />
     <Content Include="content\css\bootstrap-4.min.css" />
