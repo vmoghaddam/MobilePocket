@@ -185,7 +185,7 @@ app.controller('register1Controller', ['$scope', '$location', '$routeParams', '$
     };
 
            $rootScope.page_title = 'Register';
-        $scope.scroll_height = $(window).height() - 45 - 62;
+        $scope.scroll_height = $(window).height() - 45 - 28;
         $('.register1').fadeIn();
 
    

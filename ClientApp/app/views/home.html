@@ -165,15 +165,15 @@
 
         <div class="rowx header" ng-include="'app/views/header.html'"></div>
         <div style="position:relative;">
-            <div ng-include="'app/views/menu.html'"></div>
+            <div ng-include="'app/views/menu.html?v=100'"></div>
         </div>
 
         <div class="rowx content" style="clear:both;background:#f0f3f5; ">
             <div id="scrollview" dx-scroll-view="scroll_main">
                 <div style="padding-top:2px;padding-right:5px;padding-left:5px">
 
-                    <div style="background:white;border:1px solid #ffc299;margin:0px 0 5px 0;padding-bottom:5px" ng-show="IsMemosVisible">
-                        <div style="text-align:left;padding:5px 0 5px 20px;font-size:16px;background:#ffc299"><i class="fas fa-sticky-note" style="font-size:18px;color:red"></i>  Memos</div>
+                    <div style="background:white;border:1px solid #ccc;margin:0px 0 5px 0;padding-bottom:5px" ng-show="IsMemosVisible">
+                        <div style="text-align:left;padding:5px 0 5px 20px;font-size:16px;background:#ccc"><i class="fas fa-sticky-note" style="font-size:18px;color:red"></i>  Memos</div>
                         <div class="col-lg-3 col-md-6 col-sm-6  applibraryitem" style="padding:2px 3px 5px 3px;" ng-repeat="x in memo" ng-click="alertAction(x.Type)">
                             <div class="card text-black-50  bg-white" style="margin:0px 10px 0 17px; padding:5px 7px 5px 0px;display:block;height:60px;border:none;border-bottom:1px dashed gray">
                                 <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10" style="padding-right:0">
@@ -355,8 +355,8 @@
 
                     <div style="clear:both"></div>
                     <!--CERTIFICATES ALERTS-->
-                    <div style="background:white;border:1px solid #ffd480;margin:5px 0 5px 0;padding-bottom:5px" ng-show="IsPersonalDocumentVisible">
-                        <div style="text-align:left;padding:5px 0 5px 20px;font-size:16px;background:#ffd480"><i class="fas fa-award" style="font-size:18px;color:red"></i> Certificates</div>
+                    <div style="background:white;border:1px solid #ccc;margin:5px 0 5px 0;padding-bottom:5px" ng-show="IsPersonalDocumentVisible">
+                        <div style="text-align:left;padding:5px 0 5px 20px;font-size:16px;background:#ccc"><i class="fas fa-award" style="font-size:18px;color:red"></i> Certificates</div>
                         <div id="persoanllic">
 
                         </div>
@@ -370,8 +370,8 @@
     </div>-->
 
                     <div style="clear:both"></div>
-                    <div style="background:white;border:1px solid #ffdb4d;margin:5px 0 5px 0;padding-bottom:5px" ng-show="IsLibraryVisible">
-                        <div style="text-align:left;padding:5px 0 5px 20px;font-size:16px;background:#ffdb4d"><i class="fas fa-book-open" style="font-size:18px;color:red"></i>  Library</div>
+                    <div style="background:white;border:1px solid #ccc;margin:5px 0 5px 0;padding-bottom:5px" ng-show="IsLibraryVisible">
+                        <div style="text-align:left;padding:5px 0 5px 20px;font-size:16px;background:#ccc"><i class="fas fa-book-open" style="font-size:18px;color:red"></i>  Library</div>
                         <div class="col-lg-3 col-md-6 col-sm-6  applibraryitem" style="padding:2px 3px 5px 3px;" ng-repeat="x in library" ng-click="alertAction(x.Type)">
                             <div class="card text-black-50  bg-white" style="margin:0px 10px 0 17px; padding:5px 7px 5px 0px;display:block;height:60px;border:none;border-bottom:1px dashed gray">
                                 <div class="col-lg-9 col-md-10 col-sm-10 col-xs-10" style="padding-right:0">

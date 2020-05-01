@@ -83,20 +83,52 @@ app.controller('passwordChangeController', ['$scope', '$location', '$routeParams
     $scope.btn_save = {
         icon: "check",
         type: "success",
-        text: "Save",
-        useSubmitBehavior: true,
+        text: "Update",
+        validationGroup: 'privacypassword',
+        //useSubmitBehavior: true,
         onClick: function (e) {
-            DevExpress.ui.notify(JSON.stringify($scope.entity));
-            console.log($scope.entity);
+           // DevExpress.ui.notify(JSON.stringify($scope.entity));
+            // console.log($scope.entity);
+            var result = e.validationGroup.validate();
+
+            if (!result.isValid) {
+                //   General.ShowNotify('Please fill in all required fields.', 'error');
+                return;
+            }
+            var dto={UserName:$rootScope.userName,Password:$scope.entity.NewPassword,Old:$scope.entity.CurrentPassword,Confirmed:$scope.entity.ConfirmPassword};
+        
+            $scope.loadingVisible = true;
+            authService.changePassword(dto).then(function (response) {
+                $scope.loadingVisible = false;
+                $scope.entity = {
+                    CurrentPassword: null,
+                    ConfirmPassword: null,
+                    NewPassword:null,
+                };
+                
+
+
+            },
+                      function (err) {
+                         
+                          $scope.loadingVisible = false;
+                          $scope.message = err.message;
+                          General.ShowNotify(err.message, 'error');
+
+                      });
+
+         
         }
     };
     $scope.currentpasswordValidationRules = {
+        validationGroup: 'privacypassword',
         validationRules: [{
             type: "required",
             message: "current Password is required"
         }]
     };
     $scope.newpasswordValidationRules = {
+        validationGroup: 'privacypassword',
         validationRules: [{
             type: "required",
             message: "new Password is required"
@@ -104,10 +136,11 @@ app.controller('passwordChangeController', ['$scope', '$location', '$routeParams
     };
 
     $scope.confirmPasswordValidationRules = {
+        validationGroup: 'privacypassword',
         validationRules: [{
             type: "compare",
             comparisonTarget: function () {
-                var password = $("#newPassword").dxTextBox("instance");
+                var password = $("#newPasswordprivacy").dxTextBox("instance");
                 //entity.NewPassword; //$("#password-validation").dxTextBox("instance");
                 if (password) {
                     return password.option("value");
@@ -142,7 +175,7 @@ app.controller('passwordChangeController', ['$scope', '$location', '$routeParams
         authService.redirectToLogin();
     }
     else {
-        $rootScope.page_title = 'Reset Password';
+        $rootScope.page_title = 'Privacy Settings';
         $scope.scroll_height = $(window).height() - 45 - 62;
         $('.passwordchange').fadeIn();
        

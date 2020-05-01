@@ -9,8 +9,26 @@
             <RowDefinition Height="*"></RowDefinition>
 
         </Grid.RowDefinitions>
-        
-    <!--<local:HybridWebView x:Name="hybridWebView"
+
+        <Grid  x:Name="gridContainer2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Label Text="Alert"   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="0" />
+            <Label Text="Please check your internet connection"  FontSize="Medium" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  Grid.Column="0" Grid.Row="1" />
+            <Button Text="Refresh"  Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" Clicked="OnButtonClicked"/>
+        </Grid>
+
+        <!--<StackLayout HorizontalOptions="CenterAndExpand"   BackgroundColor="Blue" >
+            <Label Text="First" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+        <StackLayout HorizontalOptions="CenterAndExpand"  BackgroundColor="Red" >
+            <Label Text="Second" TextColor="#FFFFFF" HorizontalOptions="CenterAndExpand" />
+        </StackLayout>-->
+        <!--<local:HybridWebView x:Name="hybridWebView"
                          Uri="http://app.epapocket.ir" />
 
     <WebView Grid.Row="0" x:Name="browser" Navigating="OnNavigating"/>

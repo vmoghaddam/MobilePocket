@@ -28,7 +28,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     var _login = function (loginData) {
 
-        var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password + "&scope=" +  (loginData.scope);
+        var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password + "&scope=" + (loginData.scope);
 
         if (loginData.useRefreshTokens) {
             data = data + "&client_id=" + ngAuthSettings.clientId;
@@ -36,7 +36,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         var deferred = $q.defer();
 
-      
+
         $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
             console.log('token');
             console.log(response);
@@ -44,14 +44,20 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             console.log(responseData);
             if (loginData.useRefreshTokens) {
                 localStorageService.set('authorizationDataApp', {
-                    token: responseData.access_token, userName: loginData.userName, refreshToken: responseData.refresh_token, expires: responseData['.expires'], useRefreshTokens: true });
+                    token: responseData.access_token, userName: loginData.userName, refreshToken: responseData.refresh_token, expires: responseData['.expires'], useRefreshTokens: true
+                });
             }
             else {
-                localStorageService.set('authorizationDataApp', { token: responseData.access_token, userName: loginData.userName, refreshToken: "", expires: responseData['.expires'],useRefreshTokens: false });
+                localStorageService.set('authorizationDataApp', { token: responseData.access_token, userName: loginData.userName, refreshToken: "", expires: responseData['.expires'], useRefreshTokens: false });
             }
 
-            localStorageService.set('userData', { Name: responseData.Name, UserId: responseData.UserId, EmployeeId: responseData.EmployeeId,JobGroup:'Cockpit' });
-            
+            localStorageService.set('userData', {
+                Name: responseData.Name, UserId: responseData.UserId, EmployeeId: responseData.EmployeeId
+                , JobGroup: responseData.JobGroup
+                , Position: responseData.Position
+                , PositionCode: responseData.PositionCode
+            });
+
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
             _authentication.useRefreshTokens = loginData.useRefreshTokens;
@@ -59,23 +65,25 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             $rootScope.userTitle = responseData.Name;
             $rootScope.userId = responseData.UserId;
             $rootScope.employeeId = responseData.EmployeeId;
-            $rootScope.jobGroup = 'Cockpit';
+            $rootScope.jobGroup = responseData.JobGroup;
+            $rootScope.position = responseData.Position;
+            $rootScope.positionCode = responseData.PositionCode;
 
             var dto = {
                 userName: $rootScope.userName,
                 userTitle: $rootScope.userTitle,
                 userId: $rootScope.userId,
                 employeeId: $rootScope.employeeId,
-                jobGroup:$rootScope.jobGroup,
+                jobGroup: $rootScope.jobGroup,
                 roles: '',
-                claims:'',
+                claims: '',
             };
             exportLoginData(dto);
 
             deferred.resolve(response);
 
         }, function (err, status) {
-           
+
             _logOut();
             deferred.reject(err);
         });
@@ -112,13 +120,16 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
                 $rootScope.userId = userData.UserId;
                 $rootScope.employeeId = userData.EmployeeId;
                 $rootScope.jobGroup = userData.JobGroup;
+                $rootScope.jobGroup = userData.JobGroup;
+                $rootScope.position = userData.Position;
+                $rootScope.positionCode = userData.PositionCode;
             }
         }
 
-        
+
 
     };
-   
+
 
     var _refreshToken = function () {
         var deferred = $q.defer();
@@ -287,7 +298,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     var _fillModuleData = function () {
 
         var data = localStorageService.get('module');
-       
+
         if (data) {
             $rootScope.module = data.title;
             $rootScope.moduleId = data.id;
@@ -295,8 +306,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
             $rootScope.theme = data.theme;
             $rootScope.color = data.color;
             $rootScope.class = data.class;
-            
-          //  $rootScope.headerClasses.push(data.class);
+
+            //  $rootScope.headerClasses.push(data.class);
         }
 
     };
@@ -304,9 +315,33 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         var module = _setModuleProperties(moduleId);
         localStorageService.set('module', module);
         _fillModuleData();
-        
+
     };
-   
+
+    var _setPassword = function (entity) {
+        var deferred = $q.defer();
+        $http.post($rootScope.serviceUrl + 'odata/users/password', entity).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
+
+    var _changePassword = function (entity) {
+        var deferred = $q.defer();
+        $http.post($rootScope.serviceUrl + 'odata/users/password/change', entity).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage2(err));
+        });
+
+        return deferred.promise;
+    };
+
 
     authServiceFactory.setModule = _setModule;
     authServiceFactory.fillModuleData = _fillModuleData;
@@ -323,8 +358,10 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.obtainAccessToken = _obtainAccessToken;
     authServiceFactory.externalAuthData = _externalAuthData;
     authServiceFactory.registerExternal = _registerExternal;
+    authServiceFactory.changePassword = _changePassword;
+    authServiceFactory.setPassword = _setPassword;
     authServiceFactory.IsAuthurized = function () {
-        
+
         return authServiceFactory.authentication.isAuth;
     };
 

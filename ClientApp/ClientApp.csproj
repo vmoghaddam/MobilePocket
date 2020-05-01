@@ -236,6 +236,8 @@
     <Content Include="app\controllers\appsController.js" />
     <Content Include="app\controllers\associateController.js" />
     <Content Include="app\controllers\docviewer.js" />
+    <Content Include="app\controllers\fdpController.js" />
+    <Content Include="app\controllers\fdpsController.js" />
     <Content Include="app\controllers\filterController.js" />
     <Content Include="app\controllers\flightController.js" />
     <Content Include="app\controllers\flightLogBookController.js" />
@@ -247,9 +249,11 @@
     <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\passwordChangeController.js" />
     <Content Include="app\controllers\pdfViewer.js" />
+    <Content Include="app\controllers\profileController.js" />
     <Content Include="app\controllers\refreshController.js" />
     <Content Include="app\controllers\register0Controller.js" />
     <Content Include="app\controllers\register1Controller.js" />
+    <Content Include="app\controllers\reports.js" />
     <Content Include="app\controllers\signupController.js" />
     <Content Include="app\controllers\tokensManagerController.js" />
     <Content Include="app\services\activityService.js" />
@@ -277,6 +281,8 @@
     <Content Include="app\views\apps.html" />
     <Content Include="app\views\associate.html" />
     <Content Include="app\views\docviewer.html" />
+    <Content Include="app\views\fdp.html" />
+    <Content Include="app\views\fdps.html" />
     <Content Include="app\views\filter.html" />
     <Content Include="app\views\footer.html" />
     <Content Include="app\views\header.html" />
@@ -287,9 +293,11 @@
     <Content Include="app\views\orders.html" />
     <Content Include="app\views\passwordChange.html" />
     <Content Include="app\views\pdfviewer.html" />
+    <Content Include="app\views\profile.html" />
     <Content Include="app\views\refresh.html" />
     <Content Include="app\views\register0.html" />
     <Content Include="app\views\register1.html" />
+    <Content Include="app\views\reports.html" />
     <Content Include="app\views\signup.html" />
     <Content Include="app\views\tokens.html" />
     <Content Include="content\css\bootstrap-4.min.css" />
@@ -462,11 +470,7 @@
     <Content Include="scripts\custom-tooltip.js" />
     <Content Include="scripts\dx.all.debug.js" />
     <Content Include="scripts\dx.all.js" />
-    <Content Include="scripts\dx.mobile.debug.js" />
     <Content Include="scripts\dx.mobile.js" />
-    <Content Include="scripts\dx.viz-web.debug.js" />
-    <Content Include="scripts\dx.viz-web.js" />
-    <Content Include="scripts\dx.viz.debug.js" />
     <Content Include="scripts\dx.viz.js" />
     <Content Include="scripts\dx.web.debug.js" />
     <Content Include="scripts\dx.web.js" />

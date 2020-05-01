@@ -1,0 +1,62 @@
+﻿<style>
+    .lib-report {
+        background: white;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        padding-right: 2px;
+        padding-left: 2px;
+        margin: 5px 5px 0 5px;
+        border: 1px solid #bbb;
+        transition: background 0.4s;
+    }
+    .rptitem{
+        padding:10px;
+        border-bottom:1px solid #ddd;
+    }
+    .dx-popup-title.dx-toolbar .dx-toolbar-item:last-child {
+        max-width: 300px !important;
+    }
+</style>
+<div style="height:100%;">
+    <div class="box reports maincontainer" style="height:100%;overflow-y:hidden;max-width:1200px;margin:0 auto 0 auto">
+        <div class="rowx header" ng-include="'app/views/header.html'"></div>
+        <div style="position:relative;">
+            <div ng-include="'app/views/menu.html'"></div>
+        </div>
+
+        <div class="rowx content" style="clear:both;background:#fff; ">
+
+
+            <div id="scrollviewreports" dx-scroll-view="scroll_reports">
+                <div style="padding-top:2px;padding-right:2px;padding-left:2px;background:white !important;padding:5px 10px" class="lib-report">
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#4da6ff"></i>Flights</div>
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#4da6ff"></i>General Logbook</div>
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#4da6ff"></i>General 7 Row Logbook</div>
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#4da6ff"></i>EASA-FCL Compliant 16</div>
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#4da6ff"></i>EASA-FCL Compliant 18</div>
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#4da6ff"></i>EASA-FCL Compliant 20</div>
+                    <div class="rptitem" style="border-bottom:none"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#4da6ff"></i>EASA-FCL Compliant 26</div>
+                </div>
+                <div style="padding-top:2px;padding-right:2px;padding-left:2px;background:white !important;padding:5px 10px" class="lib-report">
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#00e6ac"></i>Duties</div>
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#00e6ac"></i>Flight Duties</div>
+                    <div class="rptitem"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#00e6ac"></i>Office Duties</div>
+                    <div class="rptitem" style="border-bottom:none"><i class="fas fa-file-alt" style="display:inline-block;margin-right:5px;font-size:16px;color:#00e6ac"></i>Training Duties</div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="rowx footer app-footer" ng-include="'app/views/footer.html'" ng-init="type = 'reports';" style="padding:0;flex:0 0 45px"></div>
+    </div>
+
+
+
+    
+
+
+    <div dx-load-panel="loadPanel"></div>
+
+
+</div>

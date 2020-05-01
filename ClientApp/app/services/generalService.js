@@ -73,6 +73,19 @@ app.factory('generalService', ['$http', '$q', 'ngAuthSettings', '$rootScope', fu
 
         return deferred.promise;
     };
+    var _getProfile = function (id) {
+
+
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'odata/employee/profile/' + id).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
     var _getExpiringCertificates = function (id) {
 
         var deferred = $q.defer();
@@ -89,6 +102,18 @@ app.factory('generalService', ['$http', '$q', 'ngAuthSettings', '$rootScope', fu
 
         var deferred = $q.defer();
         $http.get(serviceBase + 'odata/crew/expires/' + id).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
+    var _getExpiringCertificates3 = function (id) {
+
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'odata/crew/expiring/certificates/' + id).then(function (response) {
             deferred.resolve(response.data);
         }, function (err, status) {
 
@@ -175,9 +200,60 @@ app.factory('generalService', ['$http', '$q', 'ngAuthSettings', '$rootScope', fu
 
         return deferred.promise;
     };
+    //"odata/employee/certificates/{id}"
+    var _getCertifications = function (id) {
+
+
+
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'odata/employee/certificates/' + id).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
+    var _saveCertification = function (entity) {
+        var deferred = $q.defer();
+        $http.post($rootScope.serviceUrl + 'odata/certificate/save', entity).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
+    var _deleteCertification = function (entity) {
+        var deferred = $q.defer();
+        $http.post($rootScope.serviceUrl + 'odata/certificate/delete', entity).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
+    var _updateProfile = function (entity) {
+        var deferred = $q.defer();
+        $http.post($rootScope.serviceUrl + 'odata/app/employee/update', entity).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
+
     ordersServiceFactory.getEmployee = _getEmployee;
+    ordersServiceFactory.getProfile = _getProfile;
     ordersServiceFactory.getExpiringCertificates = _getExpiringCertificates;
     ordersServiceFactory.getExpiringCertificates2 = _getExpiringCertificates2;
+    ordersServiceFactory.getExpiringCertificates3 = _getExpiringCertificates3;
     ordersServiceFactory.getLastCertificates = _getLastCertificates;
     ordersServiceFactory.getAllCertificates = _getAllCertificates;
     ordersServiceFactory.getPersonActiveCourse = _getPersonActiveCourse;
@@ -189,6 +265,12 @@ app.factory('generalService', ['$http', '$q', 'ngAuthSettings', '$rootScope', fu
     ordersServiceFactory.saveJournal = _saveJournal;
     ordersServiceFactory.deleteJournal = _deleteJournal;
     ordersServiceFactory.deleteOption = _deleteOption;
+    ordersServiceFactory.updateProfile = _updateProfile;
+
+
+    ordersServiceFactory.saveCertification = _saveCertification;
+    ordersServiceFactory.deleteCertification = _deleteCertification;
+    ordersServiceFactory.getCertifications = _getCertifications;
 
     return ordersServiceFactory;
 

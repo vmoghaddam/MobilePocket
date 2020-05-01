@@ -1,9 +1,9 @@
-﻿ 
+﻿
 var app = angular.module('GriffinClientApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'dx', 'ngSanitize', 'ngAnimate']).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
 }]);
- 
- 
+
+
 app.config(function ($routeProvider) {
     console.log('route');
     console.log($routeProvider);
@@ -42,7 +42,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html?v=20"
     });
 
-    
+
 
     $routeProvider.when("/refresh", {
         controller: "refreshController",
@@ -62,13 +62,13 @@ app.config(function ($routeProvider) {
         controller: "appFlightController",
         templateUrl: "/app/views/appflight.html?v=20",
         //type:'all',
-       // type: 'book',
+        // type: 'book',
     });
     $routeProvider.when("/applibrary/:fid/:pid", {
         controller: "appLibraryController",
         templateUrl: "/app/views/applibrary.html?v=20",
         //type:'all',
-        type:'book',
+        type: 'book',
     });
     $routeProvider.when("/applibrary/books", {
         controller: "appLibraryController",
@@ -88,7 +88,7 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/applibrary/item/:id", {
         controller: "appLibraryItemController",
         templateUrl: "/app/views/applibraryitem.html?v=20",
-        
+
     });
 
     $routeProvider.when("/appcertificate/all", {
@@ -101,7 +101,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/appcertificate.html?v=20",
         type: 'last',
     });
-   
+
     $routeProvider.when("/appcourse/active", {
         controller: "appCourseController",
         templateUrl: "/app/views/appcourse.html?v=20",
@@ -115,7 +115,7 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/appmessage", {
         controller: "appMessageController",
         templateUrl: "/app/views/appmessage.html?v=20",
-        
+
     });
     $routeProvider.when("/appdocument", {
         controller: "appDocumentController",
@@ -148,7 +148,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/docviewer.html?v=20",
 
     });
-    
+
 
 
     $routeProvider.when("/appflightstatistics", {
@@ -160,6 +160,14 @@ app.config(function ($routeProvider) {
     $routeProvider.when("/appflightlogbook", {
         controller: "appFlightLogBookController",
         templateUrl: "/app/views/appflightlogbook.html?v=20",
+        reloadOnSearch: false
+        //type:'all',
+        // type: 'book',
+    });
+    $routeProvider.when("/appflightlogbook/:tab", {
+        controller: "appFlightLogBookController",
+        templateUrl: "/app/views/appflightlogbook.html?v=20",
+        reloadOnSearch: false,
         //type:'all',
         // type: 'book',
     });
@@ -181,59 +189,98 @@ app.config(function ($routeProvider) {
         //type:'all',
         // type: 'book',
     });
+    $routeProvider.when("/register/0", {
+        controller: "register0Controller",
+        templateUrl: "/app/views/register0.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
 
- 
+    $routeProvider.when("/fdps", {
+        controller: "fdpsController",
+        templateUrl: "/app/views/fdps.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+    $routeProvider.when("/duties", {
+        controller: "fdpsController",
+        templateUrl: "/app/views/fdps.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+
+    $routeProvider.when("/fdp/:id", {
+        controller: "fdpController",
+        templateUrl: "/app/views/fdp.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+
+    $routeProvider.when("/profile", {
+        controller: "profileController",
+        templateUrl: "/app/views/profile.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+    $routeProvider.when("/reports", {
+        controller: "reportsController",
+        templateUrl: "/app/views/reports.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
+
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
-});   
+});
 
 //var serviceBase = 'http://grfn.api.epatrin.ir/';
 // var webBase = 'http://grfn.epatrin.ir/';
 //var clientBase = 'http://grfn.app.epatrin.ir/';appdocument
 
-//var serviceBase =  'http://localhost:58908/';
-var serviceBase = 'http://api.epapocket.ir/';
- 
-//var webBase = 'http://localhost:30273/';
-var webBase = 'http://web.epatrin.ir/';
+//var serviceBase = 'http://localhost:58908/';
+var serviceBase = 'http://api.crewpocket.ir/';
+
+var webBase = 'http://localhost:30273/';
+//var webBase = 'http://web.epatrin.ir/';
 var clientBase = 'http://localhost:22323/';
 //var clientBase = 'http://fleet.flypersia.aero:90/uairpocket/';
 
 
-    //'http://localhost:58908/';
-    //'http://localhost:40654/';
-   
-    //'http://localhost:10707/';
+//'http://localhost:58908/';
+//'http://localhost:40654/';
+
+//'http://localhost:10707/';
 //'http://ngauthenticationapi.azurewebsites.net/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
 });
- 
+
 //app.config(function ($httpProvider) {
 app.config(['$httpProvider', function ($httpProvider) {
-   
+
     $httpProvider.interceptors.push('authInterceptorService');
 }]);
- 
+
 app.run(['authService', 'activityService', '$rootScope', '$location', '$templateCache', function (authService, activityService, $rootScope, $location, $templateCache) {
     $rootScope.$on("$locationChangeStart", function (event, next, current) {
         exportCurrentUrl(next);
     });
-         
+
     //$rootScope.$on("$routeChangeStart", function (event, next, current) {
     //    console.log("$routeChangeStart is fired");
     //    console.log(next);
     //    console.log(current);
     //});
     $rootScope.$on('$viewContentLoaded', function () {
-        
+
         $templateCache.removeAll();
     });
     $rootScope.serviceUrl = serviceBase;
     $rootScope.fileHandlerUrl = webBase + 'filehandler.ashx';
     $rootScope.clientsFilesUrl = webBase + 'upload/clientsfiles/';
-    $rootScope.webBase=webBase;
+    $rootScope.webBase = webBase;
     $rootScope.app_title = 'Crew Pocket';
     $rootScope.page_title = '';
     $rootScope.app_remark = 'Lorem ipsum dolor sit amet';
@@ -248,6 +295,8 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     $rootScope.userId = null;
     $rootScope.employeeId = null;
     $rootScope.jobGroup = null;
+    $rootScope.position = null;
+    $rootScope.positionCode = null;
     $rootScope.logOut = function () { authService.logOut(); };
     $rootScope.clickMenuItem = function (prms) {
         switch (prms) {
@@ -255,6 +304,13 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
                 $rootScope.logOut();
                 break;
             case 'profile':
+                $location.path('/profile');
+                break;
+            case 'privacy':
+                $location.path('/password');
+                break;
+            case 'message':
+                $location.path('/appmessage');
                 break;
             default:
                 break;
@@ -264,41 +320,43 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     $rootScope.menu = function () {
 
 
-       
-       // $('#module' + $rootScope.moduleId).show();
+
+        // $('#module' + $rootScope.moduleId).show();
         var windowWidth = $(window).width();
-         
+
         var container = $('.maincontainer').width();
         $('#mySidenav').css('left', (windowWidth - container) / 2 + 'px').width(container);
-       
-       // $('#mySidenav').width(container);
+
+        // $('#mySidenav').width(container);
         //document.getElementById("mySidenav").style.width = "100%";
     };
     $rootScope.closeMenu = function () {
         document.getElementById("mySidenav").style.width = "0";
     };
-    $rootScope.navigate = function (target, key,module) {
-        
-        var rec = Enumerable.From(Config.MenuItems).Where('$.key=="' +  key + '"').FirstOrDefault();
-        activityService.hitMenu(key, target, 'Visiting ' + $rootScope.module+' > '+rec.title,module);
-         
-        $location.path(target); 
-       
-       
+    $rootScope.navigate = function (target, key, module) {
+
+        var rec = Enumerable.From(Config.MenuItems).Where('$.key=="' + key + '"').FirstOrDefault();
+        activityService.hitMenu(key, target, 'Visiting ' + $rootScope.module + ' > ' + rec.title, module);
+
+        $location.path(target);
+
+
     };
     $rootScope.linkClicked = function (key) {
+        console.log(key);
         $rootScope.$broadcast(key, null);
     };
+
     $rootScope.headerClasses = ['app-headerx', 'wrapper-bubble', 'col-lg-12', 'col-md-12', 'col-sm-12', 'col-xs-12'];
     Config.CustomerId = 1;
     authService.fillAuthData();
     //authService.fillModuleData();
 
     $rootScope.setTheme = function () {
-        
+
         DevExpress.ui.themes.current($rootScope.theme);
-         
-       
+
+
     };
     $rootScope.setTheme();
     //$rootScope.setTheme = function () {
@@ -308,12 +366,12 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
 
     //};
     /////////////////////////////
-    $rootScope.getWindowSize  = function ( ) {
+    $rootScope.getWindowSize = function () {
         var w = -1;
         var h = -1;
-        var w = $(window).width()  ;
-        var h = $(window).height()  ;
-        
+        var w = $(window).width();
+        var h = $(window).height();
+
 
         return { width: w, height: h };
     };
@@ -322,7 +380,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
         return moment(dt.DateExposure).format('MMM DD YYYY');
     };
     //////////////////////////
-    
+
     $rootScope.history = [];
 
     $rootScope.getSelectedRow = function (instance) {
@@ -338,16 +396,16 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
             return null;
         var rows = instance.getSelectedRowsData();
         if (rows && rows.length > 0)
-            return rows ;
+            return rows;
         return null;
     };
     $rootScope.getNextDate = function (interval, ctype, date) {
-         
+
         if (!interval || !ctype || !date)
             return null;
         ctype = Number(ctype);
         var nextDate = new Date(date);
-         
+
         //year
         if (ctype == 12) {
             nextDate = nextDate.setFullYear(nextDate.getFullYear() + interval);
@@ -367,20 +425,247 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     };
     $rootScope.$on('$routeChangeSuccess', function () {
         $rootScope.history.push($location.$$path);
-       
+
     });
     //////////////////////////////////////////////
     $rootScope.DateBoxFormat = "dd-MMM-yyyy";
     //////////////////DataSources//////////////////
+    //New 4-6
+    $rootScope.getDay = function (dt) {
+        return (new Date(dt)).getDate();
+    };
+    $rootScope.getTileMonth = function (dt) {
+        var mns = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        var _dt = new Date(dt);
+        var m = _dt.getMonth();
+        var mstr = mns[m];
+        var year = _dt.getFullYear();
+        var yearstr = year.toString().substring(2, 4);
+        var str = mstr + ' ' + yearstr;
+        return str;
+    };
+    $rootScope.formatMinutes = function (mm) {
+        return pad(Math.floor(mm / 60)).toString() + ':' + pad(Math.floor(mm % 60)).toString();
+    };
+    $rootScope.formatDate = function (dt) {
+        return moment(new Date(dt)).format('MMM-DD-YYYY').toUpperCase();
+    };
+    $rootScope.formatDateTime = function (dt) {
+        return moment(new Date(dt)).format('MMM-DD-YYYY  HH:mm').toUpperCase();
+    };
+    $rootScope.formatTime = function (dt) {
+        return moment(new Date(dt)).format('HH:mm').toUpperCase();
+    };
+    $rootScope.formatTime2 = function (date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+
+        //hours = hours % 12;
+        //hours = hours ? hours : 12; // the hour '0' should be '12'
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes;
+        return strTime;
+    }
+    $rootScope.getTimeFormated = function (dt) {
+        if (!dt)
+            return "-";
+        //if ($rootScope.userName.toLowerCase() == 'shamsi')
+        //    alert(dt);
+        if (dt.toString().indexOf('T') != -1) {
+            var prts = dt.toString().split('T')[1];
+            var tm = prts.substr(0, 5);
+            return (tm);
+        }
+        var _dt = new Date(dt);
+        //new Date(year, month, day, hours, minutes, seconds, milliseconds)
+        return $rootScope.formatTime2(_dt);
+    };
+    $rootScope.getDuration = function (x) {
+        if (!x)
+            return "-";
+        return pad(Math.floor(x / 60)).toString() + ':' + pad(x % 60).toString() + ' hrs';
+    };
+    $rootScope.getStatusClass = function (item) {
+
+        return "fa fa-circle " + item.FlightStatus.toLowerCase();
+    };
+    $rootScope.getStatus = function (item) {
+
+        switch (item) {
+            case 'OffBlocked':
+                return 'Block Off';
+            case 'OnBlocked':
+                return 'Block On';
+            case 'Departed':
+                return 'Take Off';
+            case 'Arrived':
+                return 'Landing';
+
+            default:
+                return item;
+        }
+    };
+    ///////////////////////////////////////
+    $rootScope.getDatasourceAirport = function () {
+        return new DevExpress.data.DataSource({
+            store:
+
+                new DevExpress.data.ODataStore({
+                    url: $rootScope.serviceUrl + 'odata/airports/all',
+                    //  key: "Id",
+                    // keyType: "Int32",
+                    version: 4
+                }),
+            filter: ['IATA', '<>', '-'],
+            sort: ['IATA'],
+        });
+    };
+    $rootScope.getDatasourcePosition = function () {
+        switch ($rootScope.position) {
+            case 'P1':
+                return ['P1', 'Safety', 'Observe', 'Check'];
+            case 'P2':
+                return ['P2', 'Safety', 'Observe', 'Check'];
+            case 'TRE':
+                return ['TRE', 'P1', 'P2', 'Safety', 'Observe', 'Check'];
+            case 'TRI':
+                return ['TRI', 'P1', 'P2', 'Safety', 'Observe', 'Check'];
+            case 'LTC':
+                return ['LTC', 'P1', 'P2', 'Safety', 'Observe', 'Check'];
+            case 'ISCCM':
+                return ['ISCCM', 'SCCM', 'CCM', 'Check'];
+            case 'SCCM':
+                return ['SCCM', 'CCM', 'Check'];
+            case 'CCM':
+                return ['CCM', 'Observe', 'Check', 'SCCM'];
+            default:
+                return [];
+
+        }
+    };
+    $rootScope.getPositionId = function (str) {
+        switch (str) {
+            case 'P1':
+                return 1160;
+            case 'P2':
+                return 1161;
+            case 'TRI':
+                return 1205;
+            case 'TRE':
+                return 1206;
+            case 'CCM':
+                return 1158;
+            case 'SCCM':
+                return 1157;
+            case 'ISCCM':
+                return 10002;
+            case 'OBS':
+            case 'Observe':
+                return 1153;
+            case 'Check':
+                return 1154;
+            case 'Safety':
+            case 'SO':
+                return 1162;
+            default:
+                return -1;
+        }
+    };
+    $rootScope.getPosition= function (str) {
+        switch (str) {
+            case 1160:
+                return 'P1';
+            case 1161:
+                return 'P2';
+            case 1205:
+                return 'TRI';
+            case 1206:
+                return 'TRE';
+            case 1158:
+                return 'CCM';
+            case 1157:
+                return 'SCCM';
+            case 10002:
+                return 'ISCCM';
+            //case 'OBS':
+            case 1153:
+                return 'Observe';
+            case 1154:
+                return 'Check';
+            case 1162:
+              return 'Safety';
+            default:
+                return -1;
+        }
+    };
+    $rootScope.getDatasourceAircrafts = function () {
+        return new DevExpress.data.DataSource({
+            store:
+
+            new DevExpress.data.ODataStore({
+                url: $rootScope.serviceUrl + 'odata/aircrafttypes/all',
+                //  key: "Id",
+                // keyType: "Int32",
+                version: 4
+            }),
+            //filter: ['ParentId', '=', pid],
+            sort: ['Manufacturer', 'Type'],
+        });
+    };
+    $rootScope.getDatasourceAirline = function () {
+        return [
+            { Id: 10, Title: 'FlyPersia' },
+            { Id: 9, Title: 'Aseman' },
+           // { Id: 2, Title: 'Caspian' },
+             { Id: 7, Title: 'Mahan' },
+             { Id: 8, Title: 'IranAir' },
+              { Id: 6, Title: 'KishAir' },
+              // { Id: 6, Title: 'ATA' },
+        ];
+    };
+
+    $rootScope.getDatasourceDuty = function () {
+        return [
+            { Id: 5000, Title: 'Training' },
+            { Id: 5001, Title: 'Office' },
+          
+             { Id: 1167, Title: 'Standby' },
+             { Id: 1170, Title: 'Reserve' },
+              
+        ];
+    };
+    $rootScope.getDatasourceCertificate = function () {
+        return [
+            { Id: 1181, Title: 'Flight Crew Licence' },
+             { Id: 1182, Title: 'Skill Test/Proficiency' },
+             // { Id: 3, Title: 'Skill Test/Proficiency OPC' },
+               { Id: 5007, Title: 'Aircraft Type' },
+                { Id: 1185, Title: 'Medical Certificate' },
+                 { Id: 1186, Title: 'Crew Member Certificate' },
+                  { Id: 1184, Title: 'ICAO LPR' },
+                   { Id: 1187, Title: 'SEPT' },
+                    { Id: 1188, Title: 'Dangerous Goods' },
+                     { Id: 1189, Title: 'CRM' },
+                       { Id: 1190, Title: 'CCRM' },
+                         { Id: 1191, Title: 'SMS' },
+                           { Id: 1192, Title: 'Aviation Security' },
+                             { Id: 1194, Title: 'Cold Weather Operation' },
+                             { Id: 1195, Title: 'Hot Weather Operation' },
+                             { Id: 1202, Title: 'First Aid' },
+
+        ];
+    };
+    /////////////////////////////////////////////////
     $rootScope.getDatasourceOption = function (pid) {
         return new DevExpress.data.DataSource({
             store:
 
             new DevExpress.data.ODataStore({
-                url: $rootScope.serviceUrl + 'odata/options/'+pid,
-              //  key: "Id",
-               // keyType: "Int32",
-               // version: 4
+                url: $rootScope.serviceUrl + 'odata/options/' + pid,
+                //  key: "Id",
+                // keyType: "Int32",
+                // version: 4
             }),
             //filter: ['ParentId', '=', pid],
             sort: ['OrderIndex', 'Title'],
@@ -396,7 +681,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
                     // keyType: "Int32",
                     // version: 4
                 }),
-             filter: ['Id', '<>', 86],
+            filter: ['Id', '<>', 86],
             sort: ['OrderIndex', 'Title'],
         });
     };
@@ -405,7 +690,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
             store:
 
             new DevExpress.data.ODataStore({
-                url: $rootScope.serviceUrl + 'odata/options/personcoursestatus'  ,
+                url: $rootScope.serviceUrl + 'odata/options/personcoursestatus',
                 //  key: "Id",
                 // keyType: "Int32",
                 // version: 4
@@ -422,7 +707,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
                 url: $rootScope.serviceUrl + 'odata/cities/country/' + cid,
                 //  key: "Id",
                 // keyType: "Int32",
-                  version: 4
+                version: 4
             }),
             //filter: ['ParentId', '=', pid],
             sort: ['City'],
@@ -461,16 +746,16 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
             store:
 
             new DevExpress.data.ODataStore({
-                url: $rootScope.serviceUrl + 'odata/aircrafttypes/all'  ,
+                url: $rootScope.serviceUrl + 'odata/aircrafttypes/all',
                 //  key: "Id",
                 // keyType: "Int32",
                 version: 4
             }),
             //filter: ['ParentId', '=', pid],
-            sort: ['Manufacturer','Type'],
+            sort: ['Manufacturer', 'Type'],
         });
     };
-    $rootScope.getDatasourceAuthors= function () {
+    $rootScope.getDatasourceAuthors = function () {
         return new DevExpress.data.DataSource({
             store:
 
@@ -481,7 +766,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
                     version: 4
                 }),
             //filter: ['ParentId', '=', pid],
-            sort: ['Name' ],
+            sort: ['Name'],
         });
     };
     $rootScope.getDatasourceCourseType = function () {
@@ -512,20 +797,23 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
             sort: ['Title'],
         });
     };
-    $rootScope.getDatasourceAirline = function () {
-        return new DevExpress.data.DataSource({
-            store:
 
-            new DevExpress.data.ODataStore({
-                url: $rootScope.serviceUrl + 'odata/base/airlines',
-                //  key: "Id",
-                // keyType: "Int32",
-                version: 4
-            }),
-            //filter: ['ParentId', '=', pid],
-            sort: ['Title'],
-        });
-    };
+    //new 4-6 comment below
+    //$rootScope.getDatasourceAirline = function () {
+    //    return new DevExpress.data.DataSource({
+    //        store:
+
+    //        new DevExpress.data.ODataStore({
+    //            url: $rootScope.serviceUrl + 'odata/base/airlines',
+    //            //  key: "Id",
+    //            // keyType: "Int32",
+    //            version: 4
+    //        }),
+    //        //filter: ['ParentId', '=', pid],
+    //        sort: ['Title'],
+    //    });
+    //};
+    /////////////////////////////
     $rootScope.getDatasourceRatingOrgs = function () {
         return new DevExpress.data.DataSource({
             store:
@@ -554,7 +842,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
             sort: ['Title'],
         });
     };
-    
+
     $rootScope.getDatasourceJournals = function () {
         return new DevExpress.data.DataSource({
             store:
@@ -588,7 +876,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
             store:
 
             new DevExpress.data.ODataStore({
-                    url: $rootScope.serviceUrl + 'odata/base/jobgroups/'+ Config.CustomerId,
+                url: $rootScope.serviceUrl + 'odata/base/jobgroups/' + Config.CustomerId,
                 //  key: "Id",
                 // keyType: "Int32",
                 version: 4
@@ -603,7 +891,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
             "<div>"
             + "<div class='tmpl-col-left'>" + data.TitleFormated + "</div>"
             + "<div class='tmpl-col-right'>" + data.FullCode + "</div>"
-           
+
 
             + "</div>";
         return tmpl;
@@ -611,7 +899,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
     $rootScope.getSbTemplateLocation2 = function (data) {
         var tmpl =
             "<div>" + data.TitleFormated
-             
+
 
 
             + "</div>";
@@ -637,7 +925,16 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
         return tmpl;
     };
     //////////////////////////////////////////////////////
+    //global dates
+    //fdps
+    $rootScope.bindFrom = (new Date()).addDays(-6);
+    $rootScope.bindTo = (new Date());
+    $rootScope.bindAirline = null;
+    $rootScope.bindFromAirport = null;
+    $rootScope.bindToAirport = null;
+    $rootScope.bindStatus = null;
+
+    //////////////////////////////////////////////////////
 }]);
- 
- 
- 
+
+

@@ -41,6 +41,10 @@ Config.Fields = [
 Config.MenuItems = [
     { key: 'applibrary', title: 'Library', url: '/applibrary', icon: '../../content/images/booksg.png' },
     { key: 'appflight', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
+     { key: 'appduties', title: 'Duties', url: '/appflight', icon: '../../content/images/booksg.png' },
+       { key: 'privacy', title: 'Privacy', url: '/privacy', icon: '../../content/images/booksg.png' },
+        { key: 'reports', title: 'reports', url: '/privacy', icon: '../../content/images/booksg.png' },
+         { key: 'profile', title: 'Profile', url: '/profile', icon: '../../content/images/booksg.png' },
     { key: 'appflightstatistics', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
     { key: 'appflightlogbook', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
     { key: 'appflightnew', title: 'Flight', url: '/appflight', icon: '../../content/images/booksg.png' },
@@ -65,6 +69,12 @@ Config.MenuItems = [
 ///////////////////////////////
 Exceptions = {};
 Exceptions.getMessage = function (error) {
+    return { message: error.status + ' ' + error.statusText + ' ' + error.data };
+};
+Exceptions.getMessage2 = function (error) {
+     
+    if (error.data)
+        return { message: error.data };
     return { message: error.status + ' ' + error.statusText + ' ' + error.data };
 };
 /////////////////////////////

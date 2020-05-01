@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.controller('homeController', ['$scope', 'authService', 'activityService', 'generalService', '$rootScope', function ($scope, authService, activityService, generalService, $rootScope) {
+app.controller('homeController', ['$scope', 'authService', 'activityService', 'generalService', '$rootScope','$location', function ($scope, authService, activityService, generalService, $rootScope,$location) {
 
     $rootScope.page_title = $rootScope.app_title;
     ////////////////////////////////////
@@ -212,12 +212,13 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
     $scope.recent = [];
     $scope.library = null;
     $scope.alertAction = function (type) {
+        
         if (type == 83)
-            $rootScope.navigate('/applibrary/books', 'applibrary-book', 2);
+            $rootScope.navigate('/applibrary/1/1', 'applibrary-book', 2);
         if (type == 84)
-            $rootScope.navigate('/applibrary/papers', 'applibrary-paper', 2);
+            $rootScope.navigate('/applibrary/1/1', 'applibrary-paper', 2);
         if (type == 85)
-            $rootScope.navigate('/applibrary/videos', 'applibrary-video', 2);
+            $rootScope.navigate('/applibrary/1/1', 'applibrary-video', 2);
         if (type == 1000)
             $rootScope.navigate('/appmessage', 'appmessage', -1);
         if (type == 1001)
@@ -280,7 +281,7 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
 
         var _caption = Number(remain) > 1 ? "In <span class='bold font-size-16'>" + remain + "</span> days" : "<span class='bold font-size-16'>Tomorrow</span>";
         var _remark = "Your <span style='font-size:13px;' class='bold '>" + caption + " </span> expires";
-        var elem = "<div class='col-lg-3 col-md-6 col-sm-6  applibraryitem' style='padding:2px 3px 5px 3px;' >"
+        var elem1 = "<div class='col-lg-3 col-md-6 col-sm-6  applibraryitem gocertificate' style='padding:2px 3px 5px 3px;' >"
            + " <div class='card text-white text-black-50' style='margin:0; padding:10px 7px 10px 0px;display:block;height:80px'>"
               + " <div class='col-lg-9 col-md-10 col-sm-10 col-xs-10' style='padding-right:0;padding-left:10px'>"
                + " <div style='font-weight:normal;' >" + _caption + "  </div>"
@@ -294,6 +295,20 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
 
           + "</div>"
         + "</div>";
+        var elem = "<div class='col-lg-3 col-md-6 col-sm-6  applibraryitem gocertificate' style='padding:2px 3px 5px 3px;' >"
+           + " <div class='card text-white text-black-50' style='background:transparent !important; margin:0px 10px 0 17px; padding:5px 7px 5px 0px;display:block;height:60px;border:none;border-bottom:1px dashed gray'>"
+           + " <div class='col-lg-9 col-md-10 col-sm-10 col-xs-10' style='padding-right:0;padding-left:10px'>"
+           + " <div style='font-weight:normal;' >" + _caption + "  </div>"
+           + " <div style='margin-top:5px;font-size:13px;'  >" + _remark + "</div>"
+           + "</div>"
+           + "<div class='col-lg-3 col-md-2 col-sm-2 col-xs-2' style='text-align:center'>"
+           + "   <i  class='fas fa-info-circle text-warning' style='font-size:30px; position:relative;top:6px;'></i>"
+           + "</div>"
+
+           + "<div style='clear:both'></div>"
+
+           + "</div>"
+           + "</div>";
         return elem;
     };
     $scope.getlic2 = function (caption, remain) {
@@ -308,7 +323,7 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
             var _remark = Number(remain) < 0 ? "Your <span class='bold '>" + caption + "</span> expired" : "Your <span class='bold '>" + caption + "</span> expires";
         }
 
-        var elem = "<div class='col-lg-3 col-md-6 col-sm-6  applibraryitem' style='padding:2px 3px 5px 3px;' >"
+        var elem = "<div class='col-lg-3 col-md-6 col-sm-6  applibraryitem gocertificate' style='padding:2px 3px 5px 3px;' >"
             + " <div class='card text-white text-black-50' style='background:transparent !important; margin:0px 10px 0 17px; padding:5px 7px 5px 0px;display:block;height:60px;border:none;border-bottom:1px dashed gray'>"
             + " <div class='col-lg-9 col-md-10 col-sm-10 col-xs-10' style='padding-right:0;padding-left:10px'>"
             + " <div style='font-weight:normal;' >" + _caption + "  </div>"
@@ -900,7 +915,7 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
                 $scope.library = Enumerable.From(response.Library).Where('$.Type!=86').ToArray();
                 $scope.memo = Enumerable.From(response.Library).Where('$.Type==86').ToArray();
                 $scope.IsMemosVisible = $scope.memo.length > 0;
-                generalService.getExpiringCertificates2($rootScope.userId).then(function (response) {
+                generalService.getExpiringCertificates3($rootScope.userId).then(function (response) {
                     console.log('certificates');
                     console.log(response);
                     $scope.bindCertificates(response);
@@ -936,7 +951,15 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
 
     }
 
+    $(document).on("click", ".gocertificate", function (e) {
+        e.preventDefault();
 
+        $scope.$apply(function () {
+            $location.path('/appcertificate/last');
+        });
+
+
+    });
 
     //////////////////////////////////
 

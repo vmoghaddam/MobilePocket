@@ -1,27 +1,27 @@
 ﻿'use strict';
-app.controller('appCertificateController', ['$scope', '$location', '$routeParams', '$rootScope', 'generalService', 'authService', 'notificationService', '$route', function ($scope, $location, $routeParams, $rootScope, generalService, authService, notificationService, $route) {
-   //test
+app.controller('appCertificateController', ['$scope', '$location', '$routeParams', '$rootScope', 'generalService', 'authService', 'notificationService', '$route', '$timeout', function ($scope, $location, $routeParams, $rootScope, generalService, authService, notificationService, $route, $timeout) {
+    //test
     $scope.prms = $routeParams.prms;
     $scope.firstBind = true;
     $scope.active = $route.current.type;
-    
+
     $scope.title = null;
     //switch ($scope.active) {
-        
+
 
     //    case 'all':
-             
+
     //        $scope.title = 'All';
     //        break;
     //    case 'last':
-             
+
     //        $scope.title = 'Last';
     //        break;
-         
+
     //    default:
     //        break;
     //}
-     
+
 
     $scope.scroll_height = 200;
     $scope.scroll_main = {
@@ -33,7 +33,7 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
         useNative: false,
         refreshingText: 'Updating...',
         onPullDown: function (options) {
-            $scope.bind();
+            //$scope.bind();
             //Alert.getStartupNots(null, function (arg) {
             //    options.component.release();
             //    // refreshCarts(arg);
@@ -68,68 +68,72 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
         }
     };
 
-    $scope.ds = null;
-     
-    $scope.bind = function () {
-        //if ($scope.firstBind)
-        //    $scope.loadingVisible = true;
-        //if ($scope.active == 'all') {
-        //    generalService.getAllCertificates($rootScope.userId).then(function (response) {
-        //        $scope.loadingVisible = false;
-        //        $scope.firstBind = false;
-        //        $scope.processData(response);
-        //    }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
-        //}
-        //else {
-        //    generalService.getLastCertificates($rootScope.userId).then(function (response) {
-        //        $scope.loadingVisible = false;
-        //        $scope.firstBind = false;
-        //        $scope.processData(response);
-        //    }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
-        //}
-        $scope.ds = [];
-        $scope.ds.push({
-            Title: 'Medical',
-            //IssueDate: new Date(2019, 8, 1, 0, 0, 0),
-            //ExpireDate: new Date(2020, 8, 1, 0, 0, 0),
-            IssueDate: moment(new Date(2019, 8, 1, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-            ExpireDate: moment(new Date(2020, 8, 1, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-            Remaining:98,
-            
-        }, {
-            Title: 'CCRM',
-            //IssueDate: new Date(2019, 5, 11, 0, 0, 0),
-            //ExpireDate: new Date(2020, 5, 11, 0, 0, 0),
-                IssueDate: moment(new Date(2019, 5, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-                ExpireDate: moment(new Date(2020, 5, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-            Remaining: 12,
 
-        }, {
-            Title: 'CRM',
-            //IssueDate: new Date(2019, 3, 5, 0, 0, 0),
-            //ExpireDate: new Date(2020, 3, 11, 0, 0, 0),
-                IssueDate: moment(new Date(2019, 3, 5, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-                ExpireDate: moment(new Date(2020, 3, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-            Remaining: 143,
 
-        }, {
-            Title: 'SEPT',
-            //IssueDate: new Date(2018, 3, 5, 0, 0, 0),
-            //ExpireDate: new Date(2021, 3, 11, 0, 0, 0),
-                IssueDate: moment(new Date(2018, 3, 5, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-                ExpireDate: moment(new Date(2021, 3, 11, 0, 0, 0)).format('MMM DD YYYY').toUpperCase(),
-            Remaining: 343,
-
-        });
-         
     
+    $scope.formatDate = function (dt) {
+        return moment(new Date(dt)).format('MMM-DD-YYYY').toUpperCase();
     };
+    $scope.ds = null;
+    $scope.bind = function () {
+        $scope.doRefresh = false;
+        $scope.selectedItem = null;
+        $rootScope.$broadcast('HideEditCertificate', null);
+        $('.lib-cer').hide();
+        $scope.ds = [];
+        $scope.loadingVisible = true;
+        generalService.getCertifications($rootScope.employeeId).then(function (response) {
 
+            $scope.loadingVisible = false;
+            response = Enumerable.From(response).OrderBy('$.Expiring').ThenBy('$.Remain').ToArray();
+            var tmp1 = [1187, 1188, 1189, 1190, 1191, 1192, 1194, 1195, 1202, 1182];
+            $.each(response, function (_i, _d) {
+                if (tmp1.indexOf(_d.TypeId) != -1)
+                    _d.tmp = 1;
+                else
+                    _d.tmp = _d.TypeId;
+            });
+            $scope.ds = response;
+            var scroll_main = $("#scrollview").dxScrollView().dxScrollView("instance");
+            scroll_main.scrollBy(1);
+            console.log($scope.ds);
 
+        }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+    };
+    $scope.getRemainClass = function (item) {
+        if (item.Remain <= 0)
+            return 'expired';
+        else if (item.Remain <= 30)
+            return 'expiring';
+        else return '';
 
-    $scope.itemClick = function (bookId, employeeId) {
+    };
+    $scope.selectedItem = null;
+    $scope.itemClick = function ($event, x) {
+       // console.log(x);
+        //tile-selected
+        
+        // $timeout(function () {
+        $scope.selectedItem = null;
+            var has = $($event.currentTarget).hasClass('tile-selected');
+            $('.lib-cer').removeClass('tile-selected');
+            if (!has) {
+
+                $($event.currentTarget).addClass('tile-selected');
+                $scope.selectedItem = x;
+            }
+           // var selected = $('.tile-selected').length;
+        // if (selected > 0)
+            
+            if ($scope.selectedItem && $scope.selectedItem.AirPocket == false)
+                $rootScope.$broadcast('ShowEditCertificate', null);
+            else
+                $rootScope.$broadcast('HideEditCertificate', null);
+         //}, 600);
+        
+
         //alert(bookId+' '+employeeId);
-       // $location.path('/applibrary/item/' + bookId);
+        // $location.path('/applibrary/item/' + bookId);
     };
 
     if (!authService.isAuthorized()) {
@@ -138,84 +142,410 @@ app.controller('appCertificateController', ['$scope', '$location', '$routeParams
     }
     else {
         $rootScope.page_title = 'Certificates';
-        $scope.scroll_height = $(window).height() - 45 - 62;
+        $scope.scroll_height = $(window).height() - 45 - 42;
         $('.certificate').fadeIn();
-       $scope.bind();
+         
+        $scope.bind();
     }
     //////////////////////////////////////////
     $scope.$on('PageLoaded', function (event, prms) {
         //footerbook
-      //  if (prms == 'footer')
-      //      $('.footer' + $scope.active).addClass('active');
+        //  if (prms == 'footer')
+        //      $('.footer' + $scope.active).addClass('active');
 
 
     });
 
-    $scope.popup_certificate_visible = false;
-    $scope.popup_certificate_title = 'Certificate';
-    $scope.popup_certificate = {
-        width: 300,
-        height: 260,
-        //position: 'left top',
+    $scope.doRefresh = false;
+    $scope.popup_newcertificate_visible = false;
+    $scope.popup_newcertificate_title = 'New Certificate';
+    $scope.popup_newcertificate = {
+        title: 'Certificate',
         fullScreen: true,
         showTitle: true,
         dragEnabled: false,
         toolbarItems: [
-            { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
-        ]
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'success', text: 'Save', icon: 'check', useSubmitBehavior: true, validationGroup: 'add_new_certificate',
+                    onClick: function (e) {
+                        var result = e.validationGroup.validate();
+
+                        if (!result.isValid) {
+                            //   General.ShowNotify('Please fill in all required fields.', 'error');
+                            return;
+                        }
+                        var offset = -1 * (new Date()).getTimezoneOffset();
+                        if ($scope.newCertificate.DateIssue)
+                            $scope.newCertificate.DateIssue = (new Date($scope.newCertificate.DateIssue)).addMinutes(offset);//.toUTCString();
+                        if ($scope.newCertificate.DateExpire)
+                            $scope.newCertificate.DateExpire = (new Date($scope.newCertificate.DateExpire)).addMinutes(offset);//.toUTCString();
+                        if ($scope.newCertificate.DateIRValid)
+                            $scope.newCertificate.DateIRValid = (new Date($scope.newCertificate.DateIRValid)).addMinutes(offset);//.toUTCString();
+                        $scope.loadingVisible = true;
+                        generalService.saveCertification($scope.newCertificate).then(function (response) {
+
+                            $scope.clearCertificate();
+                            $scope.doRefresh = true;
+
+                            General.ShowNotify(Config.Text_SavedOk, 'success');
+
+
+
+
+                            $scope.loadingVisible = false;
+                            if (!$scope.isNew)
+                                $scope.popup_newcertificate_visible = false;
+                            else
+                                $scope.newCertificate.Id = -1;
+
+
+
+                        }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+
+                    }
+                }, toolbar: 'bottom'
+            },
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'normal', text: 'Close',  onClick: function (e) {
+                        // $scope.bind();
+                        
+                        $scope.popup_newcertificate_visible = false;
+                    }
+                }, toolbar: 'bottom'
+            },
+            // {
+            //    widget: 'dxButton', location: 'before', options: {
+            //        type: 'danger', text: 'Delete',icon:'remove',  onClick: function (e) {
+            //            // $scope.bind();
+                        
+            //            $scope.popup_newcertificate_visible = false;
+            //        }
+            //    }, toolbar: 'bottom'
+            //}
+        ],
+
+        visible: false,
+
+        closeOnOutsideClick: false,
+        onShowing: function (e) {
+
+
+        },
+        onShown: function (e) {
+
+        },
+        onHiding: function () {
+            if ($scope.doRefresh)
+                $scope.bind();
+            $scope.clearCertificate();
+
+        },
+        bindingOptions: {
+            visible: 'popup_newcertificate_visible',
+
+
+
+        }
     };
 
-    //close button
-    $scope.popup_certificate.toolbarItems[0].options.onClick = function (e) {
-
-        $scope.popup_certificate_visible = false;
-
-    };
     ////////////////////////////////////
-    $scope.popup_newcertificate_visible = false;
-     
-    $scope.popup_newcertificate = {
-       title:'Certificate',
-        fullScreen: true,
-        showTitle: true,
-        dragEnabled: false,   
-        toolbarItems: [
-           { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
-        ]
-    };
+    $scope.cmc = false;
+    $scope.icao = false;
+    $scope.fcl = false;
+    $scope.med = false;
+    $scope.typ = false;
+    $scope.issueVisible = false;
+    $scope.expireVisible = false;
+    var issueList = [1186, 1184];
+    //var expireList = [1187, 1188, 1189, 1190, 1192, 1191, 1194, 1195, 1202];
+    var validList = [1181, 1182, 1184];
 
-    $scope.date_expires = {
-      
-    };
+    $scope.newCertificate = {
 
+        /////////////////////////
+        Id: null,
+        TypeId: null,
+        TypeTitle: null,
+        Description: null,
+        DateIssue: null,
+        DateExpire: null,
+        DateIRValid: null,
+        AcTypeId: null,
+        Rating: null,
+        Class: null,
+        Limitation: null,
+        EmployedBy: null,
+        EmployedById: null,
+        Occupation: null,
+        Level: null,
+        EmployeeId: $rootScope.employeeId,
+        PersonId: $rootScope.userId,
+        AirPocket: false,
+        No: null,
+        Title: null,
+        /////////////////////////
+    };
+    $scope.clearCertificate = function () {
+
+        $scope.newCertificate = {
+
+            Id: null,
+            TypeId: null,
+            TypeTitle: null,
+            Description: null,
+            DateIssue: null,
+            DateExpire: null,
+            DateIRValid: null,
+            AcTypeId: null,
+            Rating: null,
+            Class: null,
+            Limitation: null,
+            EmployedBy: null,
+            EmployedById: null,
+            Occupation: null,
+            Level: null,
+            EmployeeId: $rootScope.employeeId,
+            PersonId: $rootScope.userId,
+            AirPocket: false,
+            No: null,
+            Title: null,
+
+
+        };
+        $scope.cmc = false;
+        $scope.icao = false;
+        $scope.fcl = false;
+        $scope.med = false;
+        $scope.typ = false;
+        $scope.issueVisible = false;
+        $scope.expireVisible = false;
+    };
+    $scope.Issued = 'Issued';
+    $scope.Expires = 'Expires';
+    $scope.sb_certype = {
+        showClearButton: false,
+        searchEnabled: true,
+        dataSource: $rootScope.getDatasourceCertificate(),
+
+        onSelectionChanged: function (arg) {
+            if (!arg.selectedItem)
+                return;
+            var id = arg.selectedItem.Id;
+            $scope.issueVisible = issueList.indexOf(id) == -1;
+            $scope.expireVisible = true;
+            $scope.Issued = 'Issued';
+            if (id == 1181)
+                $scope.Issued = 'Date of Initial Issue';
+            if (id == 1182)
+                $scope.Issued = 'Date Of Check';
+            if (validList.indexOf(id) != -1)
+                $scope.Expires = 'Valid Until';
+            $scope.fcl = id == 1181;
+            $scope.typ = id == 5007;
+            $scope.med = id == 1185;
+            $scope.cmc = id == 1186;
+            $scope.icao = id == 1184;
+
+        },
+        searchExpr: ["Title"],
+        displayExpr: "Title",
+        valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newCertificate.TypeId',
+
+
+        }
+    };
+    $scope.icao_ds = [1, 2, 3, 4, 5, 6];
+    $scope.sb_icao = {
+
+        showClearButton: true,
+        width: '100%',
+        searchEnabled: true,
+        //itemTemplate: function (data) {
+        //    return $rootScope.getSbTemplateAircraft(data);
+        //},
+
+        dataSource: $scope.icao_ds,
+
+        onSelectionChanged: function (arg) {
+
+        },
+        bindingOptions: {
+            value: 'newCertificate.Level',
+
+        }
+    };
+    $scope.sb_actype = {
+
+        showClearButton: true,
+        width: '100%',
+        searchEnabled: true,
+        //itemTemplate: function (data) {
+        //    return $rootScope.getSbTemplateAircraft(data);
+        //},
+        searchExpr: ['Type', 'Manufacturer'],
+        dataSource: $rootScope.getDatasourceAircrafts(),
+        displayExpr: "Type",
+        valueExpr: 'Id',
+
+        onSelectionChanged: function (arg) {
+
+        },
+        bindingOptions: {
+            value: 'newCertificate.AcTypeId',
+
+        }
+    };
     $scope.date_issued = {
         adaptivityEnabled: true,
         type: "date",
-        placeholder: 'Issued',
-        useMaskBehavior: true
+        pickerType: "rollers",
+        useMaskBehavior: true,
+        bindingOptions: {
+            value: 'newCertificate.DateIssue',
+            //visible: 'issueVisible',
+        }
     };
-
-    $scope.txt_remark = {
-
+    $scope.date_expired = {
+        adaptivityEnabled: true,
+        type: "date",
+        pickerType: "rollers",
+        useMaskBehavior: true,
+        bindingOptions: {
+            value: 'newCertificate.DateExpire',
+            //visible: 'expireVisible',
+        }
     };
-
+    $scope.date_irvalid = {
+        adaptivityEnabled: true,
+        type: "date",
+        pickerType: "rollers",
+        useMaskBehavior: true,
+        bindingOptions: {
+            value: 'newCertificate.DateIRValid',
+            //visible: 'expireVisible',
+        }
+    };
     $scope.txt_title = {
+        bindingOptions: {
+            value: 'newCertificate.Title',
 
+        }
+    };
+    $scope.txt_occupation = {
+        bindingOptions: {
+            value: 'newCertificate.Occupation',
+
+        }
+    };
+    $scope.sb_airline = {
+        showClearButton: false,
+        searchEnabled: true,
+        dataSource: $rootScope.getDatasourceAirline(),
+
+        onSelectionChanged: function (arg) {
+
+            // $scope.getIrRoute();
+        },
+        searchExpr: ["Title"],
+        displayExpr: "Title",
+        valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newCertificate.EmployedById',
+
+
+        }
+    };
+    $scope.txt_limitation = {
+        bindingOptions: {
+            value: 'newCertificate.Limitation',
+
+        }
+    };
+    $scope.num_class = {
+        min: 1,
+        bindingOptions: {
+            value: 'newCertificate.Class',
+
+        }
+    };
+    $scope.txt_rating = {
+        bindingOptions: {
+            value: 'newCertificate.Rating',
+
+        }
+    };
+    $scope.txt_no = {
+        bindingOptions: {
+            value: 'newCertificate.No',
+
+        }
+    };
+    $scope.txt_remark = {
+        height: 100,
+        bindingOptions: {
+            value: 'newCertificate.Description',
+        }
     };
 
-    //close button
-    $scope.popup_newcertificate.toolbarItems[0].options.onClick = function (e) {
-
-        $scope.popup_newcertificate_visible = false;
-
-    };
 
 
 
+    $scope.isNew = true;
 
     $scope.$on('new_certificate', function (event, prms) {
+        $scope.newCertificate.Id = -1;
+        $scope.isNew = true;
         $scope.popup_newcertificate_visible = true;
     });
+    $scope.$on('delete_certificate', function (event, prms) {
+        General.Confirm(Config.Text_DeleteConfirm, function (res) {
+            if (res) {
+                $scope.loadingVisible = true;
+                generalService.deleteCertification({ Id: $scope.selectedItem.Id }).then(function (response) {
+                     General.ShowNotify(Config.Text_SavedOk, 'success');
+                     $scope.bind();
+
+                }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+
+            }
+        });
+    });
+
+    $scope.$on('edit_certificate', function (event, prms) {
+        if (!$scope.selectedItem)
+            return;
+        if ($scope.selectedItem.Airpocket)
+        {
+            return;
+        }
+        $scope.newCertificate.Id = $scope.selectedItem.Id;
+        $scope.newCertificate.TypeId = $scope.selectedItem.TypeId;
+        
+        
+        $scope.newCertificate.Description = $scope.selectedItem.Description;
+        $scope.newCertificate.DateIssue = $scope.selectedItem.DateIssue;
+        $scope.newCertificate.DateExpire = $scope.selectedItem.DateExpire;
+        $scope.newCertificate.DateIRValid = $scope.selectedItem.DateIRValid;
+        $scope.newCertificate.AcTypeId = $scope.selectedItem.AcTypeId;
+        $scope.newCertificate.Rating = $scope.selectedItem.Rating;
+        $scope.newCertificate.Class = $scope.selectedItem.Class;
+        $scope.newCertificate.Limitation = $scope.selectedItem.Limitation;
+        $scope.newCertificate.EmployedBy = $scope.selectedItem.EmployedBy;
+        $scope.newCertificate.EmployedById = $scope.selectedItem.EmployedById;
+        $scope.newCertificate.Occupation = $scope.selectedItem.Occupation;
+        $scope.newCertificate.Level = $scope.selectedItem.Level;
+        
+        $scope.newCertificate.AirPocket= false;
+        $scope.newCertificate.No = $scope.selectedItem.No;
+        $scope.newCertificate.Title = $scope.selectedItem.Title;
+        $scope.isNew = false;
+        $scope.popup_newcertificate_visible = true;
+    });
+
     $rootScope.$broadcast('AppLibraryLoaded', null);
 
 

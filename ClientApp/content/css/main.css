@@ -845,6 +845,7 @@ body {
     }
 
         .gray .dx-tab.dx-tab-selected {
+            color: #FF5722;
             color: white;
         }
     /*.dx-toolbar-items-container .dx-button-default {
@@ -1283,3 +1284,184 @@ body {
         color:white !important;
     }
 
+.tile-selected {
+    /*background-position: center !important;
+    
+    background: #eee radial-gradient(circle, transparent 1%, #fff 1%) center/15000%  !important;*/
+    background: #eee !important;
+}
+.tile-not-selected {
+    background-position: center;
+    transition: background 0.4s;
+    background: #fff radial-gradient(circle, transparent 1%, #eee 1%) center/15000%;
+     
+}
+
+.expiring {
+    background: #ffcc66;
+}
+
+.expired{
+    background:#c00000;
+    color:white;
+}
+
+.scheduled {
+    color: #ffd480 !important;
+}
+
+.boarding {
+    color: #ff66ff !important;
+}
+
+.start {
+    color: #80ffff !important;
+}
+
+.taxi {
+    color: #00b3b3 !important;
+}
+
+.departed {
+    color: #00ff00 !important;
+}
+
+.offblocked {
+    color: #80ffff !important;
+}
+
+.onblocked {
+    color: #66b3ff !important;
+}
+
+
+
+.arrived {
+    color: #99ccff !important;
+}
+
+.canceled {
+    color: #808080 !important;
+}
+
+.delay {
+    color: #ff0000 !important;
+}
+
+.inactive {
+    color: #cccccc !important;
+}
+
+.diverted {
+    color: #e6e600 !important;
+}
+
+.redirect {
+    color: #e6e600 !important;
+}
+
+.ground {
+    color: #ff8000 !important;
+}
+
+.nodata {
+    color: #787878 !important;
+}
+
+.returntoramp {
+    color: #9900cc !important;
+}
+
+.scheduled-bg {
+    background-color: #ffd480 !important;
+}
+
+.boarding-bg {
+    background-color: #ff66ff !important;
+}
+
+.start-bg {
+    background-color: #80ffff !important;
+}
+
+.taxi-bg {
+    background-color: #00b3b3 !important;
+}
+
+.departed-bg {
+    background-color: #00ff00 !important;
+}
+
+.offblocked-bg {
+    background-color: #80ffff !important;
+}
+
+.onblocked-bg {
+    background-color: #66b3ff !important;
+}
+
+
+
+.arrived-bg {
+    background-color: #99ccff !important;
+}
+
+.canceled-bg {
+    background-color: #808080 !important;
+}
+
+.delay-bg {
+    background-color: #ff0000 !important;
+}
+
+.inactive-bg {
+    background-color: #cccccc !important;
+}
+
+.diverted-bg {
+    background-color: #e6e600 !important;
+}
+
+.redirect-bg {
+    background-color: #e6e600 !important;
+}
+
+.ground-bg {
+    background-color: #ff8000 !important;
+}
+
+.nodata-bg {
+    background-color: #787878 !important;
+}
+
+.returntoramp-bg {
+    background-color: #9900cc !important;
+}
+.lib-fdp-flight {
+    background: white;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-right: 2px;
+    padding-left: 2px;
+    margin: 5px 5px 0 5px;
+    border: 1px solid #bbb;
+    transition: background 0.4s;
+}
+
+.lib-fdp-flight-dh {
+    background: #ffe6ff;
+}
+
+.narrow .dx-datagrid .dx-row > td{
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+    font-size:12px;
+}
+.narrow .dx-header-row .dx-datagrid-text-content{
+    font-size:12px !important;
+}
+.narrow .dx-datagrid-filter-row .dx-editor-cell .dx-editor-with-menu .dx-texteditor-input, .dx-datagrid-filter-row .dx-editor-cell .dx-editor-with-menu .dx-placeholder:before {
+    padding-left: 0;
+    font-size: 12px;
+}
+ 

@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using AndroidSpecific = Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace CrewPocket
@@ -29,7 +30,7 @@ namespace CrewPocket
         public App()
         {
             InitializeComponent();
-
+            AndroidSpecific.Application.SetWindowSoftInputModeAdjust(this, AndroidSpecific.WindowSoftInputModeAdjust.Resize);
             MainPage = new MainPage();
         }
 

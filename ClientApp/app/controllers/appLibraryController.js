@@ -255,6 +255,7 @@ app.controller('appLibraryController', ['$scope', '$location', '$window', '$rout
         
 
     });
+    
     $rootScope.$broadcast('AppLibraryLoaded', null);
 
          

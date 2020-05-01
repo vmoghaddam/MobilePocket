@@ -21,7 +21,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
 
     ];
     $scope.tabs = tabs;
-
+    $scope.tabId = null;
     $scope.$watch("selectedTabIndex", function (newValue) {
         $('.tabc').hide();
         var id = tabs[newValue].id;
@@ -39,6 +39,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
             scrltod.scrollBy(1);
             
         });
+        $scope.tabId = id;
         switch (id) {
             case 'today':
                 $scope.bindToday();
@@ -210,6 +211,8 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         height: '100%',
 
     };
+    ///////////////////////////
+   
     ///////////////////////////
     $scope.loadingVisible = false;
     $scope.loadPanel = {
@@ -409,7 +412,8 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         return str;
     };
     $scope.getStatusClass = function (item) {
-
+        if (!item)
+            return "";
         return "fa fa-circle " + item.FlightStatus.toLowerCase();
     };
     $scope.getStatus  = function (item) {
@@ -428,6 +432,28 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
                 return item ;
         }
     };
+    //function formatTime2(date) {
+    //    var hours = date.getHours();
+    //    var minutes = date.getMinutes();
+
+    //    //hours = hours % 12;
+    //    //hours = hours ? hours : 12; // the hour '0' should be '12'
+    //    hours = hours < 10 ? '0' + hours : hours;
+    //    minutes = minutes < 10 ? '0' + minutes : minutes;
+    //    var strTime = hours + ':' + minutes;
+    //    return strTime;
+    //}
+    //$scope.getTimeFormated = function (dt) {
+    //    if (!dt)
+    //        return "-";
+    //    var _dt = new Date(dt);
+    //    return formatTime2(_dt);
+    //};
+    //$scope.getDuration = function (x) {
+    //    if (!x)
+    //        return "-";
+    //    return pad(Math.floor(x / 60)).toString() + ':' + pad(x % 60).toString() + ' hrs';
+    //};
     function formatTime2(date) {
         var hours = date.getHours();
         var minutes = date.getMinutes();
@@ -442,7 +468,15 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
     $scope.getTimeFormated = function (dt) {
         if (!dt)
             return "-";
+        //if ($rootScope.userName.toLowerCase() == 'shamsi')
+        //    alert(dt);
+        if (dt.toString().indexOf('T') != -1) {
+            var prts = dt.toString().split('T')[1];
+            var tm = prts.substr(0, 5);
+            return (tm);
+        }
         var _dt = new Date(dt);
+        //new Date(year, month, day, hours, minutes, seconds, milliseconds)
         return formatTime2(_dt);
     };
     $scope.getDuration = function (x) {
@@ -457,6 +491,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
     $scope.flightToday = null;
     $scope.flightTomorrow = null;
     $scope.showFlight = function (item, n, $event) {
+        
         if (!detector.tablet()) {
             $scope.flight = item;
             $scope.popup_flight_visible = true;
@@ -514,6 +549,733 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
 
         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
     };
+    //////new flight controls///////////////////////////
+    $scope.newFlight = {
+        ID: -1,
+        TypeID: null,
+        CPRegister: null,
+        FlightTypeID: 109,
+        FlightStatusID: 1,
+        AirlineOperatorsID: null,
+        FlightNumber: null,
+        FromAirportId: null,
+        ToAirportId: null,
+        STD: null,
+        STA: null,
+        ChocksOut: null,
+        Takeoff: null,
+        Landing: null,
+        ChocksIn: null,
+        PFLR: null,
+        CPPositionId: $rootScope.position,
+        CPFlightTypeId: 109,
+        CPCrewId: $rootScope.employeeId,
+        CPDH: 0,
+        CPFDPId: $scope.id,
+        CPInstructor: null,
+        CPP1: null,
+        CPP2: null,
+        CPISCCM: null,
+        CPSCCM: null,
+        NightTime: null,
+    };
+    $scope.fillflight = function (item) {
+        console.log(item);
+        $scope.newFlight.ID = item.ID;
+        $scope.newFlight.TypeID = item.TypeId;
+        $scope.newFlight.CPRegister = item.CPRegister;
+        $scope.newFlight.FlightTypeID = 109;
+        $scope.newFlight.FlightStatusID = item.FlightStatusID;
+        $scope.newFlight.AirlineOperatorsID = item.AirlineOperatorsID;
+        $scope.newFlight.FlightNumber = item.FlightNumber;
+        $scope.newFlight.FromAirportId = item.FromAirport;
+        $scope.newFlight.ToAirportId = item.ToAirport;
+        $scope.newFlight.STD = item.STD;
+        $scope.newFlight.STA = item.STA;
+        $scope.newFlight.ChocksOut = item.ChocksOut;
+        $scope.newFlight.Takeoff = item.Takeoff;
+        $scope.newFlight.Landing = item.Landing;
+        $scope.newFlight.ChocksIn = item.ChocksIn;
+        $scope.newFlight.PFLR = item.PFLR;
+        $scope.newFlight.CPPositionId = $rootScope.getPosition(item.CPPositionId);
+        $scope.newFlight.CPFlightTypeId = 109;
+        $scope.newFlight.CPCrewId = $rootScope.employeeId;
+        $scope.newFlight.CPDH = item.CPDH;
+        $scope.newFlight.CPFDPId = $scope.id;
+        $scope.newFlight.CPInstructor = item.CPInstructor;
+        $scope.newFlight.CPP1 = item.CPP1;
+        $scope.newFlight.CPP2 = item.CPP2;
+        $scope.newFlight.CPISCCM = item.CPISCCM;
+        $scope.newFlight.CPSCCM = item.CPSCCM;
+        $scope.newFlight.NightTime = item.NightTime;
+
+        $scope.departure = new Date($scope.newFlight.STD);
+        $scope.arrival = new Date($scope.newFlight.STA);
+    };
+    $scope.nextFlight = function () {
+
+        var std = (new Date($scope.newFlight.STA)).addMinutes(60);
+
+        $scope.newFlight.FromAirportId = $scope.newFlight.ToAirportId;
+        $scope.newFlight.ToAirportId = null;
+        $scope.newFlight.ChocksOut = null;
+        $scope.newFlight.ChocksIn = null;
+        $scope.newFlight.Takeoff = null;
+        $scope.newFlight.Landing = null;
+        $scope.newFlight.STD = std;
+        $scope.newFlight.STA = null;
+        $scope.newFlight.FlightNumber = null;
+        $scope.newFlight.FlightStatusID = 1;
+        $scope.newFlight.CPDH = 0;
+        $scope.newflight.NightTime = null;
+
+    };
+    $scope.clearNewFlight = function () {
+        $scope.newFlight = {
+            ID: -1,
+            TypeID: null,
+            CPRegister: null,
+            FlightTypeID: 109,
+            FlightStatusID: 1,
+            AirlineOperatorsID: null,
+            FlightNumber: null,
+            FromAirportId: null,
+            ToAirportId: null,
+            STD: null,
+            STA: null,
+            ChocksOut: null,
+            Takeoff: null,
+            Landing: null,
+            ChocksIn: null,
+            PFLR: null,
+            CPPositionId: $rootScope.position,
+            CPFlightTypeId: 109,
+            CPCrewId: $rootScope.employeeId,
+            CPDH: 0,
+            CPFDPId: $scope.id,
+            CPInstructor: null,
+            CPP1: null,
+            CPP2: null,
+            CPISCCM: null,
+            CPSCCM: null,
+            NightTime: null,
+        };
+    };
+    //$scope.txt_airline = {
+    //    //placeholder: "Enter Airline",
+    //    showClearButton: false,
+    //    bindingOptions: {
+    //        value: 'newFlight.AirlineOperatorsID'
+    //    }
+    //};
+    $scope.btn_sunflight = {
+        icon: "fas fa-moon",
+        type: "default",
+        text: "",
+
+        //useSubmitBehavior: true,
+        onClick: function (e) {
+
+            if (!$scope.newFlight.STD || !$scope.newFlight.STA || !$scope.newFlight.ChocksOut || !$scope.newFlight.ChocksIn || !$scope.newFlight.Takeoff || !$scope.newFlight.Landing)
+                return;
+            $scope.getSunFlight();
+
+        }
+    };
+    $scope.num_night = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        min: 0,
+        bindingOptions: {
+            value: 'newFlight.NightTime'
+        }
+    };
+    $scope._txt_flightNo = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        bindingOptions: {
+            value: 'newFlight.FlightNumber'
+        }
+    };
+    $scope._txt_register = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        bindingOptions: {
+            value: 'newFlight.CPRegister'
+        }
+    };
+    $scope._flightDate = new Date();
+    $scope._departure = new Date();
+    $scope._arrival = new Date();
+    $scope._date_departure = {
+        //placeholder: "Enter Flight Date",
+        adaptivityEnabled: true,
+        type: "date",
+        pickerType: "rollers",
+        useMaskBehavior: true,
+        bindingOptions: {
+            value: 'departure'
+        }
+    };
+    $scope._date_arrival = {
+        //placeholder: "Enter Flight Date",
+        adaptivityEnabled: true,
+        type: "date",
+        pickerType: "rollers",
+        useMaskBehavior: true,
+        bindingOptions: {
+            value: 'arrival'
+        }
+    };
+    $scope._rtdate = null;
+    $scope._rttime = null;
+    $scope._date_rt = {
+        //placeholder: "Enter Flight Date",
+        adaptivityEnabled: true,
+        type: "date",
+        pickerType: "rollers",
+        useMaskBehavior: true,
+        bindingOptions: {
+            value: 'rtdate'
+        }
+    };
+    $scope._time_rt = {
+        type: "time",
+        pickerType: "rollers",
+        onValueChanged: function (e) {
+            $scope.stdChanged();
+        },
+        bindingOptions: {
+            value: 'rttime',
+        }
+    };
+
+    //////////select apt//////////////////////
+    $scope.dg_apt_columns = [
+        
+        { dataField: 'IATA', caption: 'IATA', allowResizing: true, alignment: 'center', dataType: 'string', allowEditing: false, },
+          { dataField: 'ICAO', caption: 'ICAO', allowResizing: true, alignment: 'center', dataType: 'string', allowEditing: false, },
+          // { dataField: 'Name', caption: 'Name', allowResizing: true, dataType: 'string', allowEditing: false, width: 300 },
+
+    ];
+
+    $scope.dg_apt_selected = null;
+    $scope.dg_apt_instance = null;
+    $scope.dg_apt_ds = null;
+    $scope.dg_apt = {
+        headerFilter: {
+            visible: false
+        },
+        keyExpr: 'Id',
+        filterRow: {
+            visible: false,
+            showOperationChooser: true,
+        },
+        searchPanel: {
+            visible: true,
+            width: 280,
+            placeholder: "Search..."
+        },
+        showRowLines: true,
+        showColumnLines: true,
+        sorting: { mode: 'none' },
+
+        noDataText: '',
+
+        allowColumnReordering: true,
+        allowColumnResizing: true,
+        scrolling: { mode: 'infinite' },
+        paging: { pageSize: 100 },
+        showBorders: true,
+        selection: { mode: 'single' },
+
+        columnAutoWidth: false,
+        //height: $(window).height() - 160,
+        height:300,
+        columns: $scope.dg_apt_columns,
+        onContentReady: function (e) {
+            if (!$scope.dg_apt_instance)
+                $scope.dg_apt_instance = e.component;
+
+        },
+        onSelectionChanged: function (e) {
+            var data = e.selectedRowsData[0];
+            $scope.dg_apt_selected = data;
+            
+
+
+        },
+        dataSource: $rootScope.getDatasourceAirport(),
+         
+        //bindingOptions: {
+        //    dataSource: 'dg_apt_ds'
+        //}
+    };
+
+    //////////////
+    $scope.selectAptMode = 0;
+    $scope.popup_apt_visible = false;
+    $scope.popup_apt = {
+         
+        title: 'Airport',
+        width: 350,
+        height:420,
+        showTitle: true,
+        dragEnabled: false,
+        toolbarItems: [
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'success', text: '', icon: 'check',   
+                    onClick: function (e) {
+                        if (!$scope.dg_apt_selected)
+                            return;
+                        if ($scope.selectAptMode == 0)
+                            $scope.newFlight.FromAirportId = $scope.dg_apt_selected.Id;
+                        else
+                            $scope.newFlight.ToAirportId = $scope.dg_apt_selected.Id;
+                        $scope.popup_apt_visible = false;
+
+
+                    }
+                }, toolbar: 'bottom'
+            },
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'danger', text: '', icon: 'remove', onClick: function (e) {
+                        $scope.popup_apt_visible = false;
+                    }
+                }, toolbar: 'bottom'
+            }
+        ],
+
+        visible: false,
+
+        closeOnOutsideClick: false,
+        onShowing: function (e) {
+
+
+        },
+        onShown: function (e) {
+
+        },
+        onHiding: function () {
+            
+            $scope.dg_apt_instance.clearSelection();
+            $scope.dg_apt_instance.clearFilter();
+        },
+        bindingOptions: {
+            visible: 'popup_apt_visible',
+        }
+    };
+
+
+    /////////////////////////////////////
+    $scope.fromItem = null;
+    $scope._sb_from = {
+        openOnFieldClick: false,
+        showDropDownButton:false,
+        showClearButton: false,
+        searchEnabled: false,
+        dataSource: $rootScope.getDatasourceAirport(),
+        onFocusIn: function (e) {
+            $scope.selectAptMode = 0;
+            $scope.popup_apt_visible = true;
+        },
+        onSelectionChanged: function (arg) {
+
+            // $scope.getIrRoute();
+        },
+        searchExpr: ["IATA", "Country", "SortName", "City"],
+        displayExpr: "IATA",
+        valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newFlight.FromAirportId',
+
+            selectedItem: 'fromItem',
+        }
+    };
+    $scope.toItem = null;
+    $scope._sb_to = {
+        openOnFieldClick: false,
+        showDropDownButton: false,
+        showClearButton: false,
+        searchEnabled: false,
+        dataSource: $rootScope.getDatasourceAirport(),
+        onFocusIn: function (e) {
+            $scope.selectAptMode = 1;
+            $scope.popup_apt_visible = true;
+        },
+        onSelectionChanged: function (arg) {
+
+            // $scope.getIrRoute();
+        },
+        searchExpr: ["IATA", "Country", "SortName", "City"],
+        displayExpr: "IATA",
+        valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newFlight.ToAirportId',
+            selectedItem: 'toItem',
+        }
+    };
+    $scope._sb_position = {
+        showClearButton: false,
+        searchEnabled: false,
+        dataSource: $rootScope.getDatasourcePosition(),
+
+        onSelectionChanged: function (arg) {
+
+            // $scope.getIrRoute();
+        },
+        //searchExpr: ["IATA", "Country", "SortName", "City"],
+        // displayExpr: "IATA",
+        //valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newFlight.CPPositionId',
+
+
+        }
+    };
+    $scope._sb_airline = {
+        showClearButton: false,
+        searchEnabled: true,
+        dataSource: $rootScope.getDatasourceAirline(),
+
+        onSelectionChanged: function (arg) {
+
+            // $scope.getIrRoute();
+        },
+        searchExpr: ["Title"],
+        displayExpr: "Title",
+        valueExpr: 'Id',
+        bindingOptions: {
+            value: 'newFlight.AirlineOperatorsID',
+
+
+        }
+    };
+    $scope._sb_actype = {
+
+        showClearButton: false,
+        width: '100%',
+        searchEnabled: true,
+        //itemTemplate: function (data) {
+        //    return $rootScope.getSbTemplateAircraft(data);
+        //},
+        searchExpr: ['Type', 'Manufacturer'],
+        dataSource: $rootScope.getDatasourceAircrafts(),
+        displayExpr: "Type",
+        valueExpr: 'Id',
+
+        onSelectionChanged: function (arg) {
+
+        },
+        bindingOptions: {
+            value: 'newFlight.TypeID',
+
+        }
+    };
+    $scope._sb_status = {
+        showClearButton: false,
+        searchEnabled: true,
+        dataSource: Enumerable.From(Flight.statusDataSource).Where('$.selectable').ToArray(),
+        onSelectionChanged: function (e) {
+            //$scope.IsOffBlockReadOnly = true;
+            //$scope.IsTakeOffReadOnly = true;
+            //$scope.IsLandingReadOnly = true;
+            //$scope.IsOnBlockReadOnly = true;
+            /////////////////////////////
+            var bg = 'rgb(238, 238, 238)';
+            var color = '#000';
+            if (e && e.selectedItem) {
+                bg = e.selectedItem.bgcolor;
+                color = e.selectedItem.color;
+            }
+
+
+
+            ///////////////////////////
+
+        },
+        displayExpr: "title",
+        valueExpr: 'id',
+        bindingOptions: {
+            value: 'newFlight.FlightStatusID',
+
+        }
+    };
+    $scope._stdChanged = function () {
+        $scope.newFlight.ChocksOut = $scope.newFlight.STD;
+        $scope.newFlight.Takeoff = $scope.newFlight.STD;
+    };
+    $scope._staChanged = function () {
+        $scope.newFlight.ChocksIn = $scope.newFlight.STA;
+        $scope.newFlight.Landing = $scope.newFlight.STA;
+    };
+    $scope._time_std = {
+        type: "time",
+        pickerType: "rollers",
+        onValueChanged: function (e) {
+            $scope._stdChanged();
+        },
+        bindingOptions: {
+            value: 'newFlight.STD',
+        }
+    };
+    $scope._time_sta = {
+        type: "time",
+        pickerType: "rollers",
+        onValueChanged: function (e) {
+            $scope._staChanged();
+        },
+        bindingOptions: {
+            value: 'newFlight.STA',
+        }
+    };
+    $scope._time_offBlock = {
+        type: "time",
+        pickerType: "rollers",
+        bindingOptions: {
+            value: 'newFlight.ChocksOut',
+        }
+    };
+    $scope._time_onBlock = {
+        type: "time",
+        pickerType: "rollers",
+        bindingOptions: {
+            value: 'newFlight.ChocksIn',
+        }
+    };
+    $scope._time_takeoff = {
+        type: "time",
+        pickerType: "rollers",
+        bindingOptions: {
+            value: 'newFlight.Takeoff',
+        }
+    };
+    $scope._time_landing = {
+        type: "time",
+        pickerType: "rollers",
+        bindingOptions: {
+            value: 'newFlight.Landing',
+        }
+    };
+    $scope._chb_dh = {
+        hoverStateEnabled: false,
+        text: 'Positioning (D/H)',
+        bindingOptions: {
+            value: 'newFlight.CPDH',
+
+        }
+    };
+    $scope.txt_instructor = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        bindingOptions: {
+            value: 'newFlight.CPInstructor'
+        }
+    };
+    $scope.txt_p1 = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        bindingOptions: {
+            value: 'newFlight.CPP1'
+        }
+    };
+    $scope.txt_p2 = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        bindingOptions: {
+            value: 'newFlight.CPP2'
+        }
+    };
+    $scope.txt_isccm = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        bindingOptions: {
+            value: 'newFlight.CPISCCM'
+        }
+    };
+    $scope.txt_sccm = {
+        // placeholder: "Enter Flight Number",
+        showClearButton: false,
+        bindingOptions: {
+            value: 'newFlight.CPSCCM'
+        }
+    };
+    //////////////////////////////////////////
+    $scope.getSunFlight = function () {
+        var _std = $scope.newFlight.STD;
+        var _sta = $scope.newFlight.STA;
+        var _offblock = $scope.newFlight.ChocksOut;
+        var _onblock = $scope.newFlight.ChocksIn;
+        var _takeoff = $scope.newFlight.Takeoff;
+        var _landing = $scope.newFlight.Landing;
+
+        var std_dates = (new Date($scope.departure)).getDatePartArray();
+        var std_times = (new Date(_std)).getTimePartArray();
+        var std = new Date(std_dates[0], std_dates[1], std_dates[2], std_times[0], std_times[1], 0, 0);
+
+        var sta_dates = (new Date($scope.arrival)).getDatePartArray();
+        var sta_times = (new Date(_sta)).getTimePartArray();
+        var sta = new Date(sta_dates[0], sta_dates[1], sta_dates[2], sta_times[0], sta_times[1], 0, 0);
+
+        var off_dates = (new Date($scope.departure)).getDatePartArray();
+        var off_times = (new Date(_offblock)).getTimePartArray();
+        var offblock = new Date(off_dates[0], off_dates[1], off_dates[2], off_times[0], off_times[1], 0, 0);
+
+        var on_dates = (new Date($scope.arrival)).getDatePartArray();
+        var on_times = (new Date(_onblock)).getTimePartArray();
+        var onblock = new Date(on_dates[0], on_dates[1], on_dates[2], on_times[0], on_times[1], 0, 0);
+
+        var to_dates = (new Date($scope.departure)).getDatePartArray();
+        var to_times = (new Date(_takeoff)).getTimePartArray();
+        var takeoff = new Date(to_dates[0], to_dates[1], to_dates[2], to_times[0], to_times[1], 0, 0);
+
+        var la_dates = (new Date($scope.arrival)).getDatePartArray();
+        var la_times = (new Date(_landing)).getTimePartArray();
+        var landing = new Date(la_dates[0], la_dates[1], la_dates[2], la_times[0], la_times[1], 0, 0);
+        $scope.loadingVisible = true;
+        flightService.getSunFlight(takeoff, landing, $scope.fromItem.IATA, $scope.toItem.IATA).then(function (response) {
+            $scope.loadingVisible = false;
+            console.log(response);
+            $scope.newFlight.NightTime = response.total_minutes_night;
+
+        }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+    };
+    ////////////////////////////////////////////
+    $scope.popup_newflight_visible = false;
+
+    $scope.popup_newflight = {
+        title: 'Flight',
+        fullScreen: true,
+        showTitle: true,
+        dragEnabled: false,
+        toolbarItems: [
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'success', text: 'Save', icon: 'check', useSubmitBehavior: true, validationGroup: 'add_new_flight3',
+                    onClick: function (e) {
+                        var result = e.validationGroup.validate();
+
+                        if (!result.isValid) {
+                            //   General.ShowNotify('Please fill in all required fields.', 'error');
+                            return;
+                        }
+                        $scope.doRefresh = true;
+                        var _std = $scope.newFlight.STD;
+                        var _sta = $scope.newFlight.STA;
+                        var _offblock = $scope.newFlight.ChocksOut;
+                        var _onblock = $scope.newFlight.ChocksIn;
+                        var _takeoff = $scope.newFlight.Takeoff;
+                        var _landing = $scope.newFlight.Landing;
+
+                        var std_dates = (new Date($scope.departure)).getDatePartArray();
+                        var std_times = (new Date(_std)).getTimePartArray();
+                        var std = new Date(std_dates[0], std_dates[1], std_dates[2], std_times[0], std_times[1], 0, 0);
+
+                        var sta_dates = (new Date($scope.arrival)).getDatePartArray();
+                        var sta_times = (new Date(_sta)).getTimePartArray();
+                        var sta = new Date(sta_dates[0], sta_dates[1], sta_dates[2], sta_times[0], sta_times[1], 0, 0);
+
+                        var off_dates = (new Date($scope.departure)).getDatePartArray();
+                        var off_times = (new Date(_offblock)).getTimePartArray();
+                        var offblock = new Date(off_dates[0], off_dates[1], off_dates[2], off_times[0], off_times[1], 0, 0);
+
+                        var on_dates = (new Date($scope.arrival)).getDatePartArray();
+                        var on_times = (new Date(_onblock)).getTimePartArray();
+                        var onblock = new Date(on_dates[0], on_dates[1], on_dates[2], on_times[0], on_times[1], 0, 0);
+
+                        var to_dates = (new Date($scope.departure)).getDatePartArray();
+                        var to_times = (new Date(_takeoff)).getTimePartArray();
+                        var takeoff = new Date(to_dates[0], to_dates[1], to_dates[2], to_times[0], to_times[1], 0, 0);
+
+                        var la_dates = (new Date($scope.arrival)).getDatePartArray();
+                        var la_times = (new Date(_landing)).getTimePartArray();
+                        var landing = new Date(la_dates[0], la_dates[1], la_dates[2], la_times[0], la_times[1], 0, 0);
+
+
+                        var _flight = JSON.parse(JSON.stringify($scope.newFlight));
+                        _flight.STD = (new Date(std)).toUTCString();
+                        _flight.STA = (new Date(sta)).toUTCString();
+                        _flight.Takeoff = (new Date(takeoff)).toUTCString();
+                        _flight.Landing = (new Date(landing)).toUTCString();
+                        _flight.ChocksOut = (new Date(offblock)).toUTCString();
+                        _flight.ChocksIn = (new Date(onblock)).toUTCString();
+
+                        _flight.CPPositionId = $rootScope.getPositionId($scope.newFlight.CPPositionId);
+
+
+                        $scope.loadingVisible = true;
+                        flightService.updateFlightFDPDirect(_flight).then(function (response) {
+                            console.log(response);
+                            $scope.loadingVisible = false;
+
+                           
+                            
+                            switch ($scope.tabId) {
+                                case 'today':
+                                    $scope.bindToday();
+
+                                    break;
+                                case 'tomorrow':
+                                    $scope.bindTomorrow();
+                                    break;
+                                case 'all':
+                                    if ($scope.appoinmentDay) {
+                                        $scope.bindDay($scope.appoinmentDay);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                           
+
+                           
+                            $scope.popup_newflight_visible = false;
+
+                        }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+
+
+
+
+                    }
+                }, toolbar: 'bottom'
+            },
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'danger', text: 'Close', icon: 'remove', onClick: function (e) {
+                        $scope.popup_newflight_visible = false;
+                    }
+                }, toolbar: 'bottom'
+            }
+        ],
+
+        visible: false,
+
+        closeOnOutsideClick: false,
+        onShowing: function (e) {
+
+
+        },
+        onShown: function (e) {
+
+        },
+        onHiding: function () {
+            $scope.clearNewFlight();
+            if ($scope.doRefresh) {
+                $scope.doRefresh = false;
+
+            }
+
+        },
+        bindingOptions: {
+            visible: 'popup_newflight_visible',
+
+
+
+        }
+    };
+    ///////////////////////////////////////
     //////////////////////////////////
     $scope.popup_flight_visible = false;
     $scope.popup_flight_title = 'Flight';
@@ -526,10 +1288,27 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         dragEnabled: false,
         toolbarItems: [
 
+             {
+                 widget: 'dxButton', location: 'after', options: {
+                     type: 'success', text: 'Edit', icon: 'check', useSubmitBehavior: true, 
+                     onClick: function (e) {
+                         $scope.popup_flight_visible = false;
+                         var offset = -1 * (new Date()).getTimezoneOffset();
+                         $scope.loadingVisible = true;
+                         flightService.getFlight($scope.flight.FlightId).then(function (response) {
+                             $scope.loadingVisible = false;
+                             $scope.fillflight(response);
+                             $scope.popup_newflight_visible = true;
+                             
+
+                         }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
+
+                     }
+                 }, toolbar: 'bottom'
+             },
 
 
-
-            { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', }, toolbar: 'bottom' }
+            { widget: 'dxButton', location: 'after', options: { type: 'danger', text: 'Close', icon: 'remove', onClick: function (e) { $scope.popup_flight_visible = false; } }, toolbar: 'bottom' }
         ],
 
         visible: false,
@@ -552,174 +1331,343 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
             //width: 'pop_width',
             //height: 'pop_height',
             title: 'popup_flight_title',
-
+            'toolbarItems[0].visible': 'flight.CPCrewId',
         }
     };
 
-    //close button
-    $scope.popup_flight.toolbarItems[0].options.onClick = function (e) {
-
-        $scope.popup_flight_visible = false;
-
-    };
-    ////////////////////////////////////
-    $scope.popup_newflight_visible = false;
+    
+    //////////////////////////////////////
+    //$scope.popup_newflight_visible = false;
      
-    $scope.popup_newflight = {
-       title:'Flight',
-        fullScreen: true,
-        showTitle: true,
-        dragEnabled: false,
-        toolbarItems: [
-            {
-                widget: 'dxButton', location: 'after', options: {
-                    type: 'success', text: 'Save', icon: 'check', useSubmitBehavior: true,validationGroup:'add_new_flight',
-                    onClick: function (e) {
-                        var result = e.validationGroup.validate();
+    //$scope.popup_newflight = {
+    //   title:'Flight',
+    //    fullScreen: true,
+    //    showTitle: true,
+    //    dragEnabled: false,
+    //    toolbarItems: [
+    //        {
+    //            widget: 'dxButton', location: 'after', options: {
+    //                type: 'success', text: 'Save', icon: 'check', useSubmitBehavior: true, validationGroup: 'add_new_flight3',
+    //                onClick: function (e) {
+    //                    var result = e.validationGroup.validate();
 
-                        if (!result.isValid) {
-                            //   General.ShowNotify('Please fill in all required fields.', 'error');
-                            return;
-                        }
-                       // alert('x');
-                        //var result = e.validationGroup.validate();
+    //                    if (!result.isValid) {
+    //                        //   General.ShowNotify('Please fill in all required fields.', 'error');
+    //                        return;
+    //                    }
+    //                    $scope.nextFlight();
                         
-                    }
-                }, toolbar: 'bottom'
-            },
-            {
-                widget: 'dxButton', location: 'after', options: {
-                    type: 'danger', text: 'Close', icon: 'remove', onClick: function (e) {
-                        $scope.popup_newflight_visible = false;
-                    }
-                }, toolbar: 'bottom'
-            }
-        ],
+    //                }
+    //            }, toolbar: 'bottom'
+    //        },
+    //        {
+    //            widget: 'dxButton', location: 'after', options: {
+    //                type: 'danger', text: 'Close', icon: 'remove', onClick: function (e) {
+    //                    $scope.popup_newflight_visible = false;
+    //                }
+    //            }, toolbar: 'bottom'
+    //        }
+    //    ],
 
-        visible: false,
+    //    visible: false,
 
-        closeOnOutsideClick: false,
-        onShowing: function (e) {
+    //    closeOnOutsideClick: false,
+    //    onShowing: function (e) {
 
 
-        },
-        onShown: function (e) {
+    //    },
+    //    onShown: function (e) {
             
-        },
-        onHiding: function () {
-
+    //    },
+    //    onHiding: function () {
+    //        $scope.clearNewFlight();
             
-        },
-        bindingOptions: {
-            visible: 'popup_newflight_visible',
-            
+    //    },
+    //    bindingOptions: {
+    //        visible: 'popup_newflight_visible',
+           
              
 
-        }
-    };
+    //    }
+    //};
 
   
     //////new flight controls///////////////////////////
-    $scope.newFlight = {
-        Date: null,
-        From: null,
-        To:null,
-        Airline: null,
-        STD: null,
-        STA: null,
-        OffBlock: null,
-        OnBlock: null,
-        Takeoff: null,
-        Landing:null,
-        FlightNumber:null,
-    };
-    $scope.txt_airline = {
-        placeholder: "Enter Airline",
-        showClearButton: true,
-        bindingOptions: {
-            value: 'newFlight.Airline'
-        }
-    };
-    $scope.txt_flightNo = {
-        placeholder: "Enter Flight Number",
-        showClearButton: true,
-        bindingOptions: {
-            value: 'newFlight.FlightNumber'
-        }
-    };
-    $scope.txt_flightDate = {
-        placeholder: "Enter Flight Date",
-        adaptivityEnabled: true,
-        type: "date",
-        useMaskBehavior: true,
-        bindingOptions: {
-            value: 'newFlight.Date'
-        }
-    };
-    $scope.airportDs = [];
-    $scope.sb_from = {
-        showClearButton: true,
-        searchEnabled: true,
-        dataSource: $scope.airportDs,
-        displayExpr: "IATA",
-        valueExpr: 'Id',
-        bindingOptions: {
-            value: 'newFlight.From',
-        }
-    };
-    $scope.sb_to = {
-        showClearButton: true,
-        searchEnabled: true,
-        dataSource: $scope.airportDs,
-        displayExpr: "IATA",
-        valueExpr: 'Id',
-        bindingOptions: {
-            value: 'newFlight.To',
-        }
-    };
-    $scope.time_std = {
-        type: "time",
-        bindingOptions: {
-            value: 'newFlight.STD',
-        }
-    };
-    $scope.time_sta = {
-        type: "time",
-        bindingOptions: {
-            value: 'newFlight.STA',
-        }
-    };
-    $scope.time_offBlock = {
-        type: "time",
-        bindingOptions: {
-            value: 'newFlight.OffBlock',
-        }
-    };
-    $scope.time_onBlock = {
-        type: "time",
-        bindingOptions: {
-            value: 'newFlight.OnBlock',
-        }
-    };
-    $scope.time_takeoff = {
-        type: "time",
-        bindingOptions: {
-            value: 'newFlight.Takeoff',
-        }
-    };
-    $scope.time_landing = {
-        type: "time",
-        bindingOptions: {
-            value: 'newFlight.Landing',
-        }
-    };
-    $scope.allValidationRules = {
-        validationRules: [{
-            type: "required",
-            validationGroup: 'add_new_flight',
-            message: "Mobile Number is required"
-        }]
-    };
+    //$scope.newFlight = {
+    //    Date: new Date(),
+    //    From: null,
+    //    To:null,
+    //    Airline: null,
+    //    AirlineId:null,
+    //    STD: null,
+    //    STA: null,
+    //    OffBlock: null,
+    //    OnBlock: null,
+    //    TakeOff: null,
+    //    Landing:null,
+    //    FlightNumber: null,
+    //    Position: $rootScope.position,
+    //    Register: null,
+    //    TypeId: null,
+    //    statusId:1,
+    //};
+    //$scope.nextFlight = function () {
+    //    var from = $scope.newFlight.From;
+    //    var std = (new Date($scope.newFlight.STA)).addMinutes(60);
+        
+    //    $scope.newFlight.From=from;
+    //    $scope.newFlight.To=null;
+    //    $scope.newFlight.OffBlock= null;
+    //    $scope.newFlight.OnBlock= null;
+    //    $scope.newFlight.TakeOff= null;
+    //    $scope.newFlight.Landing= null;
+    //    $scope.newFlight.STD=std;
+    //    $scope.newFlight.STA= null;
+        
+    //    $scope.newFlight.FlightNumber= null;
+        
+         
+        
+    //    $scope.newFlight.statusId = 1;
+
+    //};
+    //$scope.clearNewFlight =function() {
+    //    $scope.newFlight = {
+    //        Date: new Date(),
+    //        From: null,
+    //        To:null,
+    //        Airline: null,
+    //        AirlineId:null,
+    //        STD: null,
+    //        STA: null,
+    //        OffBlock: null,
+    //        OnBlock: null,
+    //        TakeOff: null,
+    //        Landing:null,
+    //        FlightNumber: null,
+    //        Position: $rootScope.position,
+    //        Register: null,
+    //        TypeId: null,
+    //        statusId:1,
+    //    };
+    //};
+    //$scope.txt_airline = {
+    //    //placeholder: "Enter Airline",
+    //    showClearButton: false,
+    //    bindingOptions: {
+    //        value: 'newFlight.Airline'
+    //    }
+    //};
+    //$scope.txt_flightNo = {
+    //   // placeholder: "Enter Flight Number",
+    //    showClearButton: false,
+    //    bindingOptions: {
+    //        value: 'newFlight.FlightNumber'
+    //    }
+    //};
+    //$scope.txt_register = {
+    //    // placeholder: "Enter Flight Number",
+    //    showClearButton: false,
+    //    bindingOptions: {
+    //        value: 'newFlight.Register'
+    //    }
+    //};
+    //$scope.date_flightDate = {
+    //    //placeholder: "Enter Flight Date",
+    //   adaptivityEnabled: true,
+    //   type: "date",
+    //   pickerType: "rollers",
+    //    useMaskBehavior: true,
+    //    bindingOptions: {
+    //        value: 'newFlight.Date'
+    //    }
+    //};
+    
+    //$scope.sb_from = {
+    //    showClearButton: false,
+    //    searchEnabled: true,
+    //    dataSource: $rootScope.getDatasourceAirport(),
+        
+    //    onSelectionChanged: function (arg) {
+
+    //       // $scope.getIrRoute();
+    //    },
+    //    searchExpr: ["IATA", "Country", "SortName", "City"],
+    //    displayExpr: "IATA",
+    //    valueExpr: 'Id',
+    //    bindingOptions: {
+    //        value: 'newFlight.From',
+
+
+    //    }
+    //};
+    
+    //$scope.sb_to = {
+    //    showClearButton: false,
+    //    searchEnabled: true,
+    //    dataSource: $rootScope.getDatasourceAirport(),
+        
+    //    onSelectionChanged: function (arg) {
+
+    //       // $scope.getIrRoute();
+    //    },
+    //    searchExpr: ["IATA", "Country", "SortName", "City"],
+    //    displayExpr: "IATA",
+    //    valueExpr: 'Id',
+    //    bindingOptions: {
+    //        value: 'newFlight.To',
+
+    //    }
+    //};
+    //$scope.sb_position = {
+    //    showClearButton: false,
+    //    searchEnabled: false,
+    //    dataSource: $rootScope.getDatasourcePosition(),
+
+    //    onSelectionChanged: function (arg) {
+
+    //        // $scope.getIrRoute();
+    //    },
+    //    //searchExpr: ["IATA", "Country", "SortName", "City"],
+    //   // displayExpr: "IATA",
+    //    //valueExpr: 'Id',
+    //    bindingOptions: {
+    //        value: 'newFlight.Position',
+
+
+    //    }
+    //};
+    //$scope.sb_airline = {
+    //    showClearButton: false,
+    //    searchEnabled: true,
+    //    dataSource: $rootScope.getDatasourceAirline(),
+
+    //    onSelectionChanged: function (arg) {
+
+    //        // $scope.getIrRoute();
+    //    },
+    //    searchExpr: ["Title"],
+    //     displayExpr: "Title",
+    //    valueExpr: 'Id',
+    //    bindingOptions: {
+    //        value: 'newFlight.AirlineId',
+
+
+    //    }
+    //};
+    //$scope.sb_actype = {
+
+    //    showClearButton: true,
+    //    width: '100%',
+    //    searchEnabled: true,
+    //    //itemTemplate: function (data) {
+    //    //    return $rootScope.getSbTemplateAircraft(data);
+    //    //},
+    //    searchExpr: ['Type', 'Manufacturer'],
+    //    dataSource: $rootScope.getDatasourceAircrafts(),
+    //    displayExpr: "Type",
+    //    valueExpr: 'Id',
+
+    //    onSelectionChanged: function (arg) {
+             
+    //    },
+    //    bindingOptions: {
+    //        value: 'newFlight.TypeId',
+             
+    //    }
+    //};
+    //$scope.sb_status = {
+    //    showClearButton: false,
+    //    searchEnabled: true,
+    //    dataSource: Enumerable.From(Flight.statusDataSource).Where('$.selectable').ToArray(),
+    //    onSelectionChanged: function (e) {
+    //        //$scope.IsOffBlockReadOnly = true;
+    //        //$scope.IsTakeOffReadOnly = true;
+    //        //$scope.IsLandingReadOnly = true;
+    //        //$scope.IsOnBlockReadOnly = true;
+    //        /////////////////////////////
+    //        var bg = 'rgb(238, 238, 238)';
+    //        var color = '#000';
+    //        if (e && e.selectedItem) {
+    //            bg = e.selectedItem.bgcolor;
+    //            color = e.selectedItem.color;
+    //        }
+            
+
+           
+    //        ///////////////////////////
+
+    //    },
+    //    displayExpr: "title",
+    //    valueExpr: 'id',
+    //    bindingOptions: {
+    //        value: 'newFlight.statusId',
+
+    //    }
+    //};
+    //$scope.stdChanged = function () {
+    //    $scope.newFlight.OffBlock = $scope.newFlight.STD;
+    //    $scope.newFlight.TakeOff = $scope.newFlight.STD;
+    //};
+    //$scope.staChanged = function () {
+    //    $scope.newFlight.OnBlock = $scope.newFlight.STA;
+    //    $scope.newFlight.Landing = $scope.newFlight.STA;
+    //};
+    //$scope.time_std = {
+    //    type: "time",
+    //    pickerType: "rollers",
+    //    onValueChanged:function(e){
+    //        $scope.stdChanged();
+    //    },
+    //    bindingOptions: {
+    //        value: 'newFlight.STD',
+    //    }
+    //};
+    //$scope.time_sta = {
+    //    type: "time",
+    //    pickerType: "rollers",
+    //    onValueChanged: function (e) {
+    //        $scope.staChanged();
+    //    },
+    //    bindingOptions: {
+    //        value: 'newFlight.STA',
+    //    }
+    //};
+    //$scope.time_offBlock = {
+    //    type: "time",
+    //    pickerType: "rollers",
+    //    bindingOptions: {
+    //        value: 'newFlight.OffBlock',
+    //    }
+    //};
+    //$scope.time_onBlock = {
+    //    type: "time",
+    //    pickerType: "rollers",
+    //    bindingOptions: {
+    //        value: 'newFlight.OnBlock',
+    //    }
+    //};
+    //$scope.time_takeoff = {
+    //    type: "time",
+    //    pickerType: "rollers",
+    //    bindingOptions: {
+    //        value: 'newFlight.TakeOff',
+    //    }
+    //};
+    //$scope.time_landing = {
+    //    type: "time",
+    //    pickerType: "rollers",
+    //    bindingOptions: {
+    //        value: 'newFlight.Landing',
+    //    }
+    //};
+    //$scope.allValidationRules = {
+    //    validationRules: [{
+    //        type: "required",
+    //        validationGroup: 'add_new_flight',
+    //        message: "Mobile Number is required"
+    //    }]
+    //};
 
     //////////////////////////////////
     $scope.bindToday = function () {
@@ -775,6 +1723,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         // $scope.getCrewFlights($rootScope.employeeId, df, dt);
         var id = $rootScope.employeeId;
         var offset = -1 * (new Date()).getTimezoneOffset();
+        
         $scope.loadingVisible = true;
         flightService.getCrewFlights(id, df, dt).then(function (response) {
             $scope.loadingVisible = false;
@@ -943,15 +1892,15 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         authService.redirectToLogin();
     }
     else {
-        $rootScope.page_title = 'Flight > ' + $scope.title;
+        $rootScope.page_title = 'Flights';
         $scope.scroll_height = $(window).height() - 45 - 62 - 100;
 
         $scope.scroll_height_all = $(window).height() - 505;
-        $('#scrollviewall').height($(window).height() - 505);
+        $('#scrollviewall').height($(window).height() - 495);
         $('.col-tablet').height($(window).height() - 45 - 62 - 45);
         $('.div-crew').height($(window).height() - 552);
-        $('#tomorrow').height($(window).height() - 45 - 62 - 30);
-        $('#today').height($(window).height() - 45 - 62 - 30);
+        $('#tomorrow').height($(window).height() - 45 - 62 - 20);
+        $('#today').height($(window).height() - 45 - 62 - 20);
         $('.flight').fadeIn();
        
         // $scope.bindTomorrow();
@@ -974,6 +1923,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
     $scope.sch_instance = null;
     $scope.scheduler = null;
     $scope.sch_current = new Date();
+    $scope.appoinmentDay = null;
     $scope.schedulerOptions = {
         // dataSource:  $scope.data,
         textExpr: 'Total',
@@ -999,6 +1949,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         onAppointmentClick: function (e) {
             $scope.flight = null;
             $scope.flightDay = null;
+            $scope.appoinmentDay = e.appointmentData.Start;
             $scope.bindDay(e.appointmentData.Start);
             e.cancel = true;
             return;
@@ -1056,13 +2007,13 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
                 if (panel.style.maxHeight) {
 
                     //$scope.scroll_height_all = $(window).height() - 505;
-                    $('#scrollviewall').height($(window).height() - 505 + 330);
+                    $('#scrollviewall').height($(window).height() - 505 + 340);
                     $('.col-tablet2').height($(window).height() - 505 + 330);
 
                     panel.style.maxHeight = null;
                 } else {
                     //alert(panel.scrollHeight);
-                    $('#scrollviewall').height($(window).height() - 515);
+                    $('#scrollviewall').height($(window).height() - 495);
                     $('.col-tablet2').height($(window).height() - 515);
                     //doof
                     //$scope.scroll_height_all = $(window).height() - 505 + 340;
@@ -1077,11 +2028,11 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
             $scope.accActive = true;
             var _panel = acc.nextElementSibling;
             if (_panel.style.maxHeight) {
-                $('#scrollviewall').height($(window).height() - 505 + 330);
+                $('#scrollviewall').height($(window).height() - 505 + 340);
                 $('.col-tablet2').height($(window).height() - 505 + 330);
                 _panel.style.maxHeight = null;
             } else {
-                $('#scrollviewall').height($(window).height() - 515);
+                $('#scrollviewall').height($(window).height() - 495);
                 $('.col-tablet2').height($(window).height() - 515);
                 _panel.style.maxHeight = _panel.scrollHeight + "px";
             }
@@ -1112,8 +2063,8 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
                 tb2 = _height - 505 + 330;
             $('.col-tablet2').height(tb2);
             $('.div-crew').height(_height - 552);
-            $('#tomorrow').height(_height - 45 - 62 - 30);
-            $('#today').height(_height - 45 - 62 - 30);
+            $('#tomorrow').height(_height - 45 - 62 - 20);
+            $('#today').height(_height - 45 - 62 - 20);
             if (screen.height < screen.width && !detector.tablet()) {
                 $('.no-rotate').hide();
                 $('.yes-rotate').show();
@@ -1141,8 +2092,8 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
                 tb2 = _height - 505 + 330;
             $('.col-tablet2').height(tb2);
             $('.div-crew').height(_height - 552);
-            $('#tomorrow').height(_height - 45 - 62 - 30);
-            $('#today').height(_height - 45 - 62 - 30);
+            $('#tomorrow').height(_height - 45 - 62 - 20);
+            $('#today').height(_height - 45 - 62 - 20);
             if (screen.height < screen.width && !detector.tablet()) {
                 $('.no-rotate').hide();
                 $('.yes-rotate').show();
