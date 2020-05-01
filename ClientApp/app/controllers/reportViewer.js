@@ -9,7 +9,7 @@ app.controller('reportViewerController', ['$scope', '$sce', '$location', '$route
 
     $rootScope.page_title = $scope.title;
    
-    $('#frame').height($(window).height() - 85);
+    $('#frame').height($(window).height() - 75);
 
 
 }]);
