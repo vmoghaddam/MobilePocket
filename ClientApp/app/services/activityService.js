@@ -42,6 +42,18 @@ app.factory('activityService', ['$http', '$q', 'ngAuthSettings', '$rootScope', f
 
         return deferred.promise;
     };
+    var _getAppDashboardFTL = function ( eid) {
+
+        var deferred = $q.defer();
+        $http.get(serviceBase + 'odata/dashboard/app/ftl/'  + eid).then(function (response) {
+            deferred.resolve(response.data);
+        }, function (err, status) {
+
+            deferred.reject(Exceptions.getMessage(err));
+        });
+
+        return deferred.promise;
+    };
     var _getMenuHits = function (cid,uid,mid,top) {
 
         var deferred = $q.defer();
@@ -158,6 +170,7 @@ app.factory('activityService', ['$http', '$q', 'ngAuthSettings', '$rootScope', f
     serviceFactory.getLastActivities = _getLastActivities;
     serviceFactory.getDashboard = _getDashboard;
     serviceFactory.getAppDashboard = _getAppDashboard;
+    serviceFactory.getAppDashboardFTL = _getAppDashboardFTL;
     serviceFactory.visitLibrary = _visitLibrary;
     serviceFactory.visitFile = _visitFile;
     serviceFactory.signFile = _signFile;

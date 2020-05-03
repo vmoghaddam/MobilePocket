@@ -228,6 +228,12 @@ app.config(function ($routeProvider) {
         //type:'all',
         // type: 'book',
     });
+    $routeProvider.when("/reports/viewer", {
+        controller: "reportViewerController",
+        templateUrl: "/app/views/reportViewer.html?v=20",
+        //type:'all',
+        // type: 'book',
+    });
 
 
     $routeProvider.otherwise({ redirectTo: "/home" });
@@ -238,8 +244,8 @@ app.config(function ($routeProvider) {
 // var webBase = 'http://grfn.epatrin.ir/';
 //var clientBase = 'http://grfn.app.epatrin.ir/';appdocument
 
-//var serviceBase = 'http://localhost:58908/';
-var serviceBase = 'http://api.crewpocket.ir/';
+var serviceBase = 'http://localhost:58908/';
+//var serviceBase = 'http://api.crewpocket.ir/';
 
 var webBase = 'http://localhost:30273/';
 //var webBase = 'http://web.epatrin.ir/';
@@ -518,7 +524,7 @@ app.run(['authService', 'activityService', '$rootScope', '$location', '$template
                     version: 4
                 }),
             filter: ['IATA', '<>', '-'],
-            sort: ['IATA'],
+            sort: ['SortIndex','IATA'],
         });
     };
     $rootScope.getDatasourcePosition = function () {

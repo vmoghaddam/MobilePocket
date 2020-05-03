@@ -755,6 +755,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
         
         { dataField: 'IATA', caption: 'IATA', allowResizing: true, alignment: 'center', dataType: 'string', allowEditing: false, },
           { dataField: 'ICAO', caption: 'ICAO', allowResizing: true, alignment: 'center', dataType: 'string', allowEditing: false, },
+               { dataField: 'SortIndex', caption: 'Index', allowResizing: true, alignment: 'center', dataType: 'number', allowEditing: false, visible: false },
           // { dataField: 'Name', caption: 'Name', allowResizing: true, dataType: 'string', allowEditing: false, width: 300 },
 
     ];
@@ -816,7 +817,7 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
     $scope.selectAptMode = 0;
     $scope.popup_apt_visible = false;
     $scope.popup_apt = {
-         
+         shading:false,
         title: 'Airport',
         width: 350,
         height:420,
@@ -1292,14 +1293,14 @@ app.controller('appFlightController', ['$scope', '$location', '$routeParams', '$
                  widget: 'dxButton', location: 'after', options: {
                      type: 'success', text: 'Edit', icon: 'check', useSubmitBehavior: true, 
                      onClick: function (e) {
-                         $scope.popup_flight_visible = false;
+                         
                          var offset = -1 * (new Date()).getTimezoneOffset();
                          $scope.loadingVisible = true;
                          flightService.getFlight($scope.flight.FlightId).then(function (response) {
                              $scope.loadingVisible = false;
                              $scope.fillflight(response);
                              $scope.popup_newflight_visible = true;
-                             
+                             $scope.popup_flight_visible = false;
 
                          }, function (err) { $scope.loadingVisible = false; General.ShowNotify(err.message, 'error'); });
 

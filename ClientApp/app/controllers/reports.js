@@ -62,6 +62,73 @@ app.controller('reportsController', ['$scope', '$location', '$routeParams', '$ro
     });
     
 
+    ////////////////////////////////////
+    $scope.popup_filter_visible = false;
+    $scope.popup_filter = {
+        title: 'Filter',
+        width: 350,
+        height: 500,
+        //fullScreen: true,
+        showTitle: true,
+        dragEnabled: false,
+        toolbarItems: [
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'success', text: 'OK', icon: 'check', useSubmitBehavior: true, validationGroup: 'fdpsfilter',
+                    onClick: function (e) {
+                        $location.path('/reports/viewer');
+                        var result = e.validationGroup.validate();
+
+                        if (!result.isValid) {
+                            //   General.ShowNotify('Please fill in all required fields.', 'error');
+                            return;
+                        }
+                        $rootScope.bindFrom = new Date($scope.filterFrom);
+                        $rootScope.bindTo = new Date($scope.filterTo);
+                        $scope.bind();
+                        $scope.popup_filter_visible = false;
+
+
+
+                    }
+                }, toolbar: 'bottom'
+            },
+            {
+                widget: 'dxButton', location: 'after', options: {
+                    type: 'danger', text: 'Close', icon: 'remove', onClick: function (e) {
+                        $scope.popup_filter_visible = false;
+                    }
+                }, toolbar: 'bottom'
+            }
+        ],
+
+        visible: false,
+
+        closeOnOutsideClick: false,
+        onShowing: function (e) {
+           // $scope.filterFrom = new Date($rootScope.bindFrom);
+           // $scope.filterTo = new Date($rootScope.bindTo);
+
+        },
+        onShown: function (e) {
+
+        },
+        onHiding: function () {
+
+
+
+        },
+        bindingOptions: {
+            visible: 'popup_filter_visible',
+
+
+
+        }
+    };
+    /////////////////////////////////////
+    $scope.showFilter = function () {
+        $scope.popup_filter_visible = true;
+    };
 
     if (!authService.isAuthorized()) {
 

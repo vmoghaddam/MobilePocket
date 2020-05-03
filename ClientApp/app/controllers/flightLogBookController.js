@@ -655,6 +655,7 @@ app.controller('appFlightLogBookController', ['$scope', '$location', '$routePara
 
        { dataField: 'IATA', caption: 'IATA', allowResizing: true, alignment: 'center', dataType: 'string', allowEditing: false, },
           { dataField: 'ICAO', caption: 'ICAO', allowResizing: true, alignment: 'center', dataType: 'string', allowEditing: false, },
+          { dataField: 'SortIndex', caption: 'Index', allowResizing: true, alignment: 'center', dataType: 'number', allowEditing: false,visible:false },
           // { dataField: 'Name', caption: 'Name', allowResizing: true, dataType: 'string', allowEditing: false, width: 300 },
 
     ];
@@ -716,7 +717,7 @@ app.controller('appFlightLogBookController', ['$scope', '$location', '$routePara
     $scope.selectAptMode = 0;
     $scope.popup_apt_visible = false;
     $scope.popup_apt = {
-
+        shading: false,
         title: 'Airport',
         width: 350,
         height: 420,

@@ -173,11 +173,12 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
         // useNative:false,
         refreshingText: 'Updating...',
         onPullDown: function (options) {
-            console.log('puull');
+            //console.log('puull');
             //Alert.getStartupNots(null, function (arg) {
             //    options.component.release();
             //    // refreshCarts(arg);
             //});
+            //$scope.bind();
             options.component.release();
 
         },
@@ -805,7 +806,92 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
     $scope.f = null;
     $scope.yf = null;
     $scope.cyf = null;
+    $scope.bindFTL = function () {
+        activityService.getAppDashboardFTL($rootScope.employeeId).then(function (response) {
+            
+            {
+                //  response.FTL.Day7_Duty =   30*60;
+                //  response.FTL.Day14_Duty =   80 * 60;
+                //response.FTL.Day28_Duty =   162 * 60;
 
+                var f = response.Day28_Flight / 60.0;
+                $scope.f = $scope.formatMinutes(response.Day28_Flight);
+                $scope.Flights.push(f);
+                var fcolor = '#1ac6ff';
+                if (response.Day28_Flight >= 0.85 * 100 * 60)
+                    fcolor = "#ff8c1a";
+                if (response.Day28_Flight >= 100 * 60)
+                    fcolor = "#e62e00";
+                $scope.FlightsColors.push(fcolor);
+                $scope.fstyle.color = fcolor;
+
+
+
+                var yf = response.Year_Flight / 60.0;
+                $scope.yf = $scope.formatMinutes(response.Year_Flight);
+                var cyf = response.CYear_Flight / 60.0;
+                $scope.cyf = $scope.formatMinutes(response.CYear_Flight);
+
+                $scope.YFlights.push(yf);
+                var yfcolor = '#1aff1a';
+                if (response.Year_Flight >= 0.85 * 1000 * 60)
+                    yfcolor = "#ff9933";
+                if (response.Year_Flight >= 1000 * 60)
+                    yfcolor = "#ff0000";
+                $scope.YFlightsColors.push(yfcolor);
+                $scope.yfstyle.color = yfcolor;
+
+                $scope.YFlights.push(cyf);
+                var cyfcolor = '#00e699';
+                if (response.CYear_Flight >= 0.85 * 900 * 60)
+                    cyfcolor = "#ffcc00";
+                if (response.CYear_Flight >= 900 * 60)
+                    cyfcolor = "#cc0052";
+                $scope.YFlightsColors.push(cyfcolor);
+                $scope.cyfstyle.color = cyfcolor;
+                ////////////////////////////////
+
+
+                var d7 = response.Day7_Duty / 60.0;
+                $scope.d7 = $scope.formatMinutes(response.Day7_Duty);
+                var d14 = response.Day14_Duty / 60.0;
+                $scope.d14 = $scope.formatMinutes(response.Day14_Duty);
+                var d28 = response.Day28_Duty / 60.0;
+                $scope.d28 = $scope.formatMinutes(response.Day28_Duty);
+
+                $scope.Duties.push(d28);
+                var d28color = '#5c85d6';
+                if (response.Day28_Duty >= 0.85 * 190 * 60)
+                    d28color = "#e68a00";
+                if (response.Day28_Duty >= 190 * 60)
+                    d28color = "#b30000";
+                $scope.DutyColors.push(d28color);
+                $scope.d28style.color = d28color;
+
+                $scope.Duties.push(d14);
+                var d14color = '#00cc99';
+                if (response.Day14_Duty >= 0.85 * 110 * 60)
+                    d14color = "#ff8000";
+                if (response.Day14_Duty >= 110 * 60)
+                    d14color = "#cc0052";
+                $scope.DutyColors.push(d14color);
+                $scope.d14style.color = d14color;
+
+                $scope.Duties.push(d7);
+                var d7color = '#0099ff';
+                if (response.Day7_Duty >= 0.85 * 60 * 60)
+                    d7color = "#ffaa00";
+                if (response.Day7_Duty >= 60 * 60)
+                    d7color = "#ff3300";
+                $scope.DutyColors.push(d7color);
+                $scope.d7style.color = d7color;
+
+
+            }
+            //////////////////////
+
+        }, function (err) { $scope.loadingVisible = false; });
+    };
     $scope.bind = function () {
         $scope.loadingVisible = true;
 
@@ -816,86 +902,85 @@ app.controller('homeController', ['$scope', 'authService', 'activityService', 'g
             activityService.getAppDashboard(Config.CustomerId, $rootScope.employeeId).then(function (response) {
                 console.log(response);
                 $scope.loadingVisible = false;
+                $scope.bindFTL();
                 if (response.NextFlight)
                 {
                     $scope.ds_nextFlights.push(response.NextFlight);
                 }
                 if (response.FTL) {
-                  //  response.FTL.Day7_Duty =   30*60;
-                  //  response.FTL.Day14_Duty =   80 * 60;
-                    //response.FTL.Day28_Duty =   162 * 60;
+                  
 
-                    var f = response.FTL.Day28_Flight / 60.0;
-                    $scope.f = $scope.formatMinutes(response.FTL.Day28_Flight);
-                    $scope.Flights.push(f);
-                    var fcolor = '#1ac6ff';
-                    if (response.FTL.Day28_Flight >= 0.85 * 100 * 60)
-                        fcolor = "#ff8c1a";
-                    if (response.FTL.Day28_Flight >= 100 * 60)
-                        fcolor = "#e62e00";
-                    $scope.FlightsColors.push(fcolor);
-                    $scope.fstyle.color = fcolor;
+                    //var f = response.FTL.Day28_Flight / 60.0;
+                    //$scope.f = $scope.formatMinutes(response.FTL.Day28_Flight);
+                    //$scope.Flights.push(f);
+                    //var fcolor = '#1ac6ff';
+                    //if (response.FTL.Day28_Flight >= 0.85 * 100 * 60)
+                    //    fcolor = "#ff8c1a";
+                    //if (response.FTL.Day28_Flight >= 100 * 60)
+                    //    fcolor = "#e62e00";
+                    //$scope.FlightsColors.push(fcolor);
+                    //$scope.fstyle.color = fcolor;
                     
 
 
-                    var yf = response.FTL.Year_Flight / 60.0;
-                    $scope.yf = $scope.formatMinutes(response.FTL.Year_Flight);
-                    var cyf = response.FTL.CYear_Flight / 60.0;
-                    $scope.cyf = $scope.formatMinutes(response.FTL.CYear_Flight);
+                    //var yf = response.FTL.Year_Flight / 60.0;
+                    //$scope.yf = $scope.formatMinutes(response.FTL.Year_Flight);
+                    //var cyf = response.FTL.CYear_Flight / 60.0;
+                    //$scope.cyf = $scope.formatMinutes(response.FTL.CYear_Flight);
 
-                    $scope.YFlights.push(yf);
-                    var yfcolor = '#1aff1a';
-                    if (response.FTL.Year_Flight >= 0.85 * 1000 * 60)
-                        yfcolor = "#ff9933";
-                    if (response.FTL.Year_Flight >= 1000 * 60)
-                        yfcolor = "#ff0000";
-                    $scope.YFlightsColors.push(yfcolor);
-                    $scope.yfstyle.color = yfcolor;
+                    //$scope.YFlights.push(yf);
+                    //var yfcolor = '#1aff1a';
+                    //if (response.FTL.Year_Flight >= 0.85 * 1000 * 60)
+                    //    yfcolor = "#ff9933";
+                    //if (response.FTL.Year_Flight >= 1000 * 60)
+                    //    yfcolor = "#ff0000";
+                    //$scope.YFlightsColors.push(yfcolor);
+                    //$scope.yfstyle.color = yfcolor;
 
-                    $scope.YFlights.push(cyf);
-                    var cyfcolor = '#00e699';
-                    if (response.FTL.CYear_Flight >= 0.85 * 900 * 60)
-                        cyfcolor = "#ffcc00";
-                    if (response.FTL.CYear_Flight >= 900 * 60)
-                        cyfcolor = "#cc0052";
-                    $scope.YFlightsColors.push(cyfcolor);
-                    $scope.cyfstyle.color = cyfcolor;
-                    ////////////////////////////////
+                    //$scope.YFlights.push(cyf);
+                    //var cyfcolor = '#00e699';
+                    //if (response.FTL.CYear_Flight >= 0.85 * 900 * 60)
+                    //    cyfcolor = "#ffcc00";
+                    //if (response.FTL.CYear_Flight >= 900 * 60)
+                    //    cyfcolor = "#cc0052";
+                    //$scope.YFlightsColors.push(cyfcolor);
+                    //$scope.cyfstyle.color = cyfcolor;
+                    //////////////////////////////////
 
 
-                    var d7 = response.FTL.Day7_Duty / 60.0;
-                    $scope.d7 = $scope.formatMinutes(response.FTL.Day7_Duty);
-                    var d14 = response.FTL.Day14_Duty / 60.0;
-                    $scope.d14 = $scope.formatMinutes(response.FTL.Day14_Duty);
-                    var d28 = response.FTL.Day28_Duty / 60.0;
-                    $scope.d28 = $scope.formatMinutes(response.FTL.Day28_Duty);
+                    //var d7 = response.FTL.Day7_Duty / 60.0;
+                    //$scope.d7 = $scope.formatMinutes(response.FTL.Day7_Duty);
+                    //var d14 = response.FTL.Day14_Duty / 60.0;
+                    //$scope.d14 = $scope.formatMinutes(response.FTL.Day14_Duty);
+                    //var d28 = response.FTL.Day28_Duty / 60.0;
+                    //$scope.d28 = $scope.formatMinutes(response.FTL.Day28_Duty);
 
-                    $scope.Duties.push(d28);
-                    var d28color = '#5c85d6';
-                    if (response.FTL.Day28_Duty >= 0.85 * 190 * 60)
-                        d28color = "#e68a00";
-                    if (response.FTL.Day28_Duty >= 190 * 60)
-                        d28color = "#b30000";
-                    $scope.DutyColors.push(d28color);
-                    $scope.d28style.color = d28color;
+                    //$scope.Duties.push(d28);
+                    //var d28color = '#5c85d6';
+                    //if (response.FTL.Day28_Duty >= 0.85 * 190 * 60)
+                    //    d28color = "#e68a00";
+                    //if (response.FTL.Day28_Duty >= 190 * 60)
+                    //    d28color = "#b30000";
+                    //$scope.DutyColors.push(d28color);
+                    //$scope.d28style.color = d28color;
 
-                    $scope.Duties.push(d14);
-                    var d14color = '#00cc99';
-                    if (response.FTL.Day14_Duty >= 0.85 * 110 * 60)
-                        d14color = "#ff8000";
-                    if (response.FTL.Day14_Duty >= 110 * 60)
-                        d14color = "#cc0052";
-                    $scope.DutyColors.push(d14color);
-                    $scope.d14style.color = d14color;
+                    //$scope.Duties.push(d14);
+                    //var d14color = '#00cc99';
+                    //if (response.FTL.Day14_Duty >= 0.85 * 110 * 60)
+                    //    d14color = "#ff8000";
+                    //if (response.FTL.Day14_Duty >= 110 * 60)
+                    //    d14color = "#cc0052";
+                    //$scope.DutyColors.push(d14color);
+                    //$scope.d14style.color = d14color;
 
-                    $scope.Duties.push(d7);
-                    var d7color = '#0099ff';
-                    if (response.FTL.Day7_Duty >= 0.85 * 60 * 60)
-                        d7color = "#ffaa00";
-                    if (response.FTL.Day7_Duty >=   60 * 60)
-                        d7color = "#ff3300";
-                    $scope.DutyColors.push(d7color);
-                    $scope.d7style.color = d7color;
+                    //$scope.Duties.push(d7);
+                    //var d7color = '#0099ff';
+                    //if (response.FTL.Day7_Duty >= 0.85 * 60 * 60)
+                    //    d7color = "#ffaa00";
+                    //if (response.FTL.Day7_Duty >=   60 * 60)
+                    //    d7color = "#ff3300";
+                    //$scope.DutyColors.push(d7color);
+                    //$scope.d7style.color = d7color;
                     
                    
                 }
