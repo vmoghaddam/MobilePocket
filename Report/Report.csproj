@@ -110,6 +110,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportFunctions.cs" />
     <Compile Include="RptEASAFCLCompliant16X.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -134,6 +135,12 @@
     <Compile Include="RptTwoPageLogBook.Designer.cs">
       <DependentUpon>RptTwoPageLogBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="RptFlight.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RptFlight.Designer.cs">
+      <DependentUpon>RptFlight.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -152,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RptEASAFCLCompliant16X.resx">
       <DependentUpon>RptEASAFCLCompliant16X.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RptFlight.resx">
+      <DependentUpon>RptFlight.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XtraReport1.resx">
       <DependentUpon>XtraReport1.cs</DependentUpon>

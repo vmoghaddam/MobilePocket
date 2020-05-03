@@ -17,7 +17,7 @@ namespace Report
             string apiUrl = WebConfigurationManager.AppSettings["api_url"];
             // string df = Request.QueryString["from"];
             // string dt = Request.QueryString["to"];
-            string df = "20200101";
+            string df = "20190101";
             string dt = "20200503";
             int d = Convert.ToInt32(Request.QueryString["d"]);
             string type = Request.QueryString["type"];
@@ -34,7 +34,7 @@ namespace Report
             switch (type)
             {
                 case "easafcl16":
-                    var rptEASAFCL16 = new RptTwoPageLogBook();
+                    var rptEASAFCL16 = new RptFlight();
                     dataSource = new JsonDataSource();
                     dataSource.JsonSource = new UriJsonSource(new Uri(apiUrl + "odata/crew/flights/app2/?id=" + employeeId + "&df=" + df + "&dt=" + dt + "&status=" + flightStatusId + "&airline=" + airlineId + "&report=" + reportId));
                     dataSource.Fill();
